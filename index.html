@@ -73,6 +73,48 @@ img.resp{max-width:100%;height:auto;border-radius:12px;box-shadow:0 1px 3px rgba
 .r-p{margin:10px 0;color:#333}
 .r-refs{margin:16px 0 0;padding-left:20px}
 @media (max-width:900px){ .r-grid{grid-template-columns:1fr} }
+
+/* --- Win98 modal --- */
+@font-face{font-family:"MS Sans";src:local("Tahoma"),local("MS Sans Serif");}
+.win98 *{font-family:"MS Sans", Tahoma, Arial, sans-serif}
+
+#popup{
+  position:fixed; inset:0; display:flex; align-items:center; justify-content:center;
+  background:rgba(0,0,0,0.55); opacity:0; pointer-events:none; transition:opacity .25s ease;
+  z-index:9999;
+}
+#popup.show{opacity:1; pointer-events:auto;}
+#popup.hide{opacity:0; pointer-events:none;}
+
+.win98-window{
+  width:380px; background:#c0c0c0; color:#000; border:2px solid #000;
+  border-color:#fff #000 #000 #fff; box-shadow:0 8px 24px rgba(0,0,0,.25);
+  transform:translateY(-8px) scale(.98); opacity:0; transition:transform .25s ease, opacity .25s ease;
+  border-radius:4px;
+}
+#popup.show .win98-window{transform:none; opacity:1;}
+
+.win98-titlebar{
+  background:#000080; color:#fff; padding:6px 8px; display:flex; align-items:center; justify-content:space-between;
+  border-bottom:2px solid #000; border-color:#fff #000 #000 #fff;
+}
+.win98-titlebar .title{font-weight:bold; letter-spacing:.2px;}
+.win98-titlebar .close{
+  width:18px; height:18px; line-height:14px; text-align:center; cursor:pointer; color:#000;
+  background:#c0c0c0; border:2px solid; border-color:#fff #000 #000 #fff; border-radius:2px;
+}
+
+.win98-body{padding:14px; display:flex; gap:12px; align-items:flex-start}
+.win98-body .icon{width:28px; height:28px; flex:0 0 28px}
+.win98-body p{margin:2px 0 0; font-size:15px}
+
+.win98-buttons{display:flex; justify-content:center; gap:12px; padding:0 14px 14px}
+.btn98{
+  background:#c0c0c0; padding:6px 18px; cursor:pointer;
+  border:2px solid; border-color:#fff #000 #000 #fff; border-radius:2px; font-weight:bold;
+}
+.btn98:active{border-color:#000 #fff #fff #000}
+
 </style>
 </head>
 <body>
@@ -309,57 +351,59 @@ addEventListener('DOMContentLoaded', ()=>show(currentRoute()));
     </div>
   </div>
 </footer>
-
-<!-- Popup overlay -->
-<div id="popup" style="
-  position:fixed;
-  top:0; left:0;
-  width:100%; height:100%;
-  background:rgba(0,0,0,0.6);
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  z-index:9999;
-">
-  <div style="
-    background:#fff;
-    border-radius:12px;
-    padding:24px;
-    max-width:320px;
-    text-align:center;
-    font-family:Arial, sans-serif;
-    box-shadow:0 4px 12px rgba(0,0,0,0.2);
-  ">
-    <h2 style="margin:0 0 16px; font-size:20px; color:#222;">
-      Can you lock the fuck in?
-    </h2>
-    <div style="display:flex; justify-content:center; gap:12px;">
-      <button onclick="closePopup()" style="
-        padding:8px 16px;
-        border:none;
-        border-radius:6px;
-        background:#19183B;
-        color:#fff;
-        font-weight:bold;
-        cursor:pointer;
-      ">YES</button>
-      <button onclick="closePopup()" style="
-        padding:8px 16px;
-        border:none;
-        border-radius:6px;
-        background:#708993;
-        color:#fff;
-        font-weight:bold;
-        cursor:pointer;
-      ">OK</button>
+<!-- Win98 Popup -->
+<div id="popup" class="win98">
+  <div class="win98-window" role="dialog" aria-modal="true" aria-labelledby="w98-title">
+    <div class="win98-titlebar">
+      <div id="w98-title" class="title">Can you lock the fuck in?</div>
+      <div class="close" id="w98-close" aria-label="Close">✕</div>
+    </div>
+    <div class="win98-body">
+      <!-- red error icon (SVG) -->
+      <svg class="icon" viewBox="0 0 24 24" aria-hidden="true">
+        <circle cx="12" cy="12" r="11" fill="#d32f2f" stroke="#8b0000" stroke-width="2"/>
+        <path d="M8 8l8 8M16 8l-8 8" stroke="#fff" stroke-width="2.5" stroke-linecap="round"/>
+      </svg>
+      <p><strong>Can you lock the fuck in?</strong></p>
+    </div>
+    <div class="win98-buttons">
+      <button class="btn98" id="btn-yes">YES</button>
+      <button class="btn98" id="btn-ok">OK</button>
     </div>
   </div>
 </div>
-
 <script>
-  function closePopup(){
-    document.getElementById('popup').style.display = 'none';
+(function(){
+  const overlay = document.getElementById('popup');
+  const closeEls = ['w98-close','btn-yes','btn-ok'].map(id => document.getElementById(id));
+
+  function openPopup(){
+    overlay.classList.remove('hide');
+    overlay.classList.add('show');
   }
+  function closePopup(){
+    overlay.classList.add('hide');
+    overlay.classList.remove('show');
+  }
+
+  // open on load
+  window.addEventListener('DOMContentLoaded', openPopup);
+
+  // close on buttons / X
+  closeEls.forEach(el => el.addEventListener('click', closePopup));
+
+  // close on overlay click (but not when clicking inside the window)
+  overlay.addEventListener('click', e => {
+    if (e.target === overlay) closePopup();
+  });
+
+  // close on Esc
+  document.addEventListener('keydown', e => {
+    if (e.key === 'Escape') closePopup();
+  });
+})();
 </script>
+
+
 </body>
 </html>
