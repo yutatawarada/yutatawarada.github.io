@@ -1,4 +1,5 @@
-title: Yuta Tawarada
+title: Yuta TAwarada
 logo: https://m.media-amazon.com/images/I/81IZCPzdjJL.jpg
-description: Boi in Giessen
+#description: text below image
+show_downloads: false
 theme: jekyll-theme-minimal
