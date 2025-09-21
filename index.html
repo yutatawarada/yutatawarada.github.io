@@ -74,40 +74,50 @@ img.resp{max-width:100%;height:auto;border-radius:12px;box-shadow:0 1px 3px rgba
 .r-refs{margin:16px 0 0;padding-left:20px}
 @media (max-width:900px){ .r-grid{grid-template-columns:1fr} }
 
-/* --- Win98 modal --- */
+/* --- Win98 modal with delayed fade-out --- */
 @font-face{font-family:"MS Sans";src:local("Tahoma"),local("MS Sans Serif");}
 .win98 *{font-family:"MS Sans", Tahoma, Arial, sans-serif}
 
+/* Overlay states */
 #popup{
   position:fixed; inset:0; display:flex; align-items:center; justify-content:center;
-  background:rgba(0,0,0,0.55); opacity:0; pointer-events:none; transition:opacity .25s ease;
+  background:#000;                /* full black */
+  opacity:0;                      /* hidden by default */
+  pointer-events:none;
+  transition:opacity .35s ease;   /* smooth fade */
   z-index:9999;
 }
-#popup.show{opacity:1; pointer-events:auto;}
-#popup.hide{opacity:0; pointer-events:none;}
+#popup.show{opacity:1; pointer-events:auto;}  /* visible + interactive */
+#popup.dim{opacity:1; pointer-events:auto;}   /* black remains, window hidden */
+#popup.hide{opacity:0; pointer-events:none;}  /* fade out overlay */
 
+/* Window */
 .win98-window{
-  width:380px; background:#c0c0c0; color:#000; border:2px solid #000;
-  border-color:#fff #000 #000 #fff; box-shadow:0 8px 24px rgba(0,0,0,.25);
-  transform:translateY(-8px) scale(.98); opacity:0; transition:transform .25s ease, opacity .25s ease;
+  width:380px; background:#c0c0c0; color:#000;
+  border:2px solid #000; border-color:#fff #000 #000 #fff;
+  box-shadow:0 8px 24px rgba(0,0,0,.25);
+  transform:translateY(-8px) scale(.98);
+  opacity:0; pointer-events:none;
+  transition:transform .25s ease, opacity .25s ease;
   border-radius:4px;
 }
-#popup.show .win98-window{transform:none; opacity:1;}
+#popup.show .win98-window{transform:none; opacity:1; pointer-events:auto;}
+#popup.dim  .win98-window{transform:translateY(-8px) scale(.98); opacity:0; pointer-events:none;}
 
+/* Titlebar & buttons */
 .win98-titlebar{
-  background:#000080; color:#fff; padding:6px 8px; display:flex; align-items:center; justify-content:space-between;
-  border-bottom:2px solid #000; border-color:#fff #000 #000 #fff;
+  background:#000080; color:#fff; padding:6px 8px;
+  display:flex; align-items:center; justify-content:space-between;
+  border-bottom:2px solid; border-color:#fff #000 #000 #fff;
 }
 .win98-titlebar .title{font-weight:bold; letter-spacing:.2px;}
 .win98-titlebar .close{
   width:18px; height:18px; line-height:14px; text-align:center; cursor:pointer; color:#000;
   background:#c0c0c0; border:2px solid; border-color:#fff #000 #000 #fff; border-radius:2px;
 }
-
 .win98-body{padding:14px; display:flex; gap:12px; align-items:flex-start}
 .win98-body .icon{width:28px; height:28px; flex:0 0 28px}
 .win98-body p{margin:2px 0 0; font-size:15px}
-
 .win98-buttons{display:flex; justify-content:center; gap:12px; padding:0 14px 14px}
 .btn98{
   background:#c0c0c0; padding:6px 18px; cursor:pointer;
@@ -351,59 +361,38 @@ addEventListener('DOMContentLoaded', ()=>show(currentRoute()));
     </div>
   </div>
 </footer>
+  
 <!-- Win98 Popup -->
-<div id="popup" class="win98">
-  <div class="win98-window" role="dialog" aria-modal="true" aria-labelledby="w98-title">
-    <div class="win98-titlebar">
-      <div id="w98-title" class="title">Can you lock the fuck in?</div>
-      <div class="close" id="w98-close" aria-label="Close">✕</div>
-    </div>
-    <div class="win98-body">
-      <!-- red error icon (SVG) -->
-      <svg class="icon" viewBox="0 0 24 24" aria-hidden="true">
-        <circle cx="12" cy="12" r="11" fill="#d32f2f" stroke="#8b0000" stroke-width="2"/>
-        <path d="M8 8l8 8M16 8l-8 8" stroke="#fff" stroke-width="2.5" stroke-linecap="round"/>
-      </svg>
-      <p><strong>Can you lock the fuck in?</strong></p>
-    </div>
-    <div class="win98-buttons">
-      <button class="btn98" id="btn-yes">YES</button>
-      <button class="btn98" id="btn-ok">OK</button>
-    </div>
-  </div>
-</div>
 <script>
 (function(){
   const overlay = document.getElementById('popup');
   const closeEls = ['w98-close','btn-yes','btn-ok'].map(id => document.getElementById(id));
 
   function openPopup(){
-    overlay.classList.remove('hide');
+    overlay.classList.remove('hide','dim');
     overlay.classList.add('show');
   }
+
+  // Close sequence: hide window now, keep black for 2s, then fade overlay
   function closePopup(){
-    overlay.classList.add('hide');
     overlay.classList.remove('show');
+    overlay.classList.add('dim');              // window hidden, overlay still black
+    setTimeout(()=>{
+      overlay.classList.remove('dim');
+      overlay.classList.add('hide');           // fade overlay away
+    }, 2000);                                  // 2 seconds
   }
 
-  // open on load
   window.addEventListener('DOMContentLoaded', openPopup);
-
-  // close on buttons / X
   closeEls.forEach(el => el.addEventListener('click', closePopup));
 
-  // close on overlay click (but not when clicking inside the window)
-  overlay.addEventListener('click', e => {
-    if (e.target === overlay) closePopup();
-  });
+  // Optional: click outside window closes too
+  overlay.addEventListener('click', e => { if (e.target === overlay) closePopup(); });
 
-  // close on Esc
-  document.addEventListener('keydown', e => {
-    if (e.key === 'Escape') closePopup();
-  });
+  // Esc key
+  document.addEventListener('keydown', e => { if (e.key === 'Escape') closePopup(); });
 })();
 </script>
-
 
 </body>
 </html>
