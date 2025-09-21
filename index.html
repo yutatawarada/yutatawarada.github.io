@@ -110,15 +110,17 @@
       align-items: start;
     }
     .hero--profile img {
-      width: 380px;
+      display: block;
+      width: 100%;
       max-width: 380px;
+      height: auto;
       border-radius: 12px;
     }
     @media (max-width: 760px) {
-      .hero--profile {
-        grid-template-columns: 1fr;
-      }
+  .hero--profile img {
+    max-width: 100%;
     }
+  }
     .site-footer {
       background: #333;
       color: #ccc;
@@ -346,13 +348,13 @@
     <section id="page-home" class="page">
       <div class="card hero hero--profile">
         <img
-          class="resp"
-          src="pic1.png"
-          loading="lazy"
-          alt="Profile photo of Yuta Tawarada"
-          width="380"
-          height="auto"
-        >
+  class="resp"
+  src="pic1.png"
+  loading="lazy"
+  alt="Profile photo of Yuta Tawarada"
+  width="380"
+  height="380"
+        />
         <div>
           <h2>Yuta Tawarada</h2>
           <p class="muted" style="margin-bottom: 0"><strong>A boi in Giessen, Germany</strong></p>
@@ -409,9 +411,9 @@
           src="https://as2.ftcdn.net/jpg/00/98/24/45/1000_F_98244581_otL4Mr22a7X0YkGT4c4S4iyCAlioHA7w.jpg"
           loading="lazy"
           alt="Lock The Fuck In"
-          width="480"
-          height="auto"
-        >
+          width="380"
+          height="380"
+        />
       </div>
 
       <div class="card">
@@ -423,9 +425,9 @@
           src="https://media.tenor.com/wo1K1i1zJ8wAAAAe/no-monopoli.png"
           loading="lazy"
           alt="NO"
-          width="480"
-          height="auto"
-        >
+          width="380"
+          height="380"
+        />
       </div>
     </section>
 
@@ -444,8 +446,8 @@
               src="FAFO.png"
               loading="lazy"
               alt="Parametric visualization of the FA–FO proportionality theorem"
-              width="100%"
-              height="auto"
+              width="380"
+              height="380"
             >
             <figcaption class="r-cap">
               Graphical instantiation of the hypothesized linear FA→FO causality, illustrating a β=1 slope across the experiential continuum [1].
