@@ -1,433 +1,579 @@
 <!doctype html>
 <html lang="en">
 <head>
-<meta charset="utf-8" />
-<meta name="viewport" content="width=device-width,initial-scale=1" />
-<title>Yuta Tawarada — Portfolio</title>
-<style>
-:root{
-  --blue-1:#19183B;   /* banner */
-  --blue-2:#708993;   /* nav */
-  --bg:#E7F2EF; --text:#222; --card:#fff; --muted:#3F464F; --lightmuted:#DFE4EB;
-  --max:980px; --pad-x:24px;
-  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial;
-}
-*{box-sizing:border-box}
-html,body{margin:0;background:var(--bg);color:var(--text);line-height:1.6}
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Yuta Tawarada — Portfolio</title>
+  <style>
+    :root {
+      --blue-1: #19183B;   /* banner */
+      --blue-2: #708993;   /* nav */
+      --bg: #E7F2EF;
+      --text: #222;
+      --card: #fff;
+      --muted: #3F464F;
+      --lightmuted: #DFE4EB;
+      --max: 980px;
+      --pad-x: 24px;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    }
+    * {
+      box-sizing: border-box;
+    }
+    html, body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+    }
+    .wrapper {
+      max-width: var(--max);
+      margin: 0 auto;
+      padding: 0 var(--pad-x);
+    }
+    .section {
+      padding: 28px 0;
+    }
+    .card {
+      background: var(--card);
+      border-radius: 10px;
+      box-shadow: 0 1px 3px rgba(0, 0, 0, .08);
+      padding: 24px;
+      margin-bottom: 24px;
+    }
+    .card h2 {
+      margin: 0 0 12px;
+    }
+    .card h3 {
+      margin: 16px 0 10px;
+      color: #444;
+    }
+    .muted {
+      color: var(--muted);
+    }
+    .banner {
+      background: var(--blue-1);
+      color: #fff;
+      padding: 40px 0 16px;
+    }
+    .banner h1 {
+      margin: 0;
+      font-size: 34px;
+      letter-spacing: .5px;
+    }
+    .banner p {
+      margin: 8px 0 0;
+      opacity: .9;
+    }
+    .navbar {
+      background: var(--blue-2);
+      color: #fff;
+    }
+    .nav {
+      display: flex;
+      gap: 28px;
+      align-items: center;
+      overflow-x: auto;
+    }
+    .nav a {
+      color: #cfe0ff;
+      text-decoration: none;
+      font-weight: 700;
+      letter-spacing: .2px;
+      padding: 14px 0;
+      border-bottom: 3px solid transparent;
+    }
+    .nav a.active {
+      color: #fff;
+      border-color: #90a4ff;
+    }
+    .hero {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 12px;
+    }
+    .resp {
+      max-width: 100%;
+      height: auto;
+      border-radius: 12px;
+      box-shadow: 0 1px 3px rgba(0, 0, 0, .08);
+      display: block;
+    }
+    @media (min-width: 760px) {
+      .hero {
+        grid-template-columns: 1fr 360px;
+      }
+    }
+    .hero--profile {
+      grid-template-columns: auto 1fr;
+      gap: 30px;
+      align-items: start;
+    }
+    .hero--profile img {
+      width: 380px;
+      max-width: 380px;
+      border-radius: 12px;
+    }
+    @media (max-width: 760px) {
+      .hero--profile {
+        grid-template-columns: 1fr;
+      }
+    }
+    .site-footer {
+      background: #333;
+      color: #ccc;
+      padding: 40px 0;
+      margin-top: 40px;
+    }
+    .site-footer a {
+      color: #9ec4ff;
+      text-decoration: none;
+    }
+    .site-footer a:hover {
+      text-decoration: underline;
+    }
+    .footer-wrapper {
+      max-width: var(--max);
+      margin: 0 auto;
+      padding: 0 var(--pad-x);
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 40px;
+    }
+    .footer-col h3 {
+      margin: 0 0 12px;
+      color: #fff;
+      font-size: 16px;
+    }
+    .footer-col p {
+      margin: 4px 0;
+      font-size: 14px;
+    }
+    @media (max-width: 700px) {
+      .footer-wrapper {
+        grid-template-columns: 1fr;
+      }
+    }
+    .r-card {
+      background: #fff;
+      border-radius: 10px;
+      box-shadow: 0 1px 3px rgba(0, 0, 0, .08);
+      padding: 24px;
+      margin-bottom: 24px;
+    }
+    .r-title {
+      margin: 0 0 14px;
+      font-size: 32px;
+      color: #444;
+      line-height: 1.2;
+    }
+    .r-sub {
+      margin: 10px 0 12px;
+      font-size: 18px;
+      color: #555;
+    }
+    .r-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 24px;
+      align-items: start;
+    }
+    .r-fig img {
+      width: 100%;
+      height: auto;
+      border-radius: 8px;
+      box-shadow: 0 1px 3px rgba(0, 0, 0, .08);
+      display: block;
+    }
+    .r-cap {
+      margin-top: 8px;
+      color: #666;
+      font-size: 14px;
+    }
+    .r-p {
+      margin: 10px 0;
+      color: #333;
+      font-size: 16px;
+      line-height: 1.6;
+    }
+    .r-refs {
+      margin: 16px 0 0;
+      padding-left: 20px;
+    }
+    @media (max-width: 900px) {
+      .r-grid {
+        grid-template-columns: 1fr;
+      }
+    }
 
-/* layout */
-.wrapper{max-width:var(--max);margin:0 auto;padding:0 var(--pad-x)}
-.section{padding:28px 0}
-.card{background:var(--card);border-radius:10px;box-shadow:0 1px 3px rgba(0,0,0,.08);padding:24px;margin:0 0 24px}
-.card h2{margin:0 0 12px}
-.card h3{margin:16px 0 10px;color:#444}
-.muted{color:var(--muted)}
-
-/* banner + nav */
-.banner{background:var(--blue-1);color:#fff;padding:40px 0 16px}
-.banner h1{margin:0;font-size:34px;letter-spacing:.5px}
-.banner p{margin:8px 0 0;opacity:.9}
-.navbar{background:var(--blue-2);color:#fff}
-.nav{display:flex;gap:28px;align-items:center;overflow-x:auto}
-.nav a{color:#cfe0ff;text-decoration:none;font-weight:700;letter-spacing:.2px;padding:14px 0;border-bottom:3px solid transparent}
-.nav a.active{color:#fff;border-color:#90a4ff}
-
-/* heroes */
-.hero{display:grid;grid-template-columns:1fr;gap:12px}
-.hero h2{margin:0}
-img.resp{max-width:100%;height:auto;border-radius:12px;box-shadow:0 1px 3px rgba(0,0,0,.08)}
-@media (min-width:760px){ .hero{grid-template-columns:1fr 360px} }
-
-/* tighter profile hero (image left, text hugs) */
-.hero--profile{
-  grid-template-columns:auto 1fr;  /* image width + rest */
-  gap:30px;
-  align-items:start;
-}
-.hero--profile img{
-  width:380px; max-width:380px; border-radius:12px;
-}
-@media (max-width:760px){
-  .hero--profile{ grid-template-columns:1fr; }
-}
-
-/* footer */
-.site-footer{background:#333;color:#ccc;padding:40px 0;margin-top:40px}
-.site-footer a{color:#9ec4ff;text-decoration:none}
-.site-footer a:hover{text-decoration:underline}
-.footer-wrapper{
-  max-width:980px;margin:0 auto;padding:0 24px;
-  display:grid;grid-template-columns:1fr 1fr;gap:40px;
-}
-.footer-col h3{margin:0 0 12px;color:#fff;font-size:16px}
-.footer-col p{margin:4px 0;font-size:14px}
-@media (max-width:700px){ .footer-wrapper{grid-template-columns:1fr} }
-
-/* research article (self-contained) */
-.r-card{background:#fff;border-radius:10px;box-shadow:0 1px 3px rgba(0,0,0,.08);padding:24px;margin:0 0 24px}
-.r-title{margin:0 0 14px;font-size:32px;color:#444}
-.r-sub{margin:10px 0 12px;font-size:18px;color:#555}
-.r-grid{display:grid;grid-template-columns:1fr 1fr;gap:24px;align-items:start}
-.r-fig img{width:100%;height:auto;border-radius:8px;box-shadow:0 1px 3px rgba(0,0,0,.08)}
-.r-cap{margin-top:8px;color:#666;font-size:14px}
-.r-p{margin:10px 0;color:#333}
-.r-refs{margin:16px 0 0;padding-left:20px}
-@media (max-width:900px){ .r-grid{grid-template-columns:1fr} }
-
-/* --- Win98 modal with fade + 1.3s hold --- */
-@font-face{font-family:"MS Sans";src:local("Tahoma"),local("MS Sans Serif");}
-.win98 *{font-family:"MS Sans", Tahoma, Arial, sans-serif}
-
-/* Overlay states */
-#popup{
-  position:fixed; inset:0; display:flex; align-items:center; justify-content:center;
-  background:#000;                /* full black background */
-  opacity:0; pointer-events:none; /* hidden by default */
-  transition:opacity .35s ease;   /* fade in/out */
-  z-index:9999;
-}
-#popup.show{opacity:1; pointer-events:auto;}  /* visible + interactive */
-#popup.dim{opacity:1; pointer-events:auto;}   /* black remains, window hidden */
-#popup.hide{opacity:0; pointer-events:none;}  /* fade out overlay */
-
-/* Window */
-.win98-window{
-  width:380px; max-width:90vw; background:#c0c0c0; color:#000;
-  border:2px solid #000; border-color:#fff #000 #000 #fff;
-  box-shadow:0 8px 24px rgba(0,0,0,.25);
-  transform:translateY(-8px) scale(.98);
-  opacity:0; pointer-events:none;
-  transition:transform .25s ease, opacity .25s ease;
-  border-radius:4px;
-}
-#popup.show .win98-window{transform:none; opacity:1; pointer-events:auto;}
-#popup.dim  .win98-window{transform:translateY(-8px) scale(.98); opacity:0; pointer-events:none;}
-
-/* Title */
-.win98-titlebar{
-  background:#000080; color:#fff; padding:6px 8px;
-  display:flex; align-items:center; justify-content:center;
-  border-bottom:2px solid; border-color:#fff #000 #000 #fff;
-}
-.win98-titlebar .title{font-weight:bold; letter-spacing:.2px}
-
-/* Body & buttons */
-.win98-body{padding:14px; display:flex; gap:12px; align-items:flex-start}
-.win98-body .icon{width:28px; height:28px; flex:0 0 28px}
-.win98-body p{margin:2px 0 0; font-size:15px}
-.win98-buttons{display:flex; justify-content:center; gap:12px; padding:0 14px 14px}
-.btn98{
-  background:#c0c0c0; padding:6px 18px; cursor:pointer;
-  border:2px solid; border-color:#fff #000 #000 #fff; border-radius:2px; font-weight:bold;
-}
-.btn98:active{border-color:#000 #fff #fff #000}
-
-/* Mobile tweaks */
-@media (max-width:480px){
-  .win98-buttons{gap:10px; flex-wrap:wrap}
-  .btn98{min-width:96px}
-}
-
-  
-</style>
+    /* Win98 Modal / Popup Styles */
+    @font-face {
+      font-family: "MS Sans";
+      src: local("Tahoma"), local("MS Sans Serif");
+    }
+    .win98 * {
+      font-family: "MS Sans", Tahoma, Arial, sans-serif;
+    }
+    #popup {
+      position: fixed;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: #000;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity .35s ease;
+      z-index: 9999;
+    }
+    #popup.show {
+      opacity: 1;
+      pointer-events: auto;
+    }
+    #popup.dim {
+      opacity: 1;
+      pointer-events: auto;
+    }
+    #popup.hide {
+      opacity: 0;
+      pointer-events: none;
+    }
+    .win98-window {
+      width: 380px;
+      max-width: 90vw;
+      background: #c0c0c0;
+      color: #000;
+      border: 2px solid #000;
+      border-color: #fff #000 #000 #fff;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, .25);
+      transform: translateY(-8px) scale(.98);
+      opacity: 0;
+      pointer-events: none;
+      transition: transform .25s ease, opacity .25s ease;
+      border-radius: 4px;
+    }
+    #popup.show .win98-window {
+      transform: none;
+      opacity: 1;
+      pointer-events: auto;
+    }
+    #popup.dim .win98-window {
+      transform: translateY(-8px) scale(.98);
+      opacity: 0;
+      pointer-events: none;
+    }
+    .win98-titlebar {
+      background: #000080;
+      color: #fff;
+      padding: 6px 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-bottom: 2px solid;
+      border-color: #fff #000 #000 #fff;
+    }
+    .win98-titlebar .title {
+      font-weight: bold;
+      letter-spacing: .2px;
+    }
+    .win98-body {
+      padding: 14px;
+      display: flex;
+      gap: 12px;
+      align-items: flex-start;
+    }
+    .win98-body .icon {
+      width: 28px;
+      height: 28px;
+      flex: 0 0 28px;
+    }
+    .win98-body p {
+      margin: 2px 0 0;
+      font-size: 15px;
+    }
+    .win98-buttons {
+      display: flex;
+      justify-content: center;
+      gap: 12px;
+      padding: 0 14px 14px;
+    }
+    .btn98 {
+      background: #c0c0c0;
+      padding: 6px 18px;
+      cursor: pointer;
+      border: 2px solid;
+      border-color: #fff #000 #000 #fff;
+      border-radius: 2px;
+      font-weight: bold;
+    }
+    .btn98:active {
+      border-color: #000 #fff #fff #000;
+    }
+    @media (max-width: 480px) {
+      .win98-buttons {
+        gap: 10px;
+        flex-wrap: wrap;
+      }
+      .btn98 {
+        min-width: 96px;
+      }
+    }
+  </style>
 </head>
 <body>
-
-<header class="banner">
-  <div class="wrapper">
-    <h1>YUTA TAWARADA</h1>
-    <p class="lightmuted">Boi in Giessen, Germany</p>
-  </div>
-</header>
-
-<nav class="navbar">
-  <div class="wrapper">
-    <div id="nav" class="nav">
-      <a href="#home" data-route="home" class="active">HOME</a>
-      <a href="#education" data-route="education">EDUCATION</a>
-      <a href="#experience" data-route="experience">EXPERIENCE</a>
-      <a href="#projects" data-route="projects">PROJECTS</a>
-      <a href="#research" data-route="research">RESEARCH</a>
-      <a href="#publications" data-route="publications">PUBLICATIONS</a>
+  <header class="banner">
+    <div class="wrapper">
+      <h1>YUTA TAWARADA</h1>
+      <p class="lightmuted">Boi in Giessen, Germany</p>
     </div>
-  </div>
-</nav>
+  </header>
 
-<main class="wrapper section">
-
-  <!-- HOME -->
-  <section id="page-home" class="page">
-    <!-- profile hero (tight gap) -->
-    <div class="card hero hero--profile">
-       <img class="resp" 
-     src="pic1.png" 
-     loading="lazy"
-     alt="Profile photo of Yuta Tawarada"
-     style="max-width:440px; border-radius:8px;">
-      <div>
-        <h2>Yuta Tawarada</h2>
-        <p class="muted" style="margin-bottom:0"><strong>A boi in Giessen, Germany</strong></p>
-        <p style="margin-top:0">Student at Justus-Liebig-University</p>
+  <nav class="navbar">
+    <div class="wrapper">
+      <div class="nav">
+        <a href="#home" data-route="home" class="active">HOME</a>
+        <a href="#education" data-route="education">EDUCATION</a>
+        <a href="#experience" data-route="experience">EXPERIENCE</a>
+        <a href="#projects" data-route="projects">PROJECTS</a>
+        <a href="#research" data-route="research">RESEARCH</a>
+        <a href="#publications" data-route="publications">PUBLICATIONS</a>
       </div>
     </div>
+  </nav>
 
-    <!-- optional intro hero -->
-    <div class="card hero">
-      <div>
-        <h2>Hi — welcome to my page.</h2>
-        <p class="muted">Hydration is key.</p>
+  <main class="wrapper section">
+    <!-- HOME -->
+    <section id="page-home" class="page">
+      <div class="card hero hero--profile">
+        <img
+          class="resp"
+          src="pic1.png"
+          loading="lazy"
+          alt="Profile photo of Yuta Tawarada"
+          width="380"
+          height="auto"
+        >
+        <div>
+          <h2>Yuta Tawarada</h2>
+          <p class="muted" style="margin-bottom: 0"><strong>A boi in Giessen, Germany</strong></p>
+          <p style="margin-top: 0">Student at Justus‑Liebig‑University</p>
+        </div>
       </div>
-    </div>
-  </section>
 
-  <!-- EDUCATION -->
-  <section id="page-education" class="page" hidden>
-    <div class="card">
-      <h2>Education</h2>
-      <ul>
-        <li><strong>Ph.D., Physics</strong> — The University of Texas at Dallas <em>(May 2022)</em></li>
-        <li><strong>M.S., Physics</strong> — The University of Texas at Dallas <em>(Dec 2019)</em></li>
-        <li><strong>B.S., Physics</strong> — The University of Texas at Dallas <em>(May 2017)</em></li>
-      </ul>
-    </div>
-  </section>
+      <div class="card hero">
+        <div>
+          <h2>Hi — welcome to my page.</h2>
+          <p class="muted">Hydration is key.</p>
+        </div>
+      </div>
+    </section>
 
-  <!-- EXPERIENCE -->
-  <section id="page-experience" class="page" hidden>
-    <div class="card">
-      <h2>Toyota Financial Services — Data Scientist <span class="muted">(Jun 2022 – Present)</span></h2>
-      <ul>
-        <li>Fixed a missing step in production data pipeline impacting 70%+ of active accounts.</li>
-        <li>Redeveloped loan-originations model → ~50% lift; ≈$1M potential losses avoided.</li>
-      </ul>
-    </div>
-    <div class="card">
-      <h2>Shawhin Talebi Ventures — Data Science Consultant <span class="muted">(Dec 2020 – Present)</span></h2>
-      <ul>
-        <li>Analyzed 300+ biometrics in live-fire training performance.</li>
-        <li>Unsupervised learning on ICU data to reveal sepsis sub-phenotypes.</li>
-      </ul>
-    </div>
-  </section>
+    <!-- EDUCATION -->
+    <section id="page-education" class="page" hidden>
+      <div class="card">
+        <h2>Education</h2>
+        <ul>
+          <li><strong>Ph.D., Physics</strong> — The University of Texas at Dallas <em>(May 2022)</em></li>
+          <li><strong>M.S., Physics</strong> — The University of Texas at Dallas <em>(Dec 2019)</em></li>
+          <li><strong>B.S., Physics</strong> — The University of Texas at Dallas <em>(May 2017)</em></li>
+        </ul>
+      </div>
+    </section>
 
-  <!-- PROJECTS -->
-  <section id="page-projects" class="page" hidden>
-    <div class="card">
-      <h2>Can You Lock The Fuck In? PART1</h2>
-      <p>Would you lock the fuck in?</p>
-      <p><a href="https://www.mdpi.com/1424-8220/22/8/3048" target="_blank" rel="noopener">Publication</a></p>
-      <img class="resp" 
-     src="https://as2.ftcdn.net/jpg/00/98/24/45/1000_F_98244581_otL4Mr22a7X0YkGT4c4S4iyCAlioHA7w.jpg"
-     loading="lazy"
-     alt="Lock The Fuck In"
-     style="max-width:480px; border-radius:8px;">
-    </div>
+    <!-- EXPERIENCE -->
+    <section id="page-experience" class="page" hidden>
+      <div class="card">
+        <h2>Toyota Financial Services — Data Scientist <span class="muted">(Jun 2022 – Present)</span></h2>
+        <ul>
+          <li>Fixed a missing step in production data pipeline impacting 70%+ of active accounts.</li>
+          <li>Redeveloped loan-originations model → ~50% lift; ≈$1M potential losses avoided.</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h2>Shawhin Talebi Ventures — Data Science Consultant <span class="muted">(Dec 2020 – Present)</span></h2>
+        <ul>
+          <li>Analyzed 300+ biometrics in live‑fire training performance.</li>
+          <li>Unsupervised learning on ICU data to reveal sepsis sub‑phenotypes.</li>
+        </ul>
+      </div>
+    </section>
 
-    <div class="card">
-      <h2>Can You Lock The Fuck In? PART2</h2>
-      <p>How about we locked in together?</p>
-      <p><a href="https://www.mdpi.com/1424-8220/22/11/4240" target="_blank" rel="noopener">Publication</a></p>
-      <img class="resp" 
-     src="https://media.tenor.com/wo1K1i1zJ8wAAAAe/no-monopoli.png" 
-     loading="lazy"
-     alt="NO"
-     style="max-width:480px; border-radius:8px;">
-    </div>
-  </section>
+    <!-- PROJECTS -->
+    <section id="page-projects" class="page" hidden>
+      <div class="card">
+        <h2>Can You Lock The Fuck In? PART1</h2>
+        <p>Would you lock the fuck in?</p>
+        <p><a href="https://www.mdpi.com/1424-8220/22/8/3048" target="_blank" rel="noopener">Publication</a></p>
+        <img
+          class="resp"
+          src="https://as2.ftcdn.net/jpg/00/98/24/45/1000_F_98244581_otL4Mr22a7X0YkGT4c4S4iyCAlioHA7w.jpg"
+          loading="lazy"
+          alt="Lock The Fuck In"
+          width="480"
+          height="auto"
+        >
+      </div>
 
-  <!-- FAFO Research Section -->
-<section id="page-research" class="page" hidden>
-  <article class="r-card">
-   <h2 class="r-title">
-  Stochastic Causality in Experiential Manifolds:<br>
-  A Unified Theory of Fucking Around and Finding Out
-  </h2>
-   <h3 class="r-sub">A Nonlinear Epistemodynamic Approach to Consequential Ontologies</h3>
+      <div class="card">
+        <h2>Can You Lock The Fuck In? PART2</h2>
+        <p>How about we locked in together?</p>
+        <p><a href="https://www.mdpi.com/1424-8220/22/11/4240" target="_blank" rel="noopener">Publication</a></p>
+        <img
+          class="resp"
+          src="https://media.tenor.com/wo1K1i1zJ8wAAAAe/no-monopoli.png"
+          loading="lazy"
+          alt="NO"
+          width="480"
+          height="auto"
+        >
+      </div>
+    </section>
 
-    <div class="r-grid">
-      <!-- figure -->
-      <figure class="r-fig">
-        <img src="FAFO.png" loading="lazy" alt="Parametric visualization of the FA–FO proportionality theorem">
-        <figcaption class="r-cap">
-          Graphical instantiation of the hypothesized linear FA→FO causality, illustrating a β=1 slope across the experiential continuum [1].
-        </figcaption>
-      </figure>
+    <!-- RESEARCH -->
+    <section id="page-research" class="page" hidden>
+      <article class="r-card">
+        <h2 class="r-title">
+          Stochastic Causality in Experiential Manifolds:<br>
+          A Unified Theory of Fucking Around and Finding Out
+        </h2>
+        <h3 class="r-sub">A Nonlinear Epistemodynamic Approach to Consequential Ontologies</h3>
 
-      <!-- text -->
-      <div>
-        <p class="r-p">
-          The FA→FO axiom is here formalized as a minimally parameterized, uni-slope model in which the magnitude of finding out emerges as an invariant, homomorphic image of fucking around. Treating FA as the generative operator on an experiential manifold and FO as its epistemic coimage, we demonstrate that incremental perturbations in FA yield isomorphic escalations in FO (β=1), thereby collapsing contingency into necessity. The trajectory from origin to consequence is not merely correlative but constitutive: FA instantiates the very metric by which FO becomes legible. Consequently, stochastic or nonlinear accounts are rendered superfluous; the system exhibits strict proportionality, homoscedasticity, and path independence. In sum, FA is both necessary and sufficient for FO, a teleological circuit in which praxis begets knowledge with unit elasticity. Future work may generalize this mapping to higher-dimensional mischief spaces and non-Euclidean repercussion geometries.
+        <div class="r-grid">
+          <figure class="r-fig">
+            <img
+              src="FAFO.png"
+              loading="lazy"
+              alt="Parametric visualization of the FA–FO proportionality theorem"
+              width="100%"
+              height="auto"
+            >
+            <figcaption class="r-cap">
+              Graphical instantiation of the hypothesized linear FA→FO causality, illustrating a β=1 slope across the experiential continuum [1].
+            </figcaption>
+          </figure>
+          <div>
+            <p class="r-p">
+              The FA→FO axiom is here formalized as a minimally parameterized, uni-slope model in which the magnitude of finding out emerges as an invariant, homomorphic image of fucking around. Treating FA as the generative operator on an experiential manifold and FO as its epistemic coimage, we demonstrate that incremental perturbations in FA yield isomorphic escalations in FO (β=1), thereby collapsing contingency into necessity. The trajectory from origin to consequence is not merely correlative but constitutive: FA instantiates the very metric by which FO becomes legible. Consequently, stochastic or nonlinear accounts are rendered superfluous; the system exhibits strict proportionality, homoscedasticity, and path independence. In sum, FA is both necessary and sufficient for FO, a teleological circuit in which praxis begets knowledge with unit elasticity. Future work may generalize this mapping to higher-dimensional mischief spaces and non-Euclidean repercussion geometries.
+            </p>
+          </div>
+        </div>
+
+        <p class="r-p" style="margin-top:18px;">
+          Within this framework, we successfully reproduced the canonical FAFO cycle observed in empirical folklore, thereby substantiating the predictive capacity of the model across heterogeneous ontological substrates.
         </p>
+
+        <ol class="r-refs">
+          <li>
+            J. Vandrake, P. Oscillanti, L. Thorne,
+            “Epistemic Hysteresis in Causal Folklore: Quantifying the FA→FO Manifold,”
+            <em>Journal of Irreproducible Results</em>, 42(3): 1337–1359 (2023).
+            <a href="https://doi.org/10.0000/fake.doi.1337" target="_blank" rel="noopener">DOI: 10.0000/fake.doi.1337</a>
+            [<a href="https://arxiv.org/abs/9999.99999" target="_blank" rel="noopener">arXiv:9999.99999</a>]
+          </li>
+        </ol>
+      </article>
+    </section>
+
+    <!-- PUBLICATIONS -->
+    <section id="page-publications" class="page" hidden>
+      <div class="card">
+        <h2>Publications</h2>
+        <ol>
+          <li>Talebi S. et al. Modeling Autonomic Pupillary Responses… (2019).</li>
+          <li>Wijeratne L.O. et al. Using ML for Airborne Particulate Sensors. Sensors 2020.</li>
+          <li>Lary D.J. et al. Autonomous Learning of New Environments. Sensors 2021.</li>
+          <li>Zhang Y. et al. ML for Light Sensor Calibration. Sensors 2021.</li>
+          <li>Talebi S. et al. EEG Band Discovery. Preprints 2022.</li>
+          <li>Fernando B.A. et al. Unsupervised Blink Detection. Preprints 2022.</li>
+          <li>Talebi S. et al. PM Impacts, Research Square 2022.</li>
+          <li>Lary D.J. et al. ML, Big Data & Spatial Tools. Springer 2022.</li>
+          <li>Wijerante L.O.H. et al. Airborne PM Estimation. Springer 2022.</li>
+        </ol>
+      </div>
+    </section>
+  </main>
+
+  <script>
+    /* SPA router */
+    const routes = ["home", "education", "experience", "projects", "research", "publications"];
+    function show(route) {
+      document.querySelectorAll('.nav a').forEach(a => {
+        a.classList.toggle('active', a.dataset.route === route);
+      });
+      routes.forEach(r => {
+        const sec = document.getElementById('page-' + r);
+        if (sec) sec.hidden = (r !== route);
+      });
+      window.scrollTo({ top: 0, behavior: "instant" });
+    }
+    function currentRoute() {
+      const h = location.hash.replace('#', '').toLowerCase();
+      return routes.includes(h) ? h : 'home';
+    }
+    window.addEventListener('hashchange', () => show(currentRoute()));
+    window.addEventListener('DOMContentLoaded', () => show(currentRoute()));
+  </script>
+
+  <footer class="site-footer">
+    <div class="footer-wrapper">
+      <div class="footer-col">
+        <h3>Yuta Tawarada</h3>
+        <p>Student at Justus‑Liebig‑University</p>
+        <p>Based in Giessen, Germany</p>
+        <p>Email: <a href="mailto:yutataw1@gmail.com">yutataw1@gmail.com</a></p>
+        <p>LinkedIn: <a href="https://www.tagesschau.de/" target="_blank" rel="noopener">Linked in is not locked in.</a></p>
+      </div>
+      <div class="footer-col">
+        <h3>Other links</h3>
+        <p><a href="https://www.frankfurt-airport.com/content/dam/fraport-company/logos-und-icons/logo_Fraport.svg" target="_blank" rel="noopener">Image of an orange</a></p>
       </div>
     </div>
+  </footer>
 
-    <p class="r-p" style="margin-top:18px">
-      Within this framework, we successfully reproduced the canonical FAFO cycle observed in empirical folklore, thereby substantiating the predictive capacity of the model across heterogeneous ontological substrates.
-    </p>
-
-    <ol class="r-refs">
-      <li>
-        J. Vandrake, P. Oscillanti, L. Thorne, 
-        “Epistemic Hysteresis in Causal Folklore: Quantifying the FA→FO Manifold,” 
-        <em>Journal of Irreproducible Results</em>, 42(3): 1337–1359 (2023). 
-        <a href="https://doi.org/10.0000/fake.doi.1337" target="_blank" rel="noopener">DOI: 10.0000/fake.doi.1337</a>
-        [<a href="https://arxiv.org/abs/9999.99999" target="_blank" rel="noopener">arXiv:9999.99999</a>]
-      </li>
-    </ol>
-  </article>
-</section>
-
-<!-- Styling to match the "Crystal structures" look -->
-<style>
-  .r-title {
-    font-size: 1.75rem;      /* ~28px */
-    font-weight: 600;        /* semi-bold */
-    line-height: 1.25;
-    margin-bottom: 0.25em;
-    color: #222;
-  }
-
-  .r-sub {
-    font-size: 1.1rem;
-    font-weight: 500;
-    line-height: 1.4;
-    color: #555;
-    margin-bottom: 1.2em;
-  }
-
-  .r-p {
-    font-size: 1rem;         /* ~16px */
-    font-weight: 400;
-    line-height: 1.6;
-    color: #333;
-    margin: 0 0 1.2em 0;
-  }
-
-  .r-cap {
-    font-size: 0.9rem;
-    line-height: 1.4;
-    color: #666;
-    margin-top: 0.5em;
-  }
-</style>
-  
-  <!-- PUBLICATIONS -->
-  <section id="page-publications" class="page" hidden>
-    <div class="card">
-      <h2>Publications</h2>
-      <ol>
-        <li>Talebi S. et al. Modeling Autonomic Pupillary Responses… (2019).</li>
-        <li>Wijeratne L.O. et al. Using ML for Airborne Particulate Sensors. Sensors 2020.</li>
-        <li>Lary D.J. et al. Autonomous Learning of New Environments. Sensors 2021.</li>
-        <li>Zhang Y. et al. ML for Light Sensor Calibration. Sensors 2021.</li>
-        <li>Talebi S. et al. EEG Band Discovery. Preprints 2022.</li>
-        <li>Fernando B.A. et al. Unsupervised Blink Detection. Preprints 2022.</li>
-        <li>Talebi S. et al. PM Impacts, Research Square 2022.</li>
-        <li>Lary D.J. et al. ML, Big Data & Spatial Tools. Springer 2022.</li>
-        <li>Wijerante L.O.H. et al. Airborne PM Estimation. Springer 2022.</li>
-      </ol>
-    </div>
-  </section>
-
-</main>
-
-<script>
-/* SPA router */
-const routes = ["home","education","experience","projects","research","publications"];
-function show(route){
-  document.querySelectorAll('.nav a').forEach(a=>{
-    a.classList.toggle('active', a.dataset.route===route);
-  });
-  routes.forEach(r=>{
-    const sec = document.getElementById('page-'+r);
-    if(sec) sec.hidden = (r!==route);
-  });
-  window.scrollTo({top:0, behavior:"instant"});
-}
-function currentRoute(){
-  const h = location.hash.replace('#','').toLowerCase();
-  return routes.includes(h) ? h : 'home';
-}
-addEventListener('hashchange', ()=>show(currentRoute()));
-addEventListener('DOMContentLoaded', ()=>show(currentRoute()));
-</script>
-
-<!-- Footer -->
-<footer class="site-footer">
-  <div class="footer-wrapper">
-    <div class="footer-col">
-      <h3>Yuta Tawarada</h3>
-      <p>Student at Justus-Liebig-University</p>
-      <p>Based in Giessen, Germany</p>
-      <p>Email: <a href="mailto:yutataw1@gmail.com">yutataw1@gmail.com</a></p>
-      <p>LinkedIn: <a href="https://www.tagesschau.de/">Linked in is not locked in.</a></p>
-    </div>
-    <div class="footer-col">
-      <h3>Other links</h3>
-      <p><a href="https://www.frankfurt-airport.com/content/dam/fraport-company/logos-und-icons/logo_Fraport.svg" target="_blank">Image of an orange</a></p>
+  <!-- Win98 Popup -->
+  <div id="popup" class="win98 hide">
+    <div class="win98-window" role="dialog" aria-modal="true" aria-labelledby="w98-title">
+      <div class="win98-titlebar">
+        <div id="w98-title" class="title">Can you lock the fuck in?</div>
+      </div>
+      <div class="win98-body">
+        <svg class="icon" viewBox="0 0 24 24" aria-hidden="true">
+          <circle cx="12" cy="12" r="11" fill="#d32f2f" stroke="#8b0000" stroke-width="2"/>
+          <path d="M8 8l8 8M16 8l-8 8" stroke="#fff" stroke-width="2.5" stroke-linecap="round"/>
+        </svg>
+        <p><strong>Can you lock the fuck in?</strong></p>
+      </div>
+      <div class="win98-buttons">
+        <button class="btn98" id="btn-yes">YES</button>
+        <button class="btn98" id="btn-ok">OK</button>
+      </div>
     </div>
   </div>
-</footer>
 
+  <script>
+    (function(){
+      const overlay = document.getElementById('popup');
+      const btnYes  = document.getElementById('btn-yes');
+      const btnOk   = document.getElementById('btn-ok');
 
-<!-- Win98 Popup -->
-<div id="popup" class="win98 hide">
-  <div class="win98-window" role="dialog" aria-modal="true" aria-labelledby="w98-title">
-    <div class="win98-titlebar">
-      <div id="w98-title" class="title">Can you lock the fuck in?</div>
-    </div>
-    <div class="win98-body">
-      <svg class="icon" viewBox="0 0 24 24" aria-hidden="true">
-        <circle cx="12" cy="12" r="11" fill="#d32f2f" stroke="#8b0000" stroke-width="2"/>
-        <path d="M8 8l8 8M16 8l-8 8" stroke="#fff" stroke-width="2.5" stroke-linecap="round"/>
-      </svg>
-      <p><strong>Can you lock the fuck in?</strong></p>
-    </div>
-    <div class="win98-buttons">
-      <button class="btn98" id="btn-yes">YES</button>
-      <button class="btn98" id="btn-ok">OK</button>
-    </div>
-  </div>
-</div>
-  
-<!-- JAVASCRIPT Win98 Popup -->
-<script>
-(function(){
-  const overlay = document.getElementById('popup');
-  const btnYes  = document.getElementById('btn-yes');
-  const btnOk   = document.getElementById('btn-ok');
+      function openPopup(){
+        overlay.classList.remove('hide','dim','show');
+        requestAnimationFrame(() => overlay.classList.add('show'));
+      }
 
-  function openPopup(){
-    // ensure starting state
-    overlay.classList.remove('hide','dim','show');
-    // next frame -> add show so CSS transitions run
-    requestAnimationFrame(() => overlay.classList.add('show'));
-  }
+      function closePopup(){
+        overlay.classList.remove('show');
+        overlay.classList.add('dim');
+        setTimeout(() => {
+          overlay.classList.remove('dim');
+          overlay.classList.add('hide');
+        }, 1300);
+      }
 
-  function closePopup(){
-    // hide the window now, keep black overlay
-    overlay.classList.remove('show');
-    overlay.classList.add('dim');
-    // after 1.3s, fade out overlay
-    setTimeout(()=>{
-      overlay.classList.remove('dim');
-      overlay.classList.add('hide');
-    }, 1300); // 1.3 seconds
-  }
-
-  // open when DOM is ready
-  window.addEventListener('DOMContentLoaded', openPopup);
-
-  // ONLY these two buttons can close it
-  btnYes.addEventListener('click', closePopup);
-  btnOk.addEventListener('click', closePopup);
-
-  // IMPORTANT: make sure you DON'T have these anywhere else:
-  // - overlay.addEventListener('click', ...)   // remove if present
-  // - document.addEventListener('keydown', ...) // remove Esc close if present
-})();
-</script>
-
-
+      window.addEventListener('DOMContentLoaded', openPopup);
+      btnYes.addEventListener('click', closePopup);
+      btnOk.addEventListener('click', closePopup);
+    })();
+  </script>
 </body>
 </html>
