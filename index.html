@@ -29,6 +29,42 @@
 img.resp{max-width:100%;height:auto;border-radius:4px;box-shadow:0 1px 3px rgba(0,0,0,.08)}
 ul,ol{margin:8px 0 0 20px}
 @media (min-width:760px){ .hero{grid-template-columns:1fr 360px} }
+
+  /* --- Footer --- */
+.site-footer {
+  background:#333;        /* dark background */
+  color:#ccc;             /* muted text color */
+  padding:40px 0;
+  margin-top:40px;
+}
+.site-footer a {
+  color:#9ec4ff; 
+  text-decoration:none;
+}
+.site-footer a:hover {
+  text-decoration:underline;
+}
+.footer-wrapper {
+  max-width:980px;
+  margin:0 auto;
+  padding:0 24px;
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:40px;
+}
+.footer-col h3 {
+  margin:0 0 12px;
+  color:#fff;
+  font-size:16px;
+}
+.footer-col p {
+  margin:4px 0;
+  font-size:14px;
+}
+@media (max-width:700px){
+  .footer-wrapper{ grid-template-columns:1fr; }
+}
+
 </style>
 </head>
 <body>
@@ -106,8 +142,8 @@ ul,ol{margin:8px 0 0 20px}
   <section id="page-projects" class="page" hidden>
     <div class="card">
       <h2>Can You Lock The Fuck In? PART1</h2>
+      <p>Would you lock the fuck in?</p>
       <p><a href="https://www.mdpi.com/1424-8220/22/8/3048" target="_blank" rel="noopener">Publication</a></p>
-      <p>Python method to discover optimal EEG bands from power spectra; ~2× improvement over common bands.</p>
       <img class="resp" 
      src="https://as2.ftcdn.net/jpg/00/98/24/45/1000_F_98244581_otL4Mr22a7X0YkGT4c4S4iyCAlioHA7w.jpg"
      alt="Lock The Fuck In"
@@ -115,8 +151,8 @@ ul,ol{margin:8px 0 0 20px}
     </div>
     <div class="card">
       <h2>Can You Lock The Fuck In? PART2</h2>
+      <p>How about we locked in together?</p>
       <p><a href="https://www.mdpi.com/1424-8220/22/11/4240" target="_blank" rel="noopener">Publication</a></p>
-      <p>100+ MATLAB models estimate particulate matter from 300+ biometrics (R²≈0.91).</p>
       <img class="resp" 
      src="https://media.tenor.com/wo1K1i1zJ8wAAAAe/no-monopoli.png" 
      alt="NO"
@@ -167,5 +203,25 @@ function currentRoute(){ const h = location.hash.replace('#','').toLowerCase(); 
 addEventListener('hashchange', ()=>show(currentRoute()));
 addEventListener('DOMContentLoaded', ()=>show(currentRoute()));
 </script>
+  <!-- Footer -->
+<footer class="site-footer">
+  <div class="footer-wrapper">
+    <div class="footer-col">
+      <h3>Yuta Tawarada</h3>
+      <p>Student at Justus-Liebig-University</p>
+      <p>Based in Giessen, Germany</p>
+      <p>Email: <a href="mailto:your.email@example.com">your.email@example.com</a></p>
+      <p>GitHub: <a href="https://github.com/yourusername" target="_blank">yourusername</a></p>
+      <p>LinkedIn: <a href="https://linkedin.com/in/yourusername" target="_blank">yourusername</a></p>
+    </div>
+
+    <div class="footer-col">
+      <h3>Other links</h3>
+      <p><a href="https://yourblog.example.com" target="_blank">Personal Blog</a></p>
+      <p><a href="https://scholar.google.com" target="_blank">Google Scholar</a></p>
+      <p><a href="https://gitlab.com/yourusername" target="_blank">GitLab</a></p>
+    </div>
+  </div>
+</footer>
 </body>
 </html>
