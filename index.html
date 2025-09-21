@@ -24,7 +24,7 @@
 .nav{display:flex;gap:28px;align-items:center;overflow-x:auto}
 .nav a{color:#cfe0ff;text-decoration:none;font-weight:700;letter-spacing:.2px;padding:14px 0;border-bottom:3px solid transparent}
 .nav a.active{color:#fff;border-color:#90a4ff}
-.hero{display:grid;grid-template-columns:1fr;gap:12px}
+.hero{display:grid;grid-template-columns:1fr;gap:6px}
 .hero h2{margin:0}
 img.resp{max-width:100%;height:auto;border-radius:4px;box-shadow:0 1px 3px rgba(0,0,0,.08)}
 ul,ol{margin:8px 0 0 20px}
@@ -64,7 +64,26 @@ ul,ol{margin:8px 0 0 20px}
 @media (max-width:700px){
   .footer-wrapper{ grid-template-columns:1fr; }
 }
-
+  /* --- Research article layout --- */
+.research-article h2{
+  font-size:32px; margin:0 0 14px; color:#444;
+}
+.research-article h3{
+  margin:10px 0 10px; font-size:18px; color:#555;
+}
+.article-grid{
+  display:grid; grid-template-columns: 1fr 1fr; gap:24px; align-items:start;
+}
+.article-grid .fig img{
+  width:100%; height:auto; border-radius:2px; box-shadow:0 1px 3px rgba(0,0,0,.08);
+}
+.article-grid .caption{
+  margin-top:8px; color:var(--muted); font-size:14px;
+}
+.refs{ margin-top:16px; padding-left:20px; }
+@media (max-width:900px){
+  .article-grid{ grid-template-columns:1fr; }
+}
 </style>
 </head>
 <body>
@@ -81,7 +100,7 @@ ul,ol{margin:8px 0 0 20px}
       <a href="#education" data-route="education">EDUCATION</a>
       <a href="#experience" data-route="experience">EXPERIENCE</a>
       <a href="#projects" data-route="projects">PROJECTS</a>
-      <a href="#talks" data-route="talks">TALKS</a>
+      <a href="#research" data-route="research">RESEARCH</a>
       <a href="#publications" data-route="publications">PUBLICATIONS</a>
     </div>
   </div>
@@ -92,7 +111,7 @@ ul,ol{margin:8px 0 0 20px}
       <img class="resp" 
      src="pic1.png" 
      alt="Profile photo of Yuta Tawarada"
-     style="max-width:480px; border-radius:8px;">
+     style="max-width:400px; border-radius:8px;">
       <div>
         <h2>Yuta Tawarada</h2>
         <p class="muted" style="margin-bottom:0;"><strong>A boi in Giessen, Germany</strong></p>
@@ -101,8 +120,8 @@ ul,ol{margin:8px 0 0 20px}
     </div>
     <div class="card hero">
       <div>
-        <h2>Hi — I’m a Data Scientist</h2>
-        <p class="muted">I build production ML systems, improve data pipelines, and publish applied research.</p>
+        <h2>Hi — I have no purpose and reason to be alive.</h2>
+        <p class="muted">Hydration is Key.</p>
       </div>
     </div>
   </section>
@@ -160,21 +179,59 @@ ul,ol{margin:8px 0 0 20px}
     </div>
     </div>
   </section>
-  <section id="page-talks" class="page" hidden>
-    <div class="card">
-      <h2>Talks & Lectures</h2>
-      <ul>
-        <li>Causality — GSP Seminar, Fall 2021</li>
-        <li>Dimensionality Reduction — PHYS 5336, Spring 2021</li>
-        <li>Fourier & Wavelets — PHYS 5315, Fall 2020</li>
-        <li>Optimization — GSP Seminar, Fall 2019</li>
-        <li>Weeks of Welcome Poster — UTD, Fall 2019</li>
-        <li>Networks — GSP Seminar, Spring 2019</li>
-      </ul>
-      <p><a href="https://www.youtube.com/watch?v=N0F2KF_0W3A&list=LL&index=100&pp=gAQBiAQB" target="_blank" rel="noopener">Slow Nights by Aran Tomoko</a></p>
+  <section id="page-research" class="page" hidden>
+  <article class="card research-article">
+    <h2>Crystal structures at finite temperatures</h2>
+
+    <h3>Self-consistent phonon (SCP) theory</h3>
+
+    <div class="article-grid">
+      <!-- FIGURE (left) -->
+      <figure class="fig">
+        <!-- Replace the src with your image -->
+        <img src="assets/img/scp_batio3.png" alt="T-dependent free energy curves of BaTiO3 phases">
+        <figcaption class="caption">
+          The <em>T</em>-dependence of the free energy of the four phases of BaTiO<sub>3</sub> [1].
+        </figcaption>
+      </figure>
+
+      <!-- TEXT (right) -->
+      <div>
+        <p>
+          The state-of-the-art structural optimization of DFT cannot be applied to finite-temperature
+          phases of materials because lattice vibrations are neglected. Thus, the description of
+          structural phase transitions—common in perovskites, ferroelectrics, TMDs, etc.—has been a
+          long-standing challenge in computational materials science.
+        </p>
+        <p>
+          In this research, we formulate and implement a structural optimization theory at finite
+          temperature which minimizes the <em>T</em>-dependent free energy computed by an anharmonic
+          phonon theory (self-consistent phonon, SCP). This provides a practical route to obtain
+          equilibrium structures and phase stabilities beyond the harmonic approximation.
+        </p>
+      </div>
     </div>
-  </section>
-  <section id="page-publications" class="page" hidden>
+
+    <p style="margin-top:18px;">
+      Using this framework, we successfully reproduced the three-step structural phase transition and
+      the <em>p–T</em> phase diagram of BaTiO<sub>3</sub> [1].
+    </p>
+
+    <ol class="refs">
+      <li>
+        R. Masuki, T. Nomoto, R. Arita, T. Tadano,
+        “Ab initio structural optimization at finite temperatures based on anharmonic phonon theory:
+        Application to the structural phase transitions of BaTiO<sub>3</sub>,”
+        <em>Physical Review B</em> 106, 224104 (2022).
+        <a href="https://doi.org/10.1103/PhysRevB.106.224104" target="_blank" rel="noopener">
+          Physical Review B 106, 224104 (2022)
+        </a>.
+        [<a href="https://arxiv.org/abs/2206.09038" target="_blank" rel="noopener">arXiv</a>]
+      </li>
+    </ol>
+  </article>
+</section>
+<section id="page-publications" class="page" hidden>
     <div class="card">
       <h2>Publications</h2>
       <ol>
@@ -210,8 +267,8 @@ addEventListener('DOMContentLoaded', ()=>show(currentRoute()));
       <h3>Yuta Tawarada</h3>
       <p>Student at Justus-Liebig-University</p>
       <p>Based in Giessen, Germany</p>
-      <p>Email: <a href="mailto:yutataw1@gmail.com">yutataw1@gmail.com></p>
-      <p>LinkedIn: <a href="https://linkedin.com">Linked in is not locked in.</a></p>
+      <p>Email: <a href="mailto:yutataw1@gmail.com">yutataw1@gmail.com</p>
+      <p>LinkedIn: <a href="https://www.tagesschau.de/">Linked in is not locked in.</p>
     </div>
     <div class="footer-col">
       <h3>Other links</h3>
