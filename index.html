@@ -361,8 +361,29 @@ addEventListener('DOMContentLoaded', ()=>show(currentRoute()));
     </div>
   </div>
 </footer>
-  
+
+
 <!-- Win98 Popup -->
+<div id="popup" class="win98">
+  <div class="win98-window" role="dialog" aria-modal="true" aria-labelledby="w98-title">
+    <div class="win98-titlebar">
+      <div id="w98-title" class="title">Can you lock the fuck in?</div>
+      <div class="close" id="w98-close" aria-label="Close">✕</div>
+    </div>
+    <div class="win98-body">
+      <svg class="icon" viewBox="0 0 24 24" aria-hidden="true">
+        <circle cx="12" cy="12" r="11" fill="#d32f2f" stroke="#8b0000" stroke-width="2"/>
+        <path d="M8 8l8 8M16 8l-8 8" stroke="#fff" stroke-width="2.5" stroke-linecap="round"/>
+      </svg>
+      <p><strong>Can you lock the fuck in?</strong></p>
+    </div>
+    <div class="win98-buttons">
+      <button class="btn98" id="btn-yes">YES</button>
+      <button class="btn98" id="btn-ok">OK</button>
+    </div>
+  </div>
+</div>
+
 <script>
 (function(){
   const overlay = document.getElementById('popup');
