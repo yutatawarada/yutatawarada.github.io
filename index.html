@@ -326,26 +326,38 @@
         min-width: 96px;
       }
     }
-.banner-flex {
-  display: flex;
-  justify-content: space-between; /* pushes gif to right */
-  align-items: center;
+/* banner layout */
+.banner-flex{
+  display:flex;
+  justify-content:space-between; /* pushes gif to the right */
+  align-items:center;
+  gap:16px;
+}
+.banner-text{ flex:1; }
+
+/* desktop / tablet */
+.banner-gif{
+  height:180px;           /* pick your banner height */
+  max-height:100%;        /* don’t exceed banner */
+  width:auto;
+  object-fit:contain;
+  margin-left:20px;
 }
 
-.banner-text {
-  flex: 1; /* takes left space */
-}
-
-.banner-gif {
-  max-height: 100%;   /* full height of banner */
-  height: 180px;      /* adjust to match your banner height */
-  object-fit: contain;
-}
-}
+/* phones */
 @media (max-width: 480px){
-  .banner-flex { flex-direction: column; align-items: flex-start; }
-  .banner-gif { margin: 12px 0 0; max-height: 40px; }
+  .banner-flex{
+    flex-direction:column; 
+    align-items:flex-start; 
+    gap:8px;
+  }
+  .banner-gif{
+    height:64px;          /* smaller on phones */
+    max-width:60vw;       /* prevent overflow */
+    margin:8px 0 0;
+  }
 }
+
 
   </style>
 <link rel="icon" type="image/png" href="pic1.png">
@@ -360,7 +372,6 @@
     <img class="banner-gif" 
          src="https://media2.giphy.com/media/v1.Y2lkPTc5MGI3NjExdHhnaXljYTF2d25ocHBleDU1MmJ6OG43bzM3aTRoZWZ2eHVobTVnMCZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9cw/l0IpXgEBZ3y3UEljO/giphy.gif" 
          alt="Fun GIF">
-
   </div>
 </header>
   <nav class="navbar">
