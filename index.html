@@ -326,6 +326,21 @@
         min-width: 96px;
       }
     }
+  .banner-flex {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.banner-gif {
+  max-height: 60px;   /* adjust size as you like */
+  margin-left: 20px;  /* space between text and gif */
+}
+@media (max-width: 480px){
+  .banner-flex { flex-direction: column; align-items: flex-start; }
+  .banner-gif { margin: 12px 0 0; max-height: 40px; }
+}
+
   </style>
 <link rel="icon" type="image/png" href="pic1.png">
 </head>
@@ -335,6 +350,9 @@
       <h1>YUTA TAWARADA</h1>
       <p class="lightmuted">Boi in Giessen, Germany</p>
     </div>
+   <img class="banner-gif" 
+         src="https://media0.giphy.com/media/v1.Y2lkPTc5MGI3NjExZHoxZDJwd2p1azR5anV4dnpxYmFoMGh2YnR6ZmdtcTBsM2V1N3RsMCZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9cw/IVyiNbBIr2rQe6FX8n/giphy.gif" 
+         alt="Fun GIF">
   </header>
 
   <nav class="navbar">
