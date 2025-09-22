@@ -337,12 +337,10 @@
 }
 
 .banner-gif {
-  max-height: 100px;   /* fits inside banner */
-  height: auto;
-  width: auto;
-  object-fit: contain; /* keeps proportions */
+  max-height: 100%;   /* full height of banner */
+  height: 100px;      /* adjust to match your banner height */
+  object-fit: contain;
 }
-
 }
 @media (max-width: 480px){
   .banner-flex { flex-direction: column; align-items: flex-start; }
@@ -354,15 +352,17 @@
 </head>
 <body>
   <header class="banner">
-    <div class="wrapper">
+  <div class="wrapper banner-flex">
+    <div class="banner-text">
       <h1>YUTA TAWARADA</h1>
-      <p class="lightmuted">Boi in Giessen, Germany</p>
+      <p class="muted">Boi in Giessen, Germany</p>
     </div>
-   <img class="banner-gif" 
+    <img class="banner-gif" 
          src="https://media2.giphy.com/media/v1.Y2lkPTc5MGI3NjExdHhnaXljYTF2d25ocHBleDU1MmJ6OG43bzM3aTRoZWZ2eHVobTVnMCZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9cw/l0IpXgEBZ3y3UEljO/giphy.gif" 
          alt="Fun GIF">
-  </header>
 
+  </div>
+</header>
   <nav class="navbar">
     <div class="wrapper">
       <div class="nav">
