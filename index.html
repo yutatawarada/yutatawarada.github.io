@@ -423,7 +423,7 @@
     margin-top:20px;
   }
 }
-   .music-btn {
+.music-btn {
   position: fixed;
   bottom: 20px;
   left: 20px;
@@ -431,18 +431,16 @@
   color: #fff;
   border: 2px solid #fff;
   border-radius: 6px;
-  padding: 8px 14px;
+  padding: 8px 0;        /* vertical padding only */
   font-size: 14px;
   cursor: pointer;
   z-index: 9999;
-  min-width: 100px;     /* ensures same width for Play and Pause */
-  text-align: center;   /* centers text inside */
+  width: 110px;          /* fixed width — adjust to fit your longest text */
+  text-align: center;    /* center the text */
 }
 .music-btn:hover {
   background: #555;
 }
-
-
   </style>
 <link rel="icon" type="image/png" href="pic1.png">
 </head>
