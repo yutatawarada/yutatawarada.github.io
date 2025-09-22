@@ -654,68 +654,74 @@
     </div>
   </div>
 
-  <script>
-    (function(){
-      const overlay = document.getElementById('popup');
-      const btnYes  = document.getElementById('btn-yes');
-      const btnOk   = document.getElementById('btn-ok');
-
-      function openPopup(){
-        overlay.classList.remove('hide','dim','show');
-        requestAnimationFrame(() => overlay.classList.add('show'));
-      }
-
-      function closePopup(){
-        overlay.classList.remove('show');
-        overlay.classList.add('dim');
-        setTimeout(() => {
-          overlay.classList.remove('dim');
-          overlay.classList.add('hide');
-        }, 1300);
-      }
-
-      window.addEventListener('DOMContentLoaded', openPopup);
-      btnYes.addEventListener('click', closePopup);
-      btnOk.addEventListener('click', closePopup);
-    })();
-  </script>
-
-<!-- Audio player -->
-<audio id="bg-music" autoplay loop></audio>
-
-<!-- Floating music control -->
-<button id="music-toggle" class="music-btn">⏸ Pause</button>
+<!-- Background music -->
+  <audio id="bg-music" autoplay loop muted></audio>
+  <button id="music-toggle" class="music-btn">⏸ Pause</button>
   
 <script>
-  document.addEventListener("DOMContentLoaded", () => {
-    const audio = document.getElementById("bg-music");
-    const btn = document.getElementById("music-toggle");
+(function(){
+  // --- popup elements ---
+  const overlay = document.getElementById('popup');
+  const btnYes  = document.getElementById('btn-yes');
+  const btnOk   = document.getElementById('btn-ok');
 
-    // pick random music file
-    const tracks = ["music1.mp3", "music2.mp3", "music3.mp3"];
-    const randomTrack = tracks[Math.floor(Math.random() * tracks.length)];
-    audio.src = randomTrack;
-    audio.volume = 0.6;
-    audio.play();
+  // --- audio elements ---
+  const audio = document.getElementById('bg-music');   // <audio id="bg-music" autoplay loop muted></audio>
+  const toggleBtn = document.getElementById('music-toggle'); // <button id="music-toggle" ...>
 
-    // unmute once popup is closed
-    function unmuteMusic() {
-      audio.muted = false;
-    }
-    document.getElementById("btn-yes").addEventListener("click", unmuteMusic);
-    document.getElementById("btn-ok").addEventListener("click", unmuteMusic);
+  // pick a random track
+  const tracks = ["music1.mp3", "music2.mp3", "music3.mp3"];
+  audio.src = tracks[Math.floor(Math.random() * tracks.length)];
+  audio.loop = true;
+  audio.volume = 0.6;
+  audio.muted = true; // start muted to satisfy autoplay policies
 
-    // play/pause button
-    btn.addEventListener("click", () => {
-      if (audio.paused) {
-        audio.play();
-        btn.textContent = "⏸ Pause";
-      } else {
-        audio.pause();
-        btn.textContent = "▶ Play";
-      }
+  // open popup with fade
+  function openPopup(){
+    overlay.classList.remove('hide','dim','show');
+    requestAnimationFrame(() => overlay.classList.add('show'));
+  }
+
+  // start music from a user gesture
+  function startMusic(){
+    audio.muted = false;                     // make it audible
+    return audio.play().then(() => {
+      toggleBtn.textContent = "⏸ Pause";    // reflect playing state
+    }).catch(() => {
+      // if anything blocks playback, show Play so user can start it
+      toggleBtn.textContent = "▶ Play";
     });
+  }
+
+  // close popup after starting music; keep black overlay for 1.3s
+  function closePopupAfterStart(){
+    startMusic().finally(() => {
+      overlay.classList.remove('show');
+      overlay.classList.add('dim');
+      setTimeout(() => {
+        overlay.classList.remove('dim');
+        overlay.classList.add('hide');
+      }, 1300);
+    });
+  }
+
+  // init on load
+  window.addEventListener('DOMContentLoaded', openPopup);
+
+  // ONLY these two buttons close the popup & start music
+  btnYes.addEventListener('click', closePopupAfterStart);
+  btnOk.addEventListener('click', closePopupAfterStart);
+
+  // play/pause control
+  toggleBtn.addEventListener('click', () => {
+    if (audio.paused) {
+      startMusic();                          // ensures unmute + play
+    } else {
+      audio.pause();
+      toggleBtn.textContent = "▶ Play";
+    }
   });
+})();
 </script>
 
 
