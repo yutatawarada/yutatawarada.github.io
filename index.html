@@ -409,6 +409,23 @@
     margin-top:20px;
   }
 }
+    .music-btn {
+  position: fixed;
+  bottom: 20px;
+  left: 20px;
+  background: #333;
+  color: #fff;
+  border: 2px solid #fff;
+  border-radius: 6px;
+  padding: 8px 14px;
+  font-size: 14px;
+  cursor: pointer;
+  z-index: 9999;
+}
+.music-btn:hover {
+  background: #555;
+}
+
   </style>
 <link rel="icon" type="image/png" href="pic1.png">
 </head>
@@ -662,5 +679,37 @@
       btnOk.addEventListener('click', closePopup);
     })();
   </script>
+
+  <!-- Audio player -->
+<audio id="bg-music" src="music.mp3" autoplay loop></audio>
+
+<!-- Floating music control -->
+<button id="music-toggle" class="music-btn">⏸ Pause</button>
+  
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+    const audio = document.getElementById("bg-music");
+    const btn = document.getElementById("music-toggle");
+
+    // Some browsers block autoplay until user interacts.
+    // Try to start silently:
+    audio.volume = 0.6; // adjust volume if needed
+    audio.play().catch(() => {
+      // If autoplay blocked, update button text
+      btn.textContent = "▶ Play";
+    });
+
+    btn.addEventListener("click", () => {
+      if (audio.paused) {
+        audio.play();
+        btn.textContent = "⏸ Pause";
+      } else {
+        audio.pause();
+        btn.textContent = "▶ Play";
+      }
+    });
+  });
+</script>
+
 </body>
 </html>
