@@ -6,16 +6,18 @@
   <title>Yuta Tawarada — Portfolio</title>
   <style>
 
-    .page {
-  opacity: 0;
-  visibility: hidden;
-  transition: opacity 0.9s ease, visibility 0.9s ease;
+/* Smooth fade-in when a page becomes active */
+.page { display: none; }
+.page.active {
+  display: block;
+  animation: pageFadeIn .35s ease both;
 }
 
-.page.active {
-  opacity: 1;
-  visibility: visible;
+@keyframes pageFadeIn {
+  from { opacity: 0; transform: translateY(4px); }
+  to   { opacity: 1; transform: translateY(0); }
 }
+
 
     :root {
       --blue-1: #19183B;   /* banner */
@@ -493,7 +495,7 @@
     </section>
 
     <!-- CV -->
-    <section id="page-cv" class="page" hidden>
+    <section id="page-cv" class="page">
       <div class="card">
         <h2>CV</h2>
         <ul>
@@ -503,7 +505,7 @@
     </section>
 
     <!-- PROJECTS -->
-    <section id="page-projects" class="page" hidden>
+    <section id="page-projects" class="page">
       <div class="card">
         <h2>Can You Lock The Fuck In? PART1</h2>
         <p>Would you lock the fuck in?</p>
@@ -534,7 +536,7 @@
     </section>
 
     <!-- RESEARCH -->
-    <section id="page-research" class="page" hidden>
+    <section id="page-research" class="page">
       <article class="r-card">
         <h2 class="r-title">
           Stochastic Causality in Experiential Manifolds:<br>
@@ -579,7 +581,7 @@
     </section>
 
     <!-- PUBLICATIONS -->
-    <section id="page-publications" class="page" hidden>
+    <section id="page-publications" class="page">
       <div class="card">
         <h2>Watch this!</h2>
          <p>Can you believe this shit?</p>
@@ -599,27 +601,21 @@
     </section>
   </main>
 
- <script>
-  /* SPA router with smooth transitions */
+<script>
+  /* SPA router with smooth fade-in */
   const routes = ["home", "cv", "experience", "projects", "research", "publications"];
 
   function show(route) {
     if (!routes.includes(route)) route = "home";
 
-    // set active tab
+    // Set active tab
     document.querySelectorAll('.nav a').forEach(a => {
       a.classList.toggle('active', a.dataset.route === route);
     });
 
-    // switch pages with fade
+    // Fade-in new page (no 'hidden' attribute)
     document.querySelectorAll('.page').forEach(sec => {
-      if (sec.id === 'page-' + route) {
-        sec.classList.add('active');
-        sec.hidden = false;   // ensure it's visible
-      } else {
-        sec.classList.remove('active');
-        sec.hidden = true;
-      }
+      sec.classList.toggle('active', sec.id === 'page-' + route);
     });
   }
 
