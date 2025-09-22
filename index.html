@@ -357,6 +357,21 @@
     margin:8px 0 0;
   }
 }
+.banner {
+  position: relative;   /* lets us place things inside absolutely */
+  overflow: hidden;     /* hides overflow if GIF is too big */
+}
+
+.banner-bottom-gif {
+  position: absolute;
+  bottom: 0;            /* stick to bottom */
+  left: 50%;            /* center horizontally */
+  transform: translateX(-50%);
+  max-height: 80px;     /* adjust to fit nicely */
+  width: auto;
+  object-fit: contain;
+  pointer-events: none; /* so it doesn’t block clicks */
+}
 
 
   </style>
@@ -372,6 +387,10 @@
     <img class="banner-gif" 
          src="https://media2.giphy.com/media/v1.Y2lkPTc5MGI3NjExdHhnaXljYTF2d25ocHBleDU1MmJ6OG43bzM3aTRoZWZ2eHVobTVnMCZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9cw/l0IpXgEBZ3y3UEljO/giphy.gif" 
          alt="Fun GIF">
+
+     <img class="banner-bottom-gif"
+       src="https://media.giphy.com/media/v1.Y2lkPWVjZjA1ZTQ3bWlya25iNml4NXRqYWtoN2NycGQ0eHVrb2hoYWFpeHR2NHlzZHU1eSZlcD12MV9zdGlja2Vyc19yZWxhdGVkJmN0PXM/l2JJFzDwOzbAhQVos/giphy.gif"
+       alt="Bottom GIF">
   </div>
 </header>
   <nav class="navbar">
