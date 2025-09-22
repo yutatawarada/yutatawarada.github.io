@@ -5,6 +5,18 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Yuta Tawarada — Portfolio</title>
   <style>
+
+    .page {
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.4s ease, visibility 0.4s ease;
+}
+
+.page.active {
+  opacity: 1;
+  visibility: visible;
+}
+
     :root {
       --blue-1: #19183B;   /* banner */
       --blue-2: #708993;   /* nav */
@@ -587,26 +599,38 @@
     </section>
   </main>
 
-  <script>
-    /* SPA router */
-    const routes = ["home", "cv", "experience", "projects", "research", "publications"];
-    function show(route) {
-      document.querySelectorAll('.nav a').forEach(a => {
-        a.classList.toggle('active', a.dataset.route === route);
-      });
-      routes.forEach(r => {
-        const sec = document.getElementById('page-' + r);
-        if (sec) sec.hidden = (r !== route);
-      });
-      window.scrollTo({ top: 0, behavior: "instant" });
-    }
-    function currentRoute() {
-      const h = location.hash.replace('#', '').toLowerCase();
-      return routes.includes(h) ? h : 'home';
-    }
-    window.addEventListener('hashchange', () => show(currentRoute()));
-    window.addEventListener('DOMContentLoaded', () => show(currentRoute()));
-  </script>
+ <script>
+  /* SPA router with smooth transitions */
+  const routes = ["home", "cv", "experience", "projects", "research", "publications"];
+
+  function show(route) {
+    if (!routes.includes(route)) route = "home";
+
+    // set active tab
+    document.querySelectorAll('.nav a').forEach(a => {
+      a.classList.toggle('active', a.dataset.route === route);
+    });
+
+    // switch pages with fade
+    document.querySelectorAll('.page').forEach(sec => {
+      if (sec.id === 'page-' + route) {
+        sec.classList.add('active');
+        sec.hidden = false;   // ensure it's visible
+      } else {
+        sec.classList.remove('active');
+        sec.hidden = true;
+      }
+    });
+  }
+
+  function currentRoute() {
+    const h = location.hash.replace('#', '').toLowerCase();
+    return routes.includes(h) ? h : 'home';
+  }
+
+  window.addEventListener('hashchange', () => show(currentRoute()));
+  window.addEventListener('DOMContentLoaded', () => show(currentRoute()));
+</script>
 
 <footer class="site-footer">
   <div class="footer-wrapper">
