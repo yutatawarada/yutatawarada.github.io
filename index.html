@@ -677,7 +677,7 @@
 
 <!-- Background music -->
   <audio id="bg-music" autoplay loop muted></audio>
-  <button id="music-toggle" class="music-btn">⏸ Pause</button>
+  <button id="music-toggle" class="music-btn">Pause</button>
   
 <script>
 (function(){
@@ -707,10 +707,10 @@
   function startMusic(){
     audio.muted = false;                     // make it audible
     return audio.play().then(() => {
-      toggleBtn.textContent = "⏸ Pause";    // reflect playing state
+      toggleBtn.textContent = "Pause";    // reflect playing state
     }).catch(() => {
       // if anything blocks playback, show Play so user can start it
-      toggleBtn.textContent = "▶ Play";
+      toggleBtn.textContent = "Play";
     });
   }
 
@@ -739,7 +739,7 @@
       startMusic();                          // ensures unmute + play
     } else {
       audio.pause();
-      toggleBtn.textContent = "▶ Play";
+      toggleBtn.textContent = "Play";
     }
   });
 })();
