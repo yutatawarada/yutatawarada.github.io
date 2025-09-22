@@ -680,8 +680,8 @@
     })();
   </script>
 
-  <!-- Audio player -->
-<audio id="bg-music" src="music.mp3" autoplay loop></audio>
+<!-- Audio player -->
+<audio id="bg-music" autoplay loop></audio>
 
 <!-- Floating music control -->
 <button id="music-toggle" class="music-btn">⏸ Pause</button>
@@ -691,14 +691,21 @@
     const audio = document.getElementById("bg-music");
     const btn = document.getElementById("music-toggle");
 
-    // Some browsers block autoplay until user interacts.
-    // Try to start silently:
-    audio.volume = 0.6; // adjust volume if needed
-    audio.play().catch(() => {
-      // If autoplay blocked, update button text
-      btn.textContent = "▶ Play";
-    });
+    // pick random music file
+    const tracks = ["music1.mp3", "music2.mp3", "music3.mp3"];
+    const randomTrack = tracks[Math.floor(Math.random() * tracks.length)];
+    audio.src = randomTrack;
+    audio.volume = 0.6;
+    audio.play();
 
+    // unmute once popup is closed
+    function unmuteMusic() {
+      audio.muted = false;
+    }
+    document.getElementById("btn-yes").addEventListener("click", unmuteMusic);
+    document.getElementById("btn-ok").addEventListener("click", unmuteMusic);
+
+    // play/pause button
     btn.addEventListener("click", () => {
       if (audio.paused) {
         audio.play();
@@ -710,6 +717,7 @@
     });
   });
 </script>
+
 
 </body>
 </html>
