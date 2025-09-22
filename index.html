@@ -357,23 +357,58 @@
     margin:8px 0 0;
   }
 }
-.banner {
-  position: relative;   /* lets us place things inside absolutely */
-  overflow: hidden;     /* hides overflow if GIF is too big */
+.site-footer {
+  background:#333;
+  color:#ccc;
+  padding:40px 0;
+  margin-top:40px;
 }
 
-.banner-bottom-gif {
-  position: absolute;
-  bottom: 0;            /* stick to bottom */
-  left: 50%;            /* center horizontally */
-  transform: translateX(-50%);
-  max-height: 80px;     /* adjust to fit nicely */
-  width: auto;
-  object-fit: contain;
-  pointer-events: none; /* so it doesn’t block clicks */
+.site-footer a {
+  color:#9ec4ff; 
+  text-decoration:none;
+}
+.site-footer a:hover {
+  text-decoration:underline;
 }
 
+.footer-wrapper {
+  max-width:1000px;
+  margin:0 auto;
+  padding:0 24px;
+  display:grid;
+  grid-template-columns: 1fr 1fr 200px; /* credentials, links, gif */
+  gap:40px;
+  align-items:center;
+}
 
+.footer-col h3 {
+  margin:0 0 12px;
+  color:#fff;
+  font-size:16px;
+}
+.footer-col p {
+  margin:4px 0;
+  font-size:14px;
+}
+
+.footer-gif img {
+  max-width:180px;  /* adjust size */
+  height:auto;
+  border-radius:6px;
+}
+
+/* Responsive: stack on small screens */
+@media (max-width:700px){
+  .footer-wrapper {
+    grid-template-columns: 1fr;
+    text-align:left;
+  }
+  .footer-gif img {
+    max-width:140px;
+    margin-top:20px;
+  }
+}
   </style>
 <link rel="icon" type="image/png" href="pic1.png">
 </head>
@@ -387,10 +422,6 @@
     <img class="banner-gif" 
          src="https://media2.giphy.com/media/v1.Y2lkPTc5MGI3NjExdHhnaXljYTF2d25ocHBleDU1MmJ6OG43bzM3aTRoZWZ2eHVobTVnMCZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9cw/l0IpXgEBZ3y3UEljO/giphy.gif" 
          alt="Fun GIF">
-
-     <img class="banner-bottom-gif"
-       src="https://media.giphy.com/media/v1.Y2lkPWVjZjA1ZTQ3bWlya25iNml4NXRqYWtoN2NycGQ0eHVrb2hoYWFpeHR2NHlzZHU1eSZlcD12MV9zdGlja2Vyc19yZWxhdGVkJmN0PXM/l2JJFzDwOzbAhQVos/giphy.gif"
-       alt="Bottom GIF">
   </div>
 </header>
   <nav class="navbar">
@@ -570,21 +601,31 @@
     window.addEventListener('DOMContentLoaded', () => show(currentRoute()));
   </script>
 
-  <footer class="site-footer">
-    <div class="footer-wrapper">
-      <div class="footer-col">
-        <h3>Yuta Tawarada</h3>
-        <p>Student at Justus‑Liebig‑University</p>
-        <p>Based in Giessen, Germany</p>
-        <p>Email: <a href="mailto:yutataw1@gmail.com">yutataw1@gmail.com</a></p>
-        <p>LinkedIn: <a href="https://www.tagesschau.de/" target="_blank" rel="noopener">Linked in is not locked in.</a></p>
-      </div>
-      <div class="footer-col">
-        <h3>Other links</h3>
-        <p><a href="https://www.frankfurt-airport.com/content/dam/fraport-company/logos-und-icons/logo_Fraport.svg" target="_blank" rel="noopener">Image of an orange</a></p>
-      </div>
+<footer class="site-footer">
+  <div class="footer-wrapper">
+    <!-- Your credentials -->
+    <div class="footer-col">
+      <h3>Yuta Tawarada</h3>
+      <p>Student at Justus-Liebig-University</p>
+      <p>Based in Giessen, Germany</p>
+      <p>Email: <a href="mailto:yutataw1@gmail.com">yutataw1@gmail.com</a></p>
+      <p>LinkedIn: <a href="https://www.tagesschau.de/">Linked in is not locked in.</a></p>
     </div>
-  </footer>
+
+    <!-- Other links -->
+    <div class="footer-col">
+      <h3>Other links</h3>
+      <p><a href="https://www.frankfurt-airport.com/content/dam/fraport-company/logos-und-icons/logo_Fraport.svg" target="_blank">Image of an orange</a></p>
+    </div>
+
+    <!-- Right GIF -->
+    <div class="footer-gif">
+      <img src="https://media.giphy.com/media/v1.Y2lkPWVjZjA1ZTQ3bWlya25iNml4NXRqYWtoN2NycGQ0eHVrb2hoYWFpeHR2NHlzZHU1eSZlcD12MV9zdGlja2Vyc19yZWxhdGVkJmN0PXM/l2JJFzDwOzbAhQVos/giphy.gif" 
+           alt="Funny GIF">
+    </div>
+  </div>
+</footer>
+
 
   <!-- Win98 Popup -->
   <div id="popup" class="win98 hide">
