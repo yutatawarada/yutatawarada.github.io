@@ -252,50 +252,38 @@ body.locked {
 body.locked > *:not(#popup) {
   display: none;           /* hide everything except popup */
 }
-/* Tight, gapless masonry */
-/* ===== Gallery (exact mosaic) ===== */
-.gallery{
-  display:grid;
-  gap:0;                     /* no gutters */
-  grid-auto-flow:dense;      /* backfill any holes */
-  grid-auto-rows: 92px;      /* base row height -> controls overall density */
-  margin:0; padding:0;
+/* === Simple aligned grid gallery (keeps image ratio) === */
+.gallery-grid{
+  display: grid;
+  /* even columns that snap to the page edges */
+  grid-template-columns: repeat(4, 1fr);   /* desktop default */
+  gap: 14px;                                /* adjust gap if you want */
+  margin: 0; 
+  padding: 0;
 }
 
-/* 6-column desktop like the reference */
-.grid-6{
-  grid-template-columns: repeat(6, 1fr);
+.gallery-grid .gi{
+  margin: 0; 
+  padding: 0; 
+  line-height: 0; /* removes inline spacing */
 }
 
-/* tiles */
-.gi{ margin:0; padding:0; line-height:0; overflow:hidden; }
-.gi img{
-  width:100%;
-  height:100%;
-  display:block;
-  object-fit:cover;          /* fill tile, keep aspect ratio (crop as needed) */
+.gallery-grid .gi img{
+  display: block;
+  width: 100%;
+  height: auto;     /* <- preserves original aspect ratio */
+  border-radius: 6px;  /* optional; remove if you don’t want */
 }
 
-/* span helpers (width x height in grid units) */
-.w2{ grid-column:span 2; } .w3{ grid-column:span 3; } .w4{ grid-column:span 4; }
-.h2{ grid-row:span 2; }    .h3{ grid-row:span 3; }    .h4{ grid-row:span 4; }
-
-/* Responsive: keep the same feeling on smaller screens */
+/* Responsive: same clean alignment, fewer columns on small screens */
 @media (max-width: 1100px){
-  .grid-6{ grid-template-columns: repeat(5, 1fr); }
-  .gallery{ grid-auto-rows: 90px; }
-}
-@media (max-width: 900px){
-  .grid-6{ grid-template-columns: repeat(4, 1fr); }
-  .gallery{ grid-auto-rows: 88px; }
+  .gallery-grid{ grid-template-columns: repeat(3, 1fr); }
 }
 @media (max-width: 700px){
-  .grid-6{ grid-template-columns: repeat(3, 1fr); }
-  .gallery{ grid-auto-rows: 86px; }
+  .gallery-grid{ grid-template-columns: repeat(2, 1fr); }
 }
-@media (max-width: 520px){
-  .grid-6{ grid-template-columns: repeat(2, 1fr); }
-  .gallery{ grid-auto-rows: 90px; }
+@media (max-width: 450px){
+  .gallery-grid{ grid-template-columns: 1fr; }
 }
 
   </style>
@@ -438,26 +426,18 @@ body.locked > *:not(#popup) {
         </div>
       </section>
 <section id="page-gallery" class="page">
-  <div class="gallery grid-6">
-    <!-- left big mountain-style -->
-    <figure class="gi w3 h4"><img src="pic1.jpg" alt=""></figure>
-
-    <!-- top row medium tiles (car & road) -->
-    <figure class="gi w3 h2"><img src="pic2.JPG" alt=""></figure>
-    <figure class="gi w2 h2"><img src="pic3.JPG" alt=""></figure>
-
-    <!-- middle row (yosemite-like, tall bike-like, interior) -->
-    <figure class="gi w2 h2"><img src="pic4.JPG" alt=""></figure>
-    <figure class="gi w3 h4"><img src="pic5.JPG" alt=""></figure>
-    <figure class="gi w2 h2"><img src="pic6.JPG" alt=""></figure>
-
-    <!-- bottom row (office wide, city medium, skyline medium) -->
-    <figure class="gi w3 h2"><img src="pic7.JPG" alt=""></figure>
-    <figure class="gi w2 h2"><img src="pic8.JPG" alt=""></figure>
-    <figure class="gi w2 h3"><img src="pic9.JPG" alt=""></figure>
+  <div class="gallery-grid">
+    <figure class="gi"><img src="pic1.jpg" alt=""></figure>
+    <figure class="gi"><img src="pic2.JPG" alt=""></figure>
+    <figure class="gi"><img src="pic3.JPG" alt=""></figure>
+    <figure class="gi"><img src="pic4.JPG" alt=""></figure>
+    <figure class="gi"><img src="pic5.JPG" alt=""></figure>
+    <figure class="gi"><img src="pic6.JPG" alt=""></figure>
+    <figure class="gi"><img src="pic7.JPG" alt=""></figure>
+    <figure class="gi"><img src="pic8.JPG" alt=""></figure>
+    <figure class="gi"><img src="pic9.JPG" alt=""></figure>
   </div>
 </section>
-
 
      <!-- SOURCES -->
       <section id="page-sources" class="page">
