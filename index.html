@@ -252,39 +252,40 @@ body.locked {
 body.locked > *:not(#popup) {
   display: none;           /* hide everything except popup */
 }
-/* === Simple aligned grid gallery (keeps image ratio) === */
-/* === Gallery (masonry-style, no gaps) === */
-.gallery{
-  display:grid;
-  grid-template-columns: repeat(6, 1fr);  /* base grid */
-  grid-auto-rows: 90px;                   /* base row height; tweak for density */
-  gap: 0;                                 /* no gaps between tiles */
-}
-
-/* items */
-.gallery-item{
-  position: relative;
-  overflow: hidden;       /* crop overflow (no white rims) */
-}
-.gallery-item img{
+/* GIF swarm base */
+.banner-gif-swarm {
+  position: absolute;
+  top: 0;
+  left: 0;
   width: 100%;
   height: 100%;
-  display: block;         /* removes default inline gaps */
-  object-fit: cover;      /* fill the tile, preserve image ratio via crop */
+  overflow: hidden;
+  pointer-events: none;   /* gifs won't block clicks */
+  z-index: 1;             /* stay behind text but above banner bg */
 }
 
-/* span helpers (width x height in grid units) */
-.w2{ grid-column: span 2; } .w3{ grid-column: span 3; } .w4{ grid-column: span 4; }
-.h2{ grid-row:    span 2; } .h3{ grid-row:    span 3; } .h4{ grid-row:    span 4; }
-
-/* responsive: collapse to fewer columns on small screens */
-@media (max-width: 900px){
-  .gallery{ grid-template-columns: repeat(4, 1fr); grid-auto-rows: 84px; }
-}
-@media (max-width: 600px){
-  .gallery{ grid-template-columns: repeat(2, 1fr); grid-auto-rows: 90px; }
+.banner-gif-swarm img {
+  position: absolute;
+  width: 100px;          /* adjust gif size */
+  height: auto;
+  opacity: 0.85;
+  animation: floaty linear infinite;
 }
 
+/* Base keyframes: just drifting up-down */
+@keyframes floaty {
+  0%   { transform: translateY(0px) translateX(0px) rotate(0deg); }
+  25%  { transform: translateY(-20px) translateX(10px) rotate(5deg); }
+  50%  { transform: translateY(10px) translateX(-15px) rotate(-3deg); }
+  75%  { transform: translateY(-15px) translateX(8px) rotate(2deg); }
+  100% { transform: translateY(0px) translateX(0px) rotate(0deg); }
+}
+
+/* keep name & subtitle above swarm */
+.banner-text {
+  position: relative;
+  z-index: 5;
+}
 
   </style>
   <link rel="icon" type="image/png" href="pic1.png">
@@ -292,19 +293,17 @@ body.locked > *:not(#popup) {
 <body>
 <body class="locked">
 
-  <header class="banner">
-      <!-- random GIFs live here -->
-  <div class="banner-sprites" aria-hidden="true"></div>
-    <div class="wrapper banner-flex">
-      <div class="banner-text">
-        <h1>YUTA TAWARADA</h1>
-        <p class="lightmuted">Who the fuck is this guy!</p>
-      </div>
-      <img class="banner-gif"
-           src="https://media2.giphy.com/media/v1.Y2lkPTc5MGI3NjExdHhnaXljYTF2d25ocHBleDU1MmJ6OG43bzM3aTRoZWZ2eHVobTVnMCZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9cw/l0IpXgEBZ3y3UEljO/giphy.gif"
-           alt="Fun GIF">
+ <header class="banner">
+  <div class="wrapper banner-flex">
+    <div class="banner-text">
+      <h1>YUTA TAWARADA</h1>
+      <p class="lightmuted">Who the fuck is this guy!</p>
     </div>
-  </header>
+
+    <!-- chaotic gif swarm -->
+    <div class="banner-gif-swarm" id="gif-swarm"></div>
+  </div>
+</header>
 
   <nav class="navbar">
     <div class="wrapper">
@@ -314,7 +313,6 @@ body.locked > *:not(#popup) {
         <a href="#projects" data-route="projects">PROJECTS</a>
         <a href="#research" data-route="research">RESEARCH</a>
         <a href="#publications" data-route="publications">YOOOO!</a>
-        <a href="#gallery" data-route="gallery">GALLERY</a>
         <a href="#sources" data-route="sources">SOURCES</a>
       </div>
     </div>
@@ -425,20 +423,6 @@ body.locked > *:not(#popup) {
           </figure>
         </div>
       </section>
-<section id="page-gallery" class="page">
-  <div class="gallery">
-    <figure class="gallery-item w4 h3"><img src="pic1.jpg" loading="lazy" alt=""></figure>
-    <figure class="gallery-item w2 h2"><img src="pic2.JPG" loading="lazy" alt=""></figure>
-    <figure class="gallery-item w2 h2"><img src="pic3.JPG" loading="lazy" alt=""></figure>
-    <figure class="gallery-item w3 h2"><img src="pic4.JPG" loading="lazy" alt=""></figure>
-    <figure class="gallery-item w3 h4"><img src="pic5.JPG" loading="lazy" alt=""></figure>
-    <figure class="gallery-item w2 h3"><img src="pic6.JPG" loading="lazy" alt=""></figure>
-    <figure class="gallery-item w3 h3"><img src="pic7.JPG" loading="lazy" alt=""></figure>
-    <figure class="gallery-item w2 h3"><img src="pic8.JPG" loading="lazy" alt=""></figure>
-    <figure class="gallery-item w3 h3"><img src="pic9.JPG" loading="lazy" alt=""></figure>
-  </div>
-</section>
-
      <!-- SOURCES -->
       <section id="page-sources" class="page">
         <div class="card">
@@ -456,7 +440,7 @@ body.locked > *:not(#popup) {
 
 <script>
   /* SPA router with smooth fade-in */
-const routes = ["home", "cv", "experience", "projects", "research", "publications", "gallery", "sources"];
+const routes = ["home", "cv", "experience", "projects", "research", "publications", "sources"];
 
 
   function show(route) {
@@ -671,6 +655,32 @@ function closePopupAfterStart(){
 })();
 </script>
 
+<script>
+(function(){
+  const swarm = document.getElementById('gif-swarm');
+  const gifURL = "https://media2.giphy.com/media/v1.Y2lkPTc5MGI3NjExdHhnaXljYTF2d25ocHBleDU1MmJ6OG43bzM3aTRoZWZ2eHVobTVnMCZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9cw/l0IpXgEBZ3y3UEljO/giphy.gif";
+
+  const NUM = 30;  // number of gifs
+  for (let i=0; i<NUM; i++){
+    const img = document.createElement("img");
+    img.src = gifURL;
+
+    // random position inside banner
+    img.style.top  = Math.random()*80 + "%";
+    img.style.left = Math.random()*90 + "%";
+
+    // random size
+    const size = 60 + Math.random()*100; 
+    img.style.width = size+"px";
+
+    // random animation duration & delay
+    img.style.animationDuration = (4 + Math.random()*8) + "s";
+    img.style.animationDelay = (-Math.random()*5) + "s";
+
+    swarm.appendChild(img);
+  }
+})();
+</script>
 
 </body>
 </html>
