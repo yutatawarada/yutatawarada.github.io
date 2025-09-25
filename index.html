@@ -449,10 +449,48 @@
 .music-btn:hover {
   background: #555;
 }
+/* Background video */
+#bg-video {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;   /* Cover entire background */
+  z-index: -1;         /* Behind everything */
+}
+
+/* Keep top banner + footer above the video */
+.banner,
+.site-footer {
+  position: relative;
+  z-index: 10;
+}
+
+/* Optional: add a dark overlay for readability */
+body::before {
+  content: "";
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.35); /* adjust opacity */
+  z-index: -1; /* same layer as video */
+}
+
   </style>
 <link rel="icon" type="image/png" href="pic1.png">
 </head>
 <body>
+   <!-- delete here from XXX to disable video-->
+  <!-- Background Video -->
+<video autoplay muted loop playsinline id="bg-video">
+  <source src="video1.mp4" type="video/mp4">
+  Your browser does not support the video tag.
+</video>
+<!-- XXX-->
+  
   <header class="banner">
   <div class="wrapper banner-flex">
     <div class="banner-text">
