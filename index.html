@@ -555,32 +555,40 @@ html { scroll-behavior: smooth; }
   <!-- /video-section -->
 
 <script>
-  /* SPA router with smooth fade-in */
-const routes = ["home", "cv", "experience", "projects", "research", "publications", "gallery", "sources"];
+  /* SPA router with gallery in-page anchors */
+  const routes = ["home","cv","experience","projects","research","publications","gallery", "sources"];
 
-
-  function show(route) {
+  function activate(route){
     if (!routes.includes(route)) route = "home";
-
-    // Set active tab
-    document.querySelectorAll('.nav a').forEach(a => {
-      a.classList.toggle('active', a.dataset.route === route);
-    });
-
-    // Fade-in new page
-    document.querySelectorAll('.page').forEach(sec => {
-      sec.classList.toggle('active', sec.id === 'page-' + route);
-    });
+    document.querySelectorAll('.nav a').forEach(a =>
+      a.classList.toggle('active', a.dataset.route === route)
+    );
+    document.querySelectorAll('.page').forEach(sec =>
+      sec.classList.toggle('active', sec.id === 'page-' + route)
+    );
   }
 
-  function currentRoute() {
-    const h = location.hash.replace('#', '').toLowerCase();
-    return routes.includes(h) ? h : 'home';
+  function handleHash(){
+    const h = location.hash.replace('#','').toLowerCase();
+
+    // If hash is a gallery slide id like c1, c2, ...
+    if (/^c\d+$/i.test(h)) {
+      // show the Gallery page, then scroll to the slide
+      activate('gallery');
+      const el = document.getElementById(h);
+      if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      return; // do not route to home
+    }
+
+    // Normal routes
+    const route = routes.includes(h) ? h : 'home';
+    activate(route);
   }
 
-  window.addEventListener('hashchange', () => show(currentRoute()));
-  window.addEventListener('DOMContentLoaded', () => show(currentRoute()));
+  window.addEventListener('hashchange', handleHash);
+  window.addEventListener('DOMContentLoaded', handleHash);
 </script>
+
 
 <footer class="site-footer">
   <div class="footer-wrapper">
