@@ -26,7 +26,6 @@
   to   { opacity: 1; transform: translateY(0); }
 }
 
-
     :root {
       --blue-1: #19183B;   /* banner */
       --blue-2: #708993;   /* nav */
@@ -39,23 +38,15 @@
       --pad-x: 24px;
       font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
     }
-    * {
-      box-sizing: border-box;
-    }
+    * { box-sizing: border-box; }
     html, body {
       margin: 0;
       background: var(--bg);
       color: var(--text);
       line-height: 1.6;
     }
-    .wrapper {
-      max-width: var(--max);
-      margin: 0 auto;
-      padding: 0 var(--pad-x);
-    }
-    .section {
-      padding: 28px 0;
-    }
+    .wrapper { max-width: var(--max); margin: 0 auto; padding: 0 var(--pad-x); }
+    .section { padding: 28px 0; }
     .card {
       background: var(--card);
       border-radius: 10px;
@@ -63,445 +54,171 @@
       padding: 24px;
       margin-bottom: 24px;
     }
-    .card h2 {
-      margin: 0 0 12px;
-    }
-    .card h3 {
-      margin: 16px 0 10px;
-      color: #444;
-    }
-    .muted {
-      color: var(--muted);
-    }
-    .banner {
-      background: var(--blue-1);
-      color: #fff;
-      padding: 40px 0 16px;
-    }
-    .banner h1 {
-      margin: 0;
-      font-size: 34px;
-      letter-spacing: .5px;
-    }
-    .banner p {
-      margin: 8px 0 0;
-      opacity: .9;
-    }
-    .navbar {
-      background: var(--blue-2);
-      color: #fff;
-    }
+    .card h2 { margin: 0 0 12px; }
+    .card h3 { margin: 16px 0 10px; color: #444; }
+    .muted { color: var(--muted); }
+
+    .banner { background: var(--blue-1); color: #fff; padding: 40px 0 16px; }
+    .banner h1 { margin: 0; font-size: 34px; letter-spacing: .5px; }
+    .banner p { margin: 8px 0 0; opacity: .9; }
+
+    .navbar { background: var(--blue-2); color: #fff; }
     .nav {
-      display: flex;
-      gap: 28px;
-      align-items: center;
-      overflow-x: auto;
+      display: flex; gap: 28px; align-items: center; overflow-x: auto;
     }
     .nav a {
-      color: #cfe0ff;
-      text-decoration: none;
-      font-weight: 700;
-      letter-spacing: .2px;
-      padding: 14px 0;
-      border-bottom: 3px solid transparent;
+      color: #cfe0ff; text-decoration: none; font-weight: 700; letter-spacing: .2px;
+      padding: 14px 0; border-bottom: 3px solid transparent;
     }
-    .nav a.active {
-      color: #fff;
-      border-color: #90a4ff;
+    .nav a.active { color: #fff; border-color: #90a4ff; }
+
+    .hero { display: grid; grid-template-columns: 1fr; gap: 12px; }
+    .hero--profile {
+      display: grid; grid-template-columns: auto 1fr; gap: 30px; align-items: start;
     }
-  .hero {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: 12px;
-}
-
-.hero--profile {
-  display: grid;
-  grid-template-columns: auto 1fr;
-  gap: 30px;
-  align-items: start;
-}
-
-.hero--profile img,
-.resp {
-  display: block;
-  width: 100%;
-  max-width: 380px;
-  height: auto;
-  border-radius: 12px;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, .08);
-}
-
-@media (max-width: 760px) {
-  .hero--profile {
-    grid-template-columns: 1fr;
-    gap: 16px;
-  }
-
-  .hero--profile img {
-    max-width: 100%;
-  }
-}
-
-@media (max-width: 480px) {
-  .wrapper {
-    padding: 0 16px;
-  }
-}
-
-    .site-footer {
-      background: #333;
-      color: #ccc;
-      padding: 40px 0;
-      margin-top: 40px;
+    .hero--profile img, .resp {
+      display: block; width: 100%; max-width: 380px; height: auto;
+      border-radius: 12px; box-shadow: 0 1px 3px rgba(0,0,0,.08);
     }
-    .site-footer a {
-      color: #9ec4ff;
-      text-decoration: none;
+    @media (max-width: 760px){
+      .hero--profile { grid-template-columns: 1fr; gap: 16px; }
+      .hero--profile img { max-width: 100%; }
     }
-    .site-footer a:hover {
-      text-decoration: underline;
-    }
+    @media (max-width: 480px){ .wrapper { padding: 0 16px; } }
+
+    .site-footer { background:#333; color:#ccc; padding:40px 0; margin-top:40px; }
+    .site-footer a { color:#9ec4ff; text-decoration:none; }
+    .site-footer a:hover { text-decoration:underline; }
     .footer-wrapper {
-      max-width: var(--max);
-      margin: 0 auto;
-      padding: 0 var(--pad-x);
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 40px;
+      max-width: var(--max); margin:0 auto; padding:0 var(--pad-x);
+      display:grid; grid-template-columns: 1fr 1fr; gap:40px;
     }
-    .footer-col h3 {
-      margin: 0 0 12px;
-      color: #fff;
-      font-size: 16px;
-    }
-    .footer-col p {
-      margin: 4px 0;
-      font-size: 14px;
-    }
-    @media (max-width: 700px) {
-      .footer-wrapper {
-        grid-template-columns: 1fr;
-      }
-    }
+    .footer-col h3 { margin:0 0 12px; color:#fff; font-size:16px; }
+    .footer-col p { margin:4px 0; font-size:14px; }
+    @media (max-width:700px){ .footer-wrapper{ grid-template-columns:1fr; } }
+
     .r-card {
-      background: #fff;
-      border-radius: 10px;
-      box-shadow: 0 1px 3px rgba(0, 0, 0, .08);
-      padding: 24px;
-      margin-bottom: 24px;
+      background:#fff; border-radius:10px; box-shadow:0 1px 3px rgba(0,0,0,.08);
+      padding:24px; margin-bottom:24px;
     }
-    .r-title {
-      margin: 0 0 14px;
-      font-size: 32px;
-      color: #444;
-      line-height: 1.2;
-    }
-    .r-sub {
-      margin: 10px 0 12px;
-      font-size: 18px;
-      color: #555;
-    }
-    .r-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 24px;
-      align-items: start;
-    }
+    .r-title { margin:0 0 14px; font-size:32px; color:#444; line-height:1.2; }
+    .r-sub { margin:10px 0 12px; font-size:18px; color:#555; }
+    .r-grid { display:grid; grid-template-columns:1fr 1fr; gap:24px; align-items:start; }
     .r-fig img {
-      width: 100%;
-      height: auto;
-      border-radius: 8px;
-      box-shadow: 0 1px 3px rgba(0, 0, 0, .08);
-      display: block;
+      width:100%; height:auto; border-radius:8px; box-shadow:0 1px 3px rgba(0,0,0,.08); display:block;
     }
-    .r-cap {
-      margin-top: 8px;
-      color: #666;
-      font-size: 14px;
-    }
-    .r-p {
-      margin: 10px 0;
-      color: #333;
-      font-size: 16px;
-      line-height: 1.6;
-    }
-    .r-refs {
-      margin: 16px 0 0;
-      padding-left: 20px;
-    }
-    @media (max-width: 900px) {
-      .r-grid {
-        grid-template-columns: 1fr;
-      }
-    }
+    .r-cap { margin-top:8px; color:#666; font-size:14px; }
+    .r-p { margin:10px 0; color:#333; font-size:16px; line-height:1.6; }
+    .r-refs { margin:16px 0 0; padding-left:20px; }
+    @media (max-width:900px){ .r-grid{ grid-template-columns:1fr; } }
 
     /* Win98 Modal / Popup Styles */
-    @font-face {
-      font-family: "MS Sans";
-      src: local("Tahoma"), local("MS Sans Serif");
+    @font-face { font-family:"MS Sans"; src:local("Tahoma"),local("MS Sans Serif"); }
+    .win98 * { font-family:"MS Sans", Tahoma, Arial, sans-serif; }
+    #popup{
+      position:fixed; inset:0; display:flex; align-items:center; justify-content:center;
+      background:#000; opacity:0; pointer-events:none; transition:opacity .35s ease; z-index:9999;
     }
-    .win98 * {
-      font-family: "MS Sans", Tahoma, Arial, sans-serif;
+    #popup.show{ opacity:1; pointer-events:auto; }
+    #popup.dim{ opacity:1; pointer-events:auto; }
+    #popup.hide{ opacity:0; pointer-events:none; }
+    .win98-window{
+      width:380px; max-width:90vw; background:#c0c0c0; color:#000;
+      border:2px solid #000; border-color:#fff #000 #000 #fff;
+      box-shadow:0 8px 24px rgba(0,0,0,.25);
+      transform:translateY(-8px) scale(.98); opacity:0; pointer-events:none;
+      transition:transform .25s ease, opacity .25s ease; border-radius:4px;
     }
-    #popup {
-      position: fixed;
-      inset: 0;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      background: #000;
-      opacity: 0;
-      pointer-events: none;
-      transition: opacity .35s ease;
-      z-index: 9999;
+    #popup.show .win98-window{ transform:none; opacity:1; pointer-events:auto; }
+    #popup.dim  .win98-window{ transform:translateY(-8px) scale(.98); opacity:0; pointer-events:none; }
+    .win98-titlebar{
+      background:#000080; color:#fff; padding:6px 8px; display:flex; align-items:center; justify-content:center;
+      border-bottom:2px solid; border-color:#fff #000 #000 #fff;
     }
-    #popup.show {
-      opacity: 1;
-      pointer-events: auto;
+    .win98-titlebar .title{ font-weight:bold; letter-spacing:.2px; }
+    .win98-body{ padding:14px; display:flex; gap:12px; align-items:flex-start; }
+    .win98-body .icon{ width:28px; height:28px; flex:0 0 28px; }
+    .win98-body p{ margin:2px 0 0; font-size:15px; }
+    .win98-buttons{ display:flex; justify-content:center; gap:12px; padding:0 14px 14px; }
+    .btn98{
+      background:#c0c0c0; padding:6px 18px; cursor:pointer;
+      border:2px solid; border-color:#fff #000 #000 #fff; border-radius:2px; font-weight:bold;
     }
-    #popup.dim {
-      opacity: 1;
-      pointer-events: auto;
-    }
-    #popup.hide {
-      opacity: 0;
-      pointer-events: none;
-    }
-    .win98-window {
-      width: 380px;
-      max-width: 90vw;
-      background: #c0c0c0;
-      color: #000;
-      border: 2px solid #000;
-      border-color: #fff #000 #000 #fff;
-      box-shadow: 0 8px 24px rgba(0, 0, 0, .25);
-      transform: translateY(-8px) scale(.98);
-      opacity: 0;
-      pointer-events: none;
-      transition: transform .25s ease, opacity .25s ease;
-      border-radius: 4px;
-    }
-    #popup.show .win98-window {
-      transform: none;
-      opacity: 1;
-      pointer-events: auto;
-    }
-    #popup.dim .win98-window {
-      transform: translateY(-8px) scale(.98);
-      opacity: 0;
-      pointer-events: none;
-    }
-    .win98-titlebar {
-      background: #000080;
-      color: #fff;
-      padding: 6px 8px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      border-bottom: 2px solid;
-      border-color: #fff #000 #000 #fff;
-    }
-    .win98-titlebar .title {
-      font-weight: bold;
-      letter-spacing: .2px;
-    }
-    .win98-body {
-      padding: 14px;
-      display: flex;
-      gap: 12px;
-      align-items: flex-start;
-    }
-    .win98-body .icon {
-      width: 28px;
-      height: 28px;
-      flex: 0 0 28px;
-    }
-    .win98-body p {
-      margin: 2px 0 0;
-      font-size: 15px;
-    }
-    .win98-buttons {
-      display: flex;
-      justify-content: center;
-      gap: 12px;
-      padding: 0 14px 14px;
-    }
-    .btn98 {
-      background: #c0c0c0;
-      padding: 6px 18px;
-      cursor: pointer;
-      border: 2px solid;
-      border-color: #fff #000 #000 #fff;
-      border-radius: 2px;
-      font-weight: bold;
-    }
-    .btn98:active {
-      border-color: #000 #fff #fff #000;
-    }
-    @media (max-width: 480px) {
-      .win98-buttons {
-        gap: 10px;
-        flex-wrap: wrap;
-      }
-      .btn98 {
-        min-width: 96px;
-      }
-    }
-/* banner layout */
-.banner-flex{
-  display:flex;
-  justify-content:space-between; /* pushes gif to the right */
-  align-items:center;
-  gap:16px;
-}
-.banner-text{ flex:1; }
+    .btn98:active{ border-color:#000 #fff #fff #000; }
+    @media (max-width:480px){ .win98-buttons{ gap:10px; flex-wrap:wrap; } .btn98{ min-width:96px; } }
 
-/* desktop / tablet */
-.banner-gif{
-  height:180px;           /* pick your banner height */
-  max-height:100%;        /* don’t exceed banner */
-  width:auto;
-  object-fit:contain;
-  margin-left:20px;
-}
+    /* banner layout */
+    .banner-flex{ display:flex; justify-content:space-between; align-items:center; gap:16px; }
+    .banner-text{ flex:1; }
+    .banner-gif{ height:180px; max-height:100%; width:auto; object-fit:contain; margin-left:20px; }
+    @media (max-width:480px){
+      .banner-flex{ flex-direction:column; align-items:flex-start; gap:8px; }
+      .banner-gif{ height:64px; max-width:60vw; margin:8px 0 0; }
+    }
 
-/* phones */
-@media (max-width: 480px){
-  .banner-flex{
-    flex-direction:column; 
-    align-items:flex-start; 
-    gap:8px;
-  }
-  .banner-gif{
-    height:64px;          /* smaller on phones */
-    max-width:60vw;       /* prevent overflow */
-    margin:8px 0 0;
-  }
-}
-.site-footer {
-  background:#333;
-  color:#ccc;
-  padding:40px 0;
-  margin-top:40px;
-}
+    .site-footer{ background:#333; color:#ccc; padding:40px 0; margin-top:40px; }
+    .site-footer a{ color:#9ec4ff; text-decoration:none; }
+    .site-footer a:hover{ text-decoration:underline; }
+    .footer-wrapper{
+      max-width:1000px; margin:0 auto; padding:0 24px;
+      display:grid; grid-template-columns:1fr 1fr 200px; gap:40px; align-items:center;
+    }
+    .footer-col h3{ margin:0 0 12px; color:#fff; font-size:16px; }
+    .footer-col p{ margin:4px 0; font-size:14px; }
+    .footer-gif img{ max-width:180px; height:auto; border-radius:6px; }
+    @media (max-width:700px){
+      .footer-wrapper{ grid-template-columns:1fr; text-align:left; }
+      .footer-gif img{ max-width:140px; margin-top:20px; }
+    }
 
-.site-footer a {
-  color:#9ec4ff; 
-  text-decoration:none;
-}
-.site-footer a:hover {
-  text-decoration:underline;
-}
+    .music-btn{
+      position:fixed; bottom:20px; left:20px; background:#333; color:#fff;
+      border:2px solid #fff; border-radius:6px; padding:8px 0; font-size:14px;
+      cursor:pointer; z-index:9999; width:110px; text-align:center;
+    }
+    .music-btn:hover{ background:#555; }
 
-.footer-wrapper {
-  max-width:1000px;
-  margin:0 auto;
-  padding:0 24px;
-  display:grid;
-  grid-template-columns: 1fr 1fr 200px; /* credentials, links, gif */
-  gap:40px;
-  align-items:center;
-}
+    /* ====== NEW: Video only behind the main content ====== */
+    .video-section{
+      position:relative;
+      overflow:hidden;   /* trim video edges if any */
+      z-index:0;         /* normal stacking for content */
+    }
+    #bg-video{
+      position:absolute;
+      inset:0;
+      width:100%;
+      height:100%;
+      object-fit:cover;
+      z-index:-2;        /* behind everything inside .video-section */
+    }
+    .video-section::before{
+      content:"";
+      position:absolute;
+      inset:0;
+      background:rgba(0,0,0,0.25); /* subtle darken for readability */
+      z-index:-1;                  /* above video, below content */
+    }
 
-.footer-col h3 {
-  margin:0 0 12px;
-  color:#fff;
-  font-size:16px;
-}
-.footer-col p {
-  margin:4px 0;
-  font-size:14px;
-}
-
-.footer-gif img {
-  max-width:180px;  /* adjust size */
-  height:auto;
-  border-radius:6px;
-}
-
-/* Responsive: stack on small screens */
-@media (max-width:700px){
-  .footer-wrapper {
-    grid-template-columns: 1fr;
-    text-align:left;
-  }
-  .footer-gif img {
-    max-width:140px;
-    margin-top:20px;
-  }
-}
-.music-btn {
-  position: fixed;
-  bottom: 20px;
-  left: 20px;
-  background: #333;
-  color: #fff;
-  border: 2px solid #fff;
-  border-radius: 6px;
-  padding: 8px 0;        /* vertical padding only */
-  font-size: 14px;
-  cursor: pointer;
-  z-index: 9999;
-  width: 110px;          /* fixed width — adjust to fit your longest text */
-  text-align: center;    /* center the text */
-}
-.music-btn:hover {
-  background: #555;
-}
-/* Background video */
-#bg-video {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;   /* Cover entire background */
-  z-index: -1;         /* Behind everything */
-}
-
-/* Keep top banner + footer above the video */
-.banner,
-.site-footer {
-  position: relative;
-  z-index: 10;
-}
-
-/* Optional: add a dark overlay for readability */
-body::before {
-  content: "";
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(0,0,0,0.35); /* adjust opacity */
-  z-index: -1; /* same layer as video */
-}
-
+    /* Keep banners above (they're outside .video-section but this is explicit) */
+    .banner, .navbar, .site-footer { position:relative; z-index:10; }
   </style>
-<link rel="icon" type="image/png" href="pic1.png">
+  <link rel="icon" type="image/png" href="pic1.png">
 </head>
 <body>
-   <!-- delete here from XXX to disable video-->
-  <!-- Background Video -->
-<video autoplay muted loop playsinline id="bg-video">
-  <source src="video1.mp4" type="video/mp4">
-  Your browser does not support the video tag.
-</video>
-<!-- XXX-->
-  
+
   <header class="banner">
-  <div class="wrapper banner-flex">
-    <div class="banner-text">
-      <h1>YUTA TAWARADA</h1>
-      <p class="lightmuted">Who the fuck is this guy!</p>
+    <div class="wrapper banner-flex">
+      <div class="banner-text">
+        <h1>YUTA TAWARADA</h1>
+        <p class="lightmuted">Who the fuck is this guy!</p>
+      </div>
+      <img class="banner-gif"
+           src="https://media2.giphy.com/media/v1.Y2lkPTc5MGI3NjExdHhnaXljYTF2d25ocHBleDU1MmJ6OG43bzM3aTRoZWZ2eHVobTVnMCZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9cw/l0IpXgEBZ3y3UEljO/giphy.gif"
+           alt="Fun GIF">
     </div>
-    <img class="banner-gif" 
-         src="https://media2.giphy.com/media/v1.Y2lkPTc5MGI3NjExdHhnaXljYTF2d25ocHBleDU1MmJ6OG43bzM3aTRoZWZ2eHVobTVnMCZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9cw/l0IpXgEBZ3y3UEljO/giphy.gif" 
-         alt="Fun GIF">
-  </div>
-</header>
+  </header>
+
   <nav class="navbar">
     <div class="wrapper">
       <div class="nav">
@@ -514,142 +231,113 @@ body::before {
     </div>
   </nav>
 
-  <main class="wrapper section">
-    <!-- HOME -->
-    <section id="page-home" class="page">      
-      <div class="card hero">
-        <div>
-          <h2>Welcome to my website.</h2>
-          <p class="muted">We must lock in.</p>
-        </div>
-      </div>
-      <div class="card hero hero--profile">
-        <img
-  class="resp"
-  src="pic1.png"
-  loading="lazy"
-  alt="Profile photo of Yuta Tawarada"
-  width="380"
-  height="380"
-        />
-        <div>
-          <h2>Yuta Tawarada</h2>
-          <p class="muted" style="margin-bottom: 0"><strong>Who is this fucking guy!</strong></p>
-          <p style="margin-top: 0">He's locked in, at ease.</p>
-        </div>
-      </div>
+  <!-- Video only behind the main content area -->
+  <div class="video-section">
+    <video autoplay muted loop playsinline id="bg-video">
+      <source src="video1.mp4" type="video/mp4">
+      Your browser does not support the video tag.
+    </video>
 
-    </section>
-
-    <!-- CV -->
-    <section id="page-cv" class="page">
-      <div class="card">
-        <h2>CV</h2>
-        <ul>
-          <li><strong>B.A., Global Political Economy</strong> — Waseda Univeristy, Tokyo, Japan <em>(March 2025)</em></li>
-        </ul>
-      </div>
-    </section>
-
-    <!-- PROJECTS -->
-    <section id="page-projects" class="page">
-      <div class="card">
-        <h2><i>PART1</i><br>Can You Lock The Fuck In?</h2>
-        <p>Would you?</p>
-        <img
-          class="resp"
-          src="https://as2.ftcdn.net/jpg/00/98/24/45/1000_F_98244581_otL4Mr22a7X0YkGT4c4S4iyCAlioHA7w.jpg"
-          loading="lazy"
-          alt="Lock The Fuck In"
-          width="380"
-          height="380"
-        />
-         <p><a href="https://www.urbandictionary.com/define.php?term=Locked+In" target="_blank" rel="noopener">Reference Nr.1</a></p>
-      </div>
-
-      <div class="card">
-        <h2><i>PART2</i><br>Can You Lock The Fuck In?</h2>
-        <p>How about we lock in together?</p>
-         <img
-  class="gallery-img"
-  src="https://assets.mubicdn.net/images/notebook/post_images/20936/images-w1400.jpg?1458491163"
-  loading="lazy"
-  alt="Lock The Fuck In"
-/>
-           <img
-  class="gallery-img"
-  src="https://images.amcnetworks.com/ifccenter.com/wp-content/uploads/2021/07/inthemoodforlove_1280x720.jpg"
-  loading="lazy"
-  alt="Lock The Fuck In"
-/>
-        <p><a href="https://deutschefachpflege.de/wiki/locked-in-syndrom/" target="_blank" rel="noopener">Reference Nr.2</a></p>
-      </div>
-    </section>
-
-    <!-- RESEARCH -->
-    <section id="page-research" class="page">
-      <article class="r-card">
-        <h2 class="r-title">
-          Stochastic Causality in Experiential Manifolds:<br>
-          A Unified Theory of Fucking Around and Finding Out
-        </h2>
-        <h3 class="r-sub">A Nonlinear Epistemodynamic Approach to Consequential Ontologies</h3>
-
-        <div class="r-grid">
-          <figure class="r-fig">
-            <img
-              src="FAFO.png"
-              loading="lazy"
-              alt="Parametric visualization of the FA–FO proportionality theorem"
-              width="380"
-              height="380"
-            >
-            <figcaption class="r-cap">
-              Graphical instantiation of the hypothesized linear FA→FO causality, illustrating a β=1 slope across the experiential continuum [1].
-            </figcaption>
-          </figure>
+    <main class="wrapper section">
+      <!-- HOME -->
+      <section id="page-home" class="page">
+        <div class="card hero">
           <div>
-            <p class="r-p">
-              The FA→FO axiom is here formalized as a minimally parameterized, uni-slope model in which the magnitude of finding out emerges as an invariant, homomorphic image of fucking around. Treating FA as the generative operator on an experiential manifold and FO as its epistemic coimage, we demonstrate that incremental perturbations in FA yield isomorphic escalations in FO (β=1), thereby collapsing contingency into necessity. The trajectory from origin to consequence is not merely correlative but constitutive: FA instantiates the very metric by which FO becomes legible. Consequently, stochastic or nonlinear accounts are rendered superfluous; the system exhibits strict proportionality, homoscedasticity, and path independence. In sum, FA is both necessary and sufficient for FO, a teleological circuit in which praxis begets knowledge with unit elasticity. Future work may generalize this mapping to higher-dimensional mischief spaces and non-Euclidean repercussion geometries.
-            </p>
+            <h2>Welcome to my website.</h2>
+            <p class="muted">We must lock in.</p>
           </div>
         </div>
+        <div class="card hero hero--profile">
+          <img class="resp" src="pic1.png" loading="lazy" alt="Profile photo of Yuta Tawarada" width="380" height="380"/>
+          <div>
+            <h2>Yuta Tawarada</h2>
+            <p class="muted" style="margin-bottom:0"><strong>Who is this fucking guy!</strong></p>
+            <p style="margin-top:0">He's locked in, at ease.</p>
+          </div>
+        </div>
+      </section>
 
-        <p class="r-p" style="margin-top:18px;">
-          Within this framework, we successfully reproduced the canonical FAFO cycle observed in empirical folklore, thereby substantiating the predictive capacity of the model across heterogeneous ontological substrates.
-        </p>
+      <!-- CV -->
+      <section id="page-cv" class="page">
+        <div class="card">
+          <h2>CV</h2>
+          <ul>
+            <li><strong>B.A., Global Political Economy</strong> — Waseda Univeristy, Tokyo, Japan <em>(March 2025)</em></li>
+          </ul>
+        </div>
+      </section>
 
-        <ol class="r-refs">
-          <li>
-            J. Vandrake, P. Oscillanti, L. Thorne,
-            “Epistemic Hysteresis in Causal Folklore: Quantifying the FA→FO Manifold,”
-            <em>Journal of Irreproducible Results</em>, 42(3): 1337–1359 (2023).
-            <a href="https://www.youtube.com/watch?v=WB0sqf1RAbo&list=RDWB0sqf1RAbo&start_radio=1" target="_blank" rel="noopener"><i>Intellectual Stimulus</i></a>
-          </li>
-        </ol>
-      </article>
-    </section>
+      <!-- PROJECTS -->
+      <section id="page-projects" class="page">
+        <div class="card">
+          <h2><i>PART1</i><br>Can You Lock The Fuck In?</h2>
+          <p>Would you?</p>
+          <img class="resp" src="https://as2.ftcdn.net/jpg/00/98/24/45/1000_F_98244581_otL4Mr22a7X0YkGT4c4S4iyCAlioHA7w.jpg" loading="lazy" alt="Lock The Fuck In" width="380" height="380"/>
+          <p><a href="https://www.urbandictionary.com/define.php?term=Locked+In" target="_blank" rel="noopener">Reference Nr.1</a></p>
+        </div>
 
-    <!-- PUBLICATIONS -->
-    <section id="page-publications" class="page">
-      <div class="card">
-        <h2>Watch this!</h2>
-         <p>Can you believe this shit?</p>
+        <div class="card">
+          <h2><i>PART2</i><br>Can You Lock The Fuck In?</h2>
+          <p>How about we lock in together?</p>
+          <img class="gallery-img" src="https://assets.mubicdn.net/images/notebook/post_images/20936/images-w1400.jpg?1458491163" loading="lazy" alt="Lock The Fuck In"/>
+          <img class="gallery-img" src="https://images.amcnetworks.com/ifccenter.com/wp-content/uploads/2021/07/inthemoodforlove_1280x720.jpg" loading="lazy" alt="Lock The Fuck In"/>
+          <p><a href="https://deutschefachpflege.de/wiki/locked-in-syndrom/" target="_blank" rel="noopener">Reference Nr.2</a></p>
+        </div>
+      </section>
+
+      <!-- RESEARCH -->
+      <section id="page-research" class="page">
+        <article class="r-card">
+          <h2 class="r-title">
+            Stochastic Causality in Experiential Manifolds:<br>
+            A Unified Theory of Fucking Around and Finding Out
+          </h2>
+          <h3 class="r-sub">A Nonlinear Epistemodynamic Approach to Consequential Ontologies</h3>
+
+          <div class="r-grid">
+            <figure class="r-fig">
+              <img src="FAFO.png" loading="lazy" alt="Parametric visualization of the FA–FO proportionality theorem" width="380" height="380">
+              <figcaption class="r-cap">
+                Graphical instantiation of the hypothesized linear FA→FO causality, illustrating a β=1 slope across the experiential continuum [1].
+              </figcaption>
+            </figure>
+            <div>
+              <p class="r-p">
+                The FA→FO axiom is here formalized as a minimally parameterized, uni-slope model in which the magnitude of finding out emerges as an invariant, homomorphic image of fucking around. Treating FA as the generative operator on an experiential manifold and FO as its epistemic coimage, we demonstrate that incremental perturbations in FA yield isomorphic escalations in FO (β=1), thereby collapsing contingency into necessity. The trajectory from origin to consequence is not merely correlative but constitutive: FA instantiates the very metric by which FO becomes legible. Consequently, stochastic or nonlinear accounts are rendered superfluous; the system exhibits strict proportionality, homoscedasticity, and path independence. In sum, FA is both necessary and sufficient for FO, a teleological circuit in which praxis begets knowledge with unit elasticity. Future work may generalize this mapping to higher-dimensional mischief spaces and non-Euclidean repercussion geometries.
+              </p>
+            </div>
+          </div>
+
+          <p class="r-p" style="margin-top:18px;">
+            Within this framework, we successfully reproduced the canonical FAFO cycle observed in empirical folklore, thereby substantiating the predictive capacity of the model across heterogeneous ontological substrates.
+          </p>
+
+          <ol class="r-refs">
+            <li>
+              J. Vandrake, P. Oscillanti, L. Thorne,
+              “Epistemic Hysteresis in Causal Folklore: Quantifying the FA→FO Manifold,”
+              <em>Journal of Irreproducible Results</em>, 42(3): 1337–1359 (2023).
+              <a href="https://www.youtube.com/watch?v=WB0sqf1RAbo&list=RDWB0sqf1RAbo&start_radio=1" target="_blank" rel="noopener"><i>Intellectual Stimulus</i></a>
+            </li>
+          </ol>
+        </article>
+      </section>
+
+      <!-- PUBLICATIONS -->
+      <section id="page-publications" class="page">
+        <div class="card">
+          <h2>Watch this!</h2>
+          <p>Can you believe this shit?</p>
           <figure class="r-fig">
-            <img
-              src="https://images.squarespace-cdn.com/content/v1/5bedcfebda02bc61f08c0bd4/1702464532041-VVST4300UKACPTE5YALX/2.jpg?format=2500w"
-              loading="lazy"
-              alt="Parametric visualization of the FA–FO proportionality theorem"
-              width="380"
-              height="380"
-            >
+            <img src="https://images.squarespace-cdn.com/content/v1/5bedcfebda02bc61f08c0bd4/1702464532041-VVST4300UKACPTE5YALX/2.jpg?format=2500w" loading="lazy" alt="Parametric visualization of the FA–FO proportionality theorem" width="380" height="380">
             <figcaption class="r-cap">
               <i>“Algorithmic Beauty”</i> 2022, Statuario Marble, 6’8” (204cm.), Greg Lansky
             </figcaption>
           </figure>
-      </div>
-    </section>
-  </main>
+        </div>
+      </section>
+    </main>
+  </div> <!-- /video-section -->
 
 <script>
   /* SPA router with smooth fade-in */
@@ -663,7 +351,7 @@ body::before {
       a.classList.toggle('active', a.dataset.route === route);
     });
 
-    // Fade-in new page (no 'hidden' attribute)
+    // Fade-in new page
     document.querySelectorAll('.page').forEach(sec => {
       sec.classList.toggle('active', sec.id === 'page-' + route);
     });
@@ -702,7 +390,6 @@ body::before {
   </div>
 </footer>
 
-
   <!-- Win98 Popup -->
   <div id="popup" class="win98 hide">
     <div class="win98-window" role="dialog" aria-modal="true" aria-labelledby="w98-title">
@@ -723,10 +410,10 @@ body::before {
     </div>
   </div>
 
-<!-- Background music -->
+  <!-- Background music -->
   <audio id="bg-music" autoplay loop muted></audio>
   <button id="music-toggle" class="music-btn">Pause</button>
-  
+
 <script>
 (function(){
   // --- popup elements ---
@@ -735,8 +422,8 @@ body::before {
   const btnOk   = document.getElementById('btn-ok');
 
   // --- audio elements ---
-  const audio = document.getElementById('bg-music');   // <audio id="bg-music" autoplay loop muted></audio>
-  const toggleBtn = document.getElementById('music-toggle'); // <button id="music-toggle" ...>
+  const audio = document.getElementById('bg-music');
+  const toggleBtn = document.getElementById('music-toggle');
 
   // pick a random track
   const tracks = ["music1.mp3", "music2.mp3", "music3.mp3"];
@@ -753,11 +440,10 @@ body::before {
 
   // start music from a user gesture
   function startMusic(){
-    audio.muted = false;                     // make it audible
+    audio.muted = false;        // make it audible
     return audio.play().then(() => {
-      toggleBtn.textContent = "Pause";    // reflect playing state
+      toggleBtn.textContent = "Pause";
     }).catch(() => {
-      // if anything blocks playback, show Play so user can start it
       toggleBtn.textContent = "Play";
     });
   }
@@ -784,7 +470,7 @@ body::before {
   // play/pause control
   toggleBtn.addEventListener('click', () => {
     if (audio.paused) {
-      startMusic();                          // ensures unmute + play
+      startMusic();
     } else {
       audio.pause();
       toggleBtn.textContent = "Play";
@@ -792,7 +478,6 @@ body::before {
   });
 })();
 </script>
-
 
 </body>
 </html>
