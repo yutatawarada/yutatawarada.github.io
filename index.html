@@ -545,18 +545,17 @@ function closePopupAfterStart(){
   const spritesHost = document.querySelector('.banner-sprites');
   if (!spritesHost) return;
 
-  // use the same GIF as your current banner image
   const sourceGif = (document.querySelector('.banner-gif') || {}).src
     || 'https://media2.giphy.com/media/v1.Y2lkPTc5MGI3NjExdHhnaXljYTF2d25ocHBleDU1MmJ6OG43bzM3aTRoZWZ2eHVobTVnMCZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9cw/l0IpXgEBZ3y3UEljO/giphy.gif';
 
-  const COUNT = 30;        // <— number of GIFs
-  const MIN = 40;          // px (min size)
-  const MAX = 180;         // px (max size)
+  const COUNT = 20;
+  const MIN = 40;
+  const MAX = 110;
 
-  function rand(min, max){ return Math.random() * (max - min) + min; }
+  const rand = (min, max) => Math.random() * (max - min) + min;
 
   function placeSprites(){
-    // clear previous (in case of resize re-run later)
+    // clear existing sprites
     spritesHost.innerHTML = '';
 
     const rect = spritesHost.getBoundingClientRect();
@@ -564,41 +563,52 @@ function closePopupAfterStart(){
       const img = document.createElement('img');
       img.src = sourceGif;
 
-      // random size
       const size = rand(MIN, MAX);
       img.style.width  = size + 'px';
       img.style.height = 'auto';
 
-      // random position within banner (avoid clipping near edges a bit)
       const pad = 6;
       const left = rand(pad, rect.width  - size - pad);
       const top  = rand(pad, rect.height - size - pad);
       img.style.left = left + 'px';
       img.style.top  = top  + 'px';
 
-      // random gentle float
-      const dur = rand(3.5, 7);      // seconds
+      const dur = rand(3.5, 7);
       const delay = rand(0, 3);
       img.style.animation = `floatDrift ${dur}s ease-in-out ${delay}s infinite alternate`;
 
-      // slight random transparency so they vary
       img.style.opacity = (0.55 + Math.random() * 0.35).toFixed(2);
 
       spritesHost.appendChild(img);
     }
   }
 
-  // initial
-  window.addEventListener('DOMContentLoaded', placeSprites);
+  // Only place when the banner has non-zero size (page not hidden)
+  function placeWhenReady(){
+    const rect = spritesHost.getBoundingClientRect();
+    if (rect.width < 20 || rect.height < 20) {
+      // try again shortly until visible
+      setTimeout(placeWhenReady, 50);
+      return;
+    }
+    placeSprites();
+  }
 
-  // re-layout on banner resize (optional but nice)
-  let resizeTimer;
+  // initial (may get deferred until visible)
+  window.addEventListener('DOMContentLoaded', placeWhenReady);
+
+  // re-layout on unlock (after popup)
+  window.addEventListener('page:unlocked', placeWhenReady);
+
+  // re-layout on resize (debounced)
+  let t;
   window.addEventListener('resize', () => {
-    clearTimeout(resizeTimer);
-    resizeTimer = setTimeout(placeSprites, 200);
+    clearTimeout(t);
+    t = setTimeout(placeWhenReady, 200);
   });
 })();
 </script>
+
 
 </body>
 </html>
