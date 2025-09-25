@@ -253,38 +253,38 @@ body.locked > *:not(#popup) {
   display: none;           /* hide everything except popup */
 }
 /* === Simple aligned grid gallery (keeps image ratio) === */
-.gallery-grid{
-  display: grid;
-  /* even columns that snap to the page edges */
-  grid-template-columns: repeat(4, 1fr);   /* desktop default */
-  gap: 14px;                                /* adjust gap if you want */
-  margin: 0; 
-  padding: 0;
+/* === Gallery (masonry-style, no gaps) === */
+.gallery{
+  display:grid;
+  grid-template-columns: repeat(6, 1fr);  /* base grid */
+  grid-auto-rows: 90px;                   /* base row height; tweak for density */
+  gap: 0;                                 /* no gaps between tiles */
 }
 
-.gallery-grid .gi{
-  margin: 0; 
-  padding: 0; 
-  line-height: 0; /* removes inline spacing */
+/* items */
+.gallery-item{
+  position: relative;
+  overflow: hidden;       /* crop overflow (no white rims) */
 }
-
-.gallery-grid .gi img{
-  display: block;
+.gallery-item img{
   width: 100%;
-  height: auto;     /* <- preserves original aspect ratio */
-  border-radius: 6px;  /* optional; remove if you don’t want */
+  height: 100%;
+  display: block;         /* removes default inline gaps */
+  object-fit: cover;      /* fill the tile, preserve image ratio via crop */
 }
 
-/* Responsive: same clean alignment, fewer columns on small screens */
-@media (max-width: 1100px){
-  .gallery-grid{ grid-template-columns: repeat(3, 1fr); }
+/* span helpers (width x height in grid units) */
+.w2{ grid-column: span 2; } .w3{ grid-column: span 3; } .w4{ grid-column: span 4; }
+.h2{ grid-row:    span 2; } .h3{ grid-row:    span 3; } .h4{ grid-row:    span 4; }
+
+/* responsive: collapse to fewer columns on small screens */
+@media (max-width: 900px){
+  .gallery{ grid-template-columns: repeat(4, 1fr); grid-auto-rows: 84px; }
 }
-@media (max-width: 700px){
-  .gallery-grid{ grid-template-columns: repeat(2, 1fr); }
+@media (max-width: 600px){
+  .gallery{ grid-template-columns: repeat(2, 1fr); grid-auto-rows: 90px; }
 }
-@media (max-width: 450px){
-  .gallery-grid{ grid-template-columns: 1fr; }
-}
+
 
   </style>
   <link rel="icon" type="image/png" href="pic1.png">
@@ -426,16 +426,16 @@ body.locked > *:not(#popup) {
         </div>
       </section>
 <section id="page-gallery" class="page">
-  <div class="gallery-grid">
-    <figure class="gi"><img src="pic1.jpg" alt=""></figure>
-    <figure class="gi"><img src="pic2.JPG" alt=""></figure>
-    <figure class="gi"><img src="pic3.JPG" alt=""></figure>
-    <figure class="gi"><img src="pic4.JPG" alt=""></figure>
-    <figure class="gi"><img src="pic5.JPG" alt=""></figure>
-    <figure class="gi"><img src="pic6.JPG" alt=""></figure>
-    <figure class="gi"><img src="pic7.JPG" alt=""></figure>
-    <figure class="gi"><img src="pic8.JPG" alt=""></figure>
-    <figure class="gi"><img src="pic9.JPG" alt=""></figure>
+  <div class="gallery">
+    <figure class="gallery-item w4 h3"><img src="pic1.jpg" loading="lazy" alt=""></figure>
+    <figure class="gallery-item w2 h2"><img src="pic2.JPG" loading="lazy" alt=""></figure>
+    <figure class="gallery-item w2 h2"><img src="pic3.JPG" loading="lazy" alt=""></figure>
+    <figure class="gallery-item w3 h2"><img src="pic4.JPG" loading="lazy" alt=""></figure>
+    <figure class="gallery-item w3 h4"><img src="pic5.JPG" loading="lazy" alt=""></figure>
+    <figure class="gallery-item w2 h3"><img src="pic6.JPG" loading="lazy" alt=""></figure>
+    <figure class="gallery-item w3 h3"><img src="pic7.JPG" loading="lazy" alt=""></figure>
+    <figure class="gallery-item w2 h3"><img src="pic8.JPG" loading="lazy" alt=""></figure>
+    <figure class="gallery-item w3 h3"><img src="pic9.JPG" loading="lazy" alt=""></figure>
   </div>
 </section>
 
