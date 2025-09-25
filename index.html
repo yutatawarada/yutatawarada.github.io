@@ -513,9 +513,13 @@ function closePopupAfterStart(){
 
       // reveal the page content now
       document.body.classList.remove('locked');
+
+      // 🔔 tell others (like the banner sprites) that the page is now visible
+      window.dispatchEvent(new Event('page:unlocked'));
     }, 1300);
   });
 }
+
 
 
   // init on load
