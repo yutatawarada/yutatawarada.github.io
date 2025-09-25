@@ -245,11 +245,19 @@
   from { transform: translateY(0) }
   to   { transform: translateY(-12px) }
 }
+/* Hide all page content until popup is dismissed */
+body.locked {
+  overflow: hidden;        /* prevent scrolling */
+}
+body.locked > *:not(#popup) {
+  display: none;           /* hide everything except popup */
+}
 
   </style>
   <link rel="icon" type="image/png" href="pic1.png">
 </head>
 <body>
+<body class="locked">
 
   <header class="banner">
       <!-- random GIFs live here -->
@@ -495,16 +503,20 @@
   }
 
   // close popup after starting music; keep black overlay for 1.3s
-  function closePopupAfterStart(){
-    startMusic().finally(() => {
-      overlay.classList.remove('show');
-      overlay.classList.add('dim');
-      setTimeout(() => {
-        overlay.classList.remove('dim');
-        overlay.classList.add('hide');
-      }, 1300);
-    });
-  }
+function closePopupAfterStart(){
+  startMusic().finally(() => {
+    overlay.classList.remove('show');
+    overlay.classList.add('dim');
+    setTimeout(() => {
+      overlay.classList.remove('dim');
+      overlay.classList.add('hide');
+
+      // reveal the page content now
+      document.body.classList.remove('locked');
+    }, 1300);
+  });
+}
+
 
   // init on load
   window.addEventListener('DOMContentLoaded', openPopup);
