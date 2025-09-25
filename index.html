@@ -252,38 +252,45 @@ body.locked {
 body.locked > *:not(#popup) {
   display: none;           /* hide everything except popup */
 }
-/* === Gallery (masonry-style, no gaps) === */
+/* Tight, gapless masonry */
 .gallery{
-  display:grid;
-  grid-template-columns: repeat(6, 1fr);  /* base grid */
-  grid-auto-rows: 90px;                   /* base row height; tweak for density */
-  gap: 0;                                 /* no gaps between tiles */
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  grid-auto-rows: 90px;       /* tile height unit */
+  grid-auto-flow: dense;      /* back-fill holes 👈 crucial */
+  gap: 0;                     /* no gutters */
 }
 
-/* items */
+/* kill default figure spacing and any stray line-height gaps */
+.gallery figure,
 .gallery-item{
-  position: relative;
-  overflow: hidden;       /* crop overflow (no white rims) */
+  margin: 0;
+  padding: 0;
+  line-height: 0;
+  overflow: hidden;           /* crop overflow */
 }
+
 .gallery-item img{
+  display: block;
   width: 100%;
   height: 100%;
-  display: block;         /* removes default inline gaps */
-  object-fit: cover;      /* fill the tile, preserve image ratio via crop */
+  object-fit: cover;          /* fill tile without changing aspect ratio */
+}
+/* Tablet */
+@media (max-width: 900px) {
+  .gallery {
+    grid-template-columns: repeat(3, 1fr);  /* 3 columns */
+    grid-auto-rows: 100px;
+  }
 }
 
-/* span helpers (width x height in grid units) */
-.w2{ grid-column: span 2; } .w3{ grid-column: span 3; } .w4{ grid-column: span 4; }
-.h2{ grid-row:    span 2; } .h3{ grid-row:    span 3; } .h4{ grid-row:    span 4; }
-
-/* responsive: collapse to fewer columns on small screens */
-@media (max-width: 900px){
-  .gallery{ grid-template-columns: repeat(4, 1fr); grid-auto-rows: 84px; }
+/* Phone */
+@media (max-width: 600px) {
+  .gallery {
+    grid-template-columns: repeat(2, 1fr);  /* 2 columns */
+    grid-auto-rows: 120px;
+  }
 }
-@media (max-width: 600px){
-  .gallery{ grid-template-columns: repeat(2, 1fr); grid-auto-rows: 90px; }
-}
-
   </style>
   <link rel="icon" type="image/png" href="pic1.png">
 </head>
