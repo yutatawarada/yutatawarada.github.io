@@ -252,39 +252,33 @@ body.locked {
 body.locked > *:not(#popup) {
   display: none;           /* hide everything except popup */
 }
-/* GIF swarm base */
-.banner-gif-swarm {
+.banner { position: relative; }
+
+.banner-sprites{
   position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
+  inset: 0;                 /* fill entire banner */
   overflow: hidden;
-  pointer-events: none;   /* gifs won't block clicks */
-  z-index: 1;             /* stay behind text but above banner bg */
+  pointer-events: none;
+  z-index: 1;               /* behind text */
 }
 
-.banner-gif-swarm img {
+/* keep name/subtitle above sprites */
+.banner-flex, .banner-text { position: relative; z-index: 2; }
+
+/* each gif */
+.banner-sprites img{
   position: absolute;
-  width: 100px;          /* adjust gif size */
-  height: auto;
-  opacity: 0.85;
-  animation: floaty linear infinite;
+  opacity: .85;
+  /* simple vertical bob; each instance gets its own duration/delay in JS */
+  animation-name: bobY;
+  animation-iteration-count: infinite;
+  animation-timing-function: ease-in-out;
 }
 
-/* Base keyframes: just drifting up-down */
-@keyframes floaty {
-  0%   { transform: translateY(0px) translateX(0px) rotate(0deg); }
-  25%  { transform: translateY(-20px) translateX(10px) rotate(5deg); }
-  50%  { transform: translateY(10px) translateX(-15px) rotate(-3deg); }
-  75%  { transform: translateY(-15px) translateX(8px) rotate(2deg); }
-  100% { transform: translateY(0px) translateX(0px) rotate(0deg); }
-}
-
-/* keep name & subtitle above swarm */
-.banner-text {
-  position: relative;
-  z-index: 5;
+@keyframes bobY{
+  0%   { transform: translateY(0); }
+  50%  { transform: translateY(-14px); }  /* small movement */
+  100% { transform: translateY(0); }
 }
 
   </style>
@@ -293,17 +287,22 @@ body.locked > *:not(#popup) {
 <body>
 <body class="locked">
 
- <header class="banner">
+<header class="banner">
+  <!-- full-banner sprite field -->
+  <div class="banner-sprites" aria-hidden="true"></div>
+
   <div class="wrapper banner-flex">
     <div class="banner-text">
       <h1>YUTA TAWARADA</h1>
       <p class="lightmuted">Who the fuck is this guy!</p>
     </div>
-
-    <!-- chaotic gif swarm -->
-    <div class="banner-gif-swarm" id="gif-swarm"></div>
+    <!-- your existing single banner gif can stay if you want -->
+    <img class="banner-gif"
+         src="https://media2.giphy.com/media/v1.Y2lkPTc5MGI3NjExdHhnaXljYTF2d25ocHBleDU1MmJ6OG43bzM3aTRoZWZ2eHVobTVnMCZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9cw/l0IpXgEBZ3y3UEljO/giphy.gif"
+         alt="">
   </div>
 </header>
+
 
   <nav class="navbar">
     <div class="wrapper">
@@ -657,29 +656,71 @@ function closePopupAfterStart(){
 
 <script>
 (function(){
-  const swarm = document.getElementById('gif-swarm');
-  const gifURL = "https://media2.giphy.com/media/v1.Y2lkPTc5MGI3NjExdHhnaXljYTF2d25ocHBleDU1MmJ6OG43bzM3aTRoZWZ2eHVobTVnMCZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9cw/l0IpXgEBZ3y3UEljO/giphy.gif";
+  const host = document.querySelector('.banner-sprites');
+  if (!host) return;
 
-  const NUM = 30;  // number of gifs
-  for (let i=0; i<NUM; i++){
-    const img = document.createElement("img");
-    img.src = gifURL;
+  // use your existing big gif as the source (fallback to a URL if not found)
+  const sourceGif = (document.querySelector('.banner-gif') || {}).src
+    || 'https://media2.giphy.com/media/v1.Y2lkPTc5MGI3NjExdHhnaXljYTF2d25ocHBleDU1MmJ6OG43bzM3aTRoZWZ2eHVobTVnMCZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9cw/l0IpXgEBZ3y3UEljO/giphy.gif';
 
-    // random position inside banner
-    img.style.top  = Math.random()*80 + "%";
-    img.style.left = Math.random()*90 + "%";
+  const COUNT = 20;        // how many copies
+  const SIZE_MIN = 48;     // px
+  const SIZE_MAX = 140;    // px
 
-    // random size
-    const size = 60 + Math.random()*100; 
-    img.style.width = size+"px";
+  const rand = (a,b)=>Math.random()*(b-a)+a;
 
-    // random animation duration & delay
-    img.style.animationDuration = (4 + Math.random()*8) + "s";
-    img.style.animationDelay = (-Math.random()*5) + "s";
+  function place(){
+    host.innerHTML = '';
+    const rect = host.getBoundingClientRect();
 
-    swarm.appendChild(img);
+    // if banner is hidden (e.g., black overlay), try again shortly
+    if (rect.width < 10 || rect.height < 10){
+      setTimeout(place, 50);
+      return;
+    }
+
+    for (let i=0;i<COUNT;i++){
+      const img = document.createElement('img');
+      img.src = sourceGif;
+
+      // random size
+      const w = rand(SIZE_MIN, SIZE_MAX);
+      img.style.width = w + 'px';
+      img.style.height = 'auto';
+
+      // random position anywhere in the banner (avoid clipping a bit)
+      const pad = 6;
+      const left = rand(pad, rect.width  - w - pad);
+      const top  = rand(pad, rect.height - w - pad); // heuristic, ok for square-ish gifs
+      img.style.left = left + 'px';
+      img.style.top  = top  + 'px';
+
+      // independent tempo: different duration + negative delay so they start mid-cycle
+      img.style.animationDuration = (rand(3.5, 9)).toFixed(2) + 's';
+      img.style.animationDelay    = (-rand(0, 6)).toFixed(2) + 's';
+
+      // slight random opacity variation (optional)
+      img.style.opacity = (0.55 + Math.random()*0.35).toFixed(2);
+
+      host.appendChild(img);
+    }
   }
+
+  // initial (may defer until banner visible)
+  window.addEventListener('DOMContentLoaded', place);
+
+  // if you dispatch this after closing your popup black screen, re-place then
+  window.addEventListener('page:unlocked', place);
+
+  // re-place on resize (debounced)
+  let t;
+  window.addEventListener('resize', () => {
+    clearTimeout(t);
+    t = setTimeout(place, 200);
+  });
 })();
+</script>
+
 </script>
 
 </body>
