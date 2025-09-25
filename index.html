@@ -202,6 +202,24 @@
 
     /* Keep banners above (they're outside .video-section but this is explicit) */
     .banner, .navbar, .site-footer { position:relative; z-index:10; }
+
+    /* --- fixes --- */
+.site-footer { 
+  margin-top: 0;   /* remove the light gap above the footer */
+}
+/* Adjust once and it affects all cards */
+:root {
+  --card-alpha: 0.50;   /* 0 = fully transparent, 1 = solid white */
+}
+
+/* Make cards translucent so the video can be seen */
+.card,
+.r-card {
+  background: rgba(255, 255, 255, var(--card-alpha));
+  /* optional: a subtle blur for readability; safe to remove if you prefer */
+  backdrop-filter: saturate(100%) blur(2px);
+}
+
   </style>
   <link rel="icon" type="image/png" href="pic1.png">
 </head>
