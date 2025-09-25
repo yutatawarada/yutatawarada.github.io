@@ -219,6 +219,32 @@
   /* optional: a subtle blur for readability; safe to remove if you prefer */
   backdrop-filter: saturate(100%) blur(2px);
 }
+/* Random GIF field inside banner */
+.banner { position: relative; } /* ensure stacking context */
+.banner-sprites{
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  z-index: 1;           /* below text */
+  pointer-events: none; /* don't block clicks */
+}
+
+/* Keep name/subtitle in front of the sprites */
+.banner-flex,
+.banner-text { position: relative; z-index: 2; }
+
+/* The little floating GIFs */
+.banner-sprites img{
+  position: absolute;
+  will-change: transform, opacity;
+  opacity: .85;         /* tweak if you want fainter/brighter */
+}
+
+/* gentle float animation */
+@keyframes floatDrift {
+  from { transform: translateY(0) }
+  to   { transform: translateY(-12px) }
+}
 
   </style>
   <link rel="icon" type="image/png" href="pic1.png">
@@ -226,6 +252,8 @@
 <body>
 
   <header class="banner">
+      <!-- random GIFs live here -->
+  <div class="banner-sprites" aria-hidden="true"></div>
     <div class="wrapper banner-flex">
       <div class="banner-text">
         <h1>YUTA TAWARADA</h1>
@@ -493,6 +521,65 @@
       audio.pause();
       toggleBtn.textContent = "Play";
     }
+  });
+})();
+</script>
+<script>
+(function(){
+  const spritesHost = document.querySelector('.banner-sprites');
+  if (!spritesHost) return;
+
+  // use the same GIF as your current banner image
+  const sourceGif = (document.querySelector('.banner-gif') || {}).src
+    || 'https://media2.giphy.com/media/v1.Y2lkPTc5MGI3NjExdHhnaXljYTF2d25ocHBleDU1MmJ6OG43bzM3aTRoZWZ2eHVobTVnMCZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9cw/l0IpXgEBZ3y3UEljO/giphy.gif';
+
+  const COUNT = 20;        // <— number of GIFs
+  const MIN = 40;          // px (min size)
+  const MAX = 110;         // px (max size)
+
+  function rand(min, max){ return Math.random() * (max - min) + min; }
+
+  function placeSprites(){
+    // clear previous (in case of resize re-run later)
+    spritesHost.innerHTML = '';
+
+    const rect = spritesHost.getBoundingClientRect();
+    for (let i = 0; i < COUNT; i++){
+      const img = document.createElement('img');
+      img.src = sourceGif;
+
+      // random size
+      const size = rand(MIN, MAX);
+      img.style.width  = size + 'px';
+      img.style.height = 'auto';
+
+      // random position within banner (avoid clipping near edges a bit)
+      const pad = 6;
+      const left = rand(pad, rect.width  - size - pad);
+      const top  = rand(pad, rect.height - size - pad);
+      img.style.left = left + 'px';
+      img.style.top  = top  + 'px';
+
+      // random gentle float
+      const dur = rand(3.5, 7);      // seconds
+      const delay = rand(0, 3);
+      img.style.animation = `floatDrift ${dur}s ease-in-out ${delay}s infinite alternate`;
+
+      // slight random transparency so they vary
+      img.style.opacity = (0.55 + Math.random() * 0.35).toFixed(2);
+
+      spritesHost.appendChild(img);
+    }
+  }
+
+  // initial
+  window.addEventListener('DOMContentLoaded', placeSprites);
+
+  // re-layout on banner resize (optional but nice)
+  let resizeTimer;
+  window.addEventListener('resize', () => {
+    clearTimeout(resizeTimer);
+    resizeTimer = setTimeout(placeSprites, 200);
   });
 })();
 </script>
