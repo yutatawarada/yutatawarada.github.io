@@ -114,6 +114,14 @@
 
     /* Win98 Modal / Popup Styles */
     @font-face { font-family:"MS Sans"; src:local("Tahoma"),local("MS Sans Serif"); }
+    /* Prevent reference text from overflowing on small screens */
+.r-refs li {
+  word-wrap: break-word;     /* break long words */
+  overflow-wrap: anywhere;   /* break URLs if too long */
+  white-space: normal;       /* allow text to wrap */
+  line-height: 1.4;
+}
+
     .win98 * { font-family:"MS Sans", Tahoma, Arial, sans-serif; }
     #popup{
       position:fixed; inset:0; display:flex; align-items:center; justify-content:center;
@@ -337,6 +345,24 @@ body.locked > *:not(#popup) {
 /* Smooth scroll for the in-page anchors */
 html { scroll-behavior: smooth; }
 
+    /* Force slides into same ratio */
+.slidesshow__slide {
+  width: 100%;
+  aspect-ratio: 16 / 9;   /* all slides same shape */
+  object-fit: cover;      /* crop to fill the box */
+  border-radius: 6px;
+  display: block;
+}
+
+/* Thumbnails stay square */
+.slidesshow__thumbnail {
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  object-fit: cover;
+  border-radius: 4px;
+  display: block;
+}
+
   </style>
   <link rel="icon" type="image/png" href="pic1.png">
 </head>
@@ -486,28 +512,28 @@ html { scroll-behavior: smooth; }
         <div class="gallery-slides__sticky">
           <a href="#c1" class="gallery-slides__dot">
             <img
-              src="https://images.unsplash.com/photo-1501949997128-2fdb9f6428f1?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wzMjM4NDZ8MHwxfHJhbmRvbXx8fHx8fHx8fDE3NTIyNjYzNTZ8&ixlib=rb-4.1.0&q=80&w=400"
+              src="image1.jpg"
               alt="Closeup of a curling ocean wave."
               title="photo by Jeremy Bishop for Unsplash"
               class="gallery-slides__thumbnail">
           </a>
           <a href="#c2" class="gallery-slides__dot">
             <img
-              src="https://images.unsplash.com/photo-1476673160081-cf065607f449?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wzMjM4NDZ8MHwxfHJhbmRvbXx8fHx8fHx8fDE3NTIyNjYzOTJ8&ixlib=rb-4.1.0&q=80&w=400"
+              src="image2.JPG
               alt="Foamy waves gently lapping a sandy beach shore."
               title="photo by Frank McKenna for Unsplash"
               class="gallery-slides__thumbnail">
           </a>
           <a href="#c3" class="gallery-slides__dot">
             <img
-              src="https://images.unsplash.com/photo-1490365728022-deae76380607?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wzMjM4NDZ8MHwxfHJhbmRvbXx8fHx8fHx8fDE3NTIyNjY0Mjd8&ixlib=rb-4.1.0&q=80&w=400"
+              src="image3.FPG"
               alt="A starfish at the edge of the water."
               title="photo by Amy Humphries for Unsplash"
               class="gallery-slides__thumbnail">
           </a>
           <a href="#c4" class="gallery-slides__dot">
             <img
-              src="https://images.unsplash.com/photo-1506252374453-ef5237291d83?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wzMjM4NDZ8MHwxfHJhbmRvbXx8fHx8fHx8fDE3NTIyNjY0NzR8&ixlib=rb-4.1.0&q=80&w=400"
+              src="image4.JPG"
               alt="Aerial view of waves on sand."
               title="photo by Samuel Scrimshaw for Unsplash"
               class="gallery-slides__thumbnail">
@@ -518,19 +544,20 @@ html { scroll-behavior: smooth; }
       <div class="gallery-slides__track">
         <div class="gallery-slides__container">
           <img id="c1"
-               src="https://images.unsplash.com/photo-1501949997128-2fdb9f6428f1?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wzMjM4NDZ8MHwxfHJhbmRvbXx8fHx8fHx8fDE3NTIyNjYzNTZ8&ixlib=rb-4.1.0&q=80&w=1000"
+               src="image1.jpg"
                alt="Closeup of a curling ocean wave."
                class="gallery-slides__slide">
           <img id="c2"
-               src="https://images.unsplash.com/photo-1476673160081-cf065607f449?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wzMjM4NDZ8MHwxfHJhbmRvbXx8fHx8fHx8fDE3NTIyNjYzOTJ8&ixlib=rb-4.1.0&q=80&w=1000"
+               src="image2.JPG"
                alt="Foamy waves lapping a sandy beach."
                class="gallery-slides__slide">
           <img id="c3"
-               src="https://images.unsplash.com/photo-1490365728022-deae76380607?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wzMjM4NDZ8MHwxfHJhbmRvbXx8fHx8fHx8fDE3NTIyNjY0Mjd8&ixlib=rb-4.1.0&q=80&w=1000"
+               src="image3.JPG"
                alt="Starfish on white sand."
                class="gallery-slides__slide">
           <img id="c4"
-               src="https://images.unsplash.com/photo-1506252374453-ef5237291d83?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wzMjM4NDZ8MHwxfHJhbmRvbXx8fHx8fHx8fDE3NTIyNjY0NzR8&ixlib=rb-4.1.0&q=80&w=1000"
+               src="image4.JPG
+            "
                alt="Aerial waves on a beach."
                class="gallery-slides__slide">
         </div>
