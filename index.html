@@ -1060,35 +1060,46 @@ function closePopupAfterStart(){
   const lbImg   = document.getElementById('lightbox-img');
   const lbClose = document.getElementById('lightbox-close');
 
+  // mark images that should open the lightbox (adds .enlargeable for cursor)
+  function markEnlargeables(){
+    document.querySelectorAll('img').forEach(img => {
+      // EXCLUSIONS: small gallery side thumbs, banner sprites/gif, footer gif, and the lightbox itself
+      if (
+        img.classList.contains('gallery-slides__thumbnail') ||
+        img.closest('.gallery-slides__aside') ||
+        img.classList.contains('banner-gif') ||
+        img.closest('.banner-sprites') ||
+        img.closest('.site-footer') ||
+        img.closest('#lightbox')
+      ) {
+        img.classList.remove('enlargeable');
+        return;
+      }
+      img.classList.add('enlargeable');
+    });
+  }
+
   function openLightbox(src, alt='') {
     lbImg.src = src;
     lbImg.alt = alt || '';
     lb.classList.add('show');
     document.body.classList.add('lb-open');
   }
+
   function closeLightbox() {
     lb.classList.remove('show');
     document.body.classList.remove('lb-open');
-    // optional: clear src to stop animated gifs while hidden
+    // optional: clear src so animated GIFs stop while hidden
     setTimeout(() => { lbImg.src = ''; }, 250);
   }
 
-  // Click any image to open (EXCEPT small gallery thumbnails)
+  // Delegate clicks: open lightbox for any eligible image
   document.addEventListener('click', (e) => {
     const img = e.target.closest('img');
     if (!img) return;
 
-    // exclude small gallery side thumbnails
-    if (img.classList.contains('gallery-slides__thumbnail') ||
-        (img.closest('.gallery-slides__aside'))) return;
-
-    // exclude banner gifs / sprite gifs / footer gif
-    if (img.classList.contains('banner-gif') ||
-        (img.closest('.banner-sprites')) ||
-        (img.closest('.site-footer'))) return;
-
-    // ignore clicks coming from the lightbox itself
-    if (img.closest('#lightbox')) return;
+    // ignore clicks on excluded images (no popup)
+    if (!img.classList.contains('enlargeable')) return;
 
     // Support optional high-res via data-full
     const src = img.dataset.full || img.currentSrc || img.src;
@@ -1098,12 +1109,16 @@ function closePopupAfterStart(){
   // Close interactions
   lbClose.addEventListener('click', closeLightbox);
   lb.addEventListener('click', (e) => {
-    // click on backdrop closes; clicking the image does not
+    // clicking the dimmed backdrop closes; clicking the image does not
     if (e.target === lb) closeLightbox();
   });
   document.addEventListener('keydown', (e) => {
     if (e.key === 'Escape') closeLightbox();
   });
+
+  // Run once DOM is ready, and again after your popup unlocks the page
+  window.addEventListener('DOMContentLoaded', markEnlargeables);
+  window.addEventListener('page:unlocked', markEnlargeables);
 })();
 </script>
 
