@@ -469,6 +469,62 @@ html { scroll-behavior: smooth; }
     font-size: 14px;         /* optional: match CV readability */
   }
 }
+/* ==== Lightbox (image popup) ==== */
+.lightbox {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0,0,0,0);        /* dim added on .show */
+  opacity: 0;
+  pointer-events: none;
+  transition: background .25s ease, opacity .25s ease;
+  z-index: 10000;                    /* above everything */
+}
+
+.lightbox.show {
+  background: rgba(0,0,0,0.65);
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.lightbox__img {
+  max-width: 96vw;
+  max-height: 92vh;
+  object-fit: contain;
+  border-radius: 8px;
+  box-shadow: 0 10px 40px rgba(0,0,0,.45);
+  transform: scale(.98);
+  opacity: 0;
+  transition: transform .25s ease, opacity .25s ease;
+}
+
+.lightbox.show .lightbox__img {
+  transform: none;
+  opacity: 1;
+}
+
+/* Close button */
+.lightbox__close {
+  position: fixed;
+  top: 14px;
+  right: 14px;
+  width: 40px;
+  height: 40px;
+  border: 2px solid #fff;
+  color: #fff;
+  background: rgba(0,0,0,.35);
+  border-radius: 50%;
+  cursor: pointer;
+  font-size: 24px;
+  line-height: 36px;
+  text-align: center;
+}
+.lightbox__close:hover { background: rgba(0,0,0,.55); }
+
+/* Lock page scroll when lightbox is open */
+body.lb-open { overflow: hidden; }
 
   </style>
   <link rel="icon" type="image/png" href="pic1.png">
@@ -978,8 +1034,64 @@ function closePopupAfterStart(){
   });
 })();
 </script>
+<!-- Image Lightbox -->
+<div id="lightbox" class="lightbox" aria-hidden="true" role="dialog">
+  <img id="lightbox-img" class="lightbox__img" alt="">
+  <button id="lightbox-close" class="lightbox__close" aria-label="Close">&times;</button>
+</div>
+<script>
+(function(){
+  const lb      = document.getElementById('lightbox');
+  const lbImg   = document.getElementById('lightbox-img');
+  const lbClose = document.getElementById('lightbox-close');
 
+  function openLightbox(src, alt='') {
+    lbImg.src = src;
+    lbImg.alt = alt || '';
+    lb.classList.add('show');
+    document.body.classList.add('lb-open');
+  }
+  function closeLightbox() {
+    lb.classList.remove('show');
+    document.body.classList.remove('lb-open');
+    // optional: clear src to stop animated gifs while hidden
+    setTimeout(() => { lbImg.src = ''; }, 250);
+  }
+
+  // Click any image to open (EXCEPT small gallery thumbnails)
+  document.addEventListener('click', (e) => {
+    const img = e.target.closest('img');
+    if (!img) return;
+
+    // exclude small gallery side thumbnails
+    if (img.classList.contains('gallery-slides__thumbnail') ||
+        (img.closest('.gallery-slides__aside'))) return;
+
+    // exclude banner gifs / sprite gifs / footer gif
+    if (img.classList.contains('banner-gif') ||
+        (img.closest('.banner-sprites')) ||
+        (img.closest('.site-footer'))) return;
+
+    // ignore clicks coming from the lightbox itself
+    if (img.closest('#lightbox')) return;
+
+    // Support optional high-res via data-full
+    const src = img.dataset.full || img.currentSrc || img.src;
+    openLightbox(src, img.alt);
+  });
+
+  // Close interactions
+  lbClose.addEventListener('click', closeLightbox);
+  lb.addEventListener('click', (e) => {
+    // click on backdrop closes; clicking the image does not
+    if (e.target === lb) closeLightbox();
+  });
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') closeLightbox();
+  });
+})();
 </script>
+
 
 </body>
 </html>
