@@ -541,6 +541,16 @@ html { scroll-behavior: smooth; }
 /* Lock page scroll when lightbox is open */
 body.lb-open { overflow: hidden; }
 
+/* Hand cursor for clickable images (before opening) */
+img:not(.gallery-slides__thumbnail):not(.banner-gif):not(.banner-sprites img):not(.site-footer img) {
+  cursor: pointer;
+}
+
+/* Normal arrow cursor when the lightbox is open */
+#lightbox img {
+  cursor: default !important;
+}
+
   </style>
   <link rel="icon" type="image/png" href="pic1.png">
 </head>
