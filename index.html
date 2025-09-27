@@ -506,22 +506,37 @@ html { scroll-behavior: smooth; }
 }
 
 /* Close button */
+/* Close button — simple white X */
 .lightbox__close {
   position: fixed;
   top: 14px;
-  right: 14px;
-  width: 40px;
-  height: 40px;
-  border: 2px solid #fff;
+  right: 18px;
+  background: none;
+  border: none;
   color: #fff;
-  background: rgba(0,0,0,.35);
-  border-radius: 50%;
+  font-size: 32px;
+  font-weight: bold;
   cursor: pointer;
-  font-size: 24px;
-  line-height: 36px;
-  text-align: center;
+  line-height: 1;
+  padding: 0;
 }
-.lightbox__close:hover { background: rgba(0,0,0,.55); }
+.lightbox__close:hover {
+  color: #ddd;
+}
+
+/* Change cursor on image */
+.lightbox__img {
+  max-width: 96vw;
+  max-height: 92vh;
+  object-fit: contain;
+  border-radius: 8px;
+  box-shadow: 0 10px 40px rgba(0,0,0,.45);
+  transform: scale(.98);
+  opacity: 0;
+  transition: transform .25s ease, opacity .25s ease;
+  cursor: zoom-out;   /* 👈 cursor style */
+}
+
 
 /* Lock page scroll when lightbox is open */
 body.lb-open { overflow: hidden; }
