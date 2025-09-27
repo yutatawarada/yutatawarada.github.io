@@ -362,6 +362,30 @@ html { scroll-behavior: smooth; }
   border-radius: 4px;
   display: block;
 }
+/* 1) Allow the two columns in the research grid to actually shrink on mobile */
+.r-grid > * {
+  min-width: 0;            /* critical for preventing overflow in grid/flex */
+}
+
+/* 2) Wrap long references/links instead of spilling out */
+.r-refs,
+.r-refs li,
+.r-refs a {
+  overflow-wrap: anywhere;  /* break long URLs/DOIs anywhere if needed */
+  word-break: break-word;   /* legacy fallback */
+  white-space: normal;      /* allow wrapping */
+  line-height: 1.45;
+}
+
+/* Optional: tighten references on small screens for cleaner fit */
+@media (max-width: 520px){
+  .r-refs { font-size: 13px; }
+}
+
+/* Safety net: if anything still tries to overflow, clip the card edges */
+@media (max-width: 520px){
+  .card, .r-card { overflow: hidden; }
+}
 
   </style>
   <link rel="icon" type="image/png" href="pic1.png">
@@ -512,28 +536,28 @@ html { scroll-behavior: smooth; }
         <div class="gallery-slides__sticky">
           <a href="#c1" class="gallery-slides__dot">
             <img
-              src="pic1.jpg"
+              src="pic4.JPG"
               alt="Closeup of a curling ocean wave."
               title="photo by Jeremy Bishop for Unsplash"
               class="gallery-slides__thumbnail">
           </a>
           <a href="#c2" class="gallery-slides__dot">
             <img
-              src="pic2.JPG
+              src="pic5.JPG
               alt="Foamy waves gently lapping a sandy beach shore."
               title="photo by Frank McKenna for Unsplash"
               class="gallery-slides__thumbnail">
           </a>
           <a href="#c3" class="gallery-slides__dot">
             <img
-              src="pic3.JPG"
+              src="pic6.JPG"
               alt="A starfish at the edge of the water."
               title="photo by Amy Humphries for Unsplash"
               class="gallery-slides__thumbnail">
           </a>
           <a href="#c4" class="gallery-slides__dot">
             <img
-              src="pic4.JPG"
+              src="pic7.JPG"
               alt="Aerial view of waves on sand."
               title="photo by Samuel Scrimshaw for Unsplash"
               class="gallery-slides__thumbnail">
@@ -544,20 +568,19 @@ html { scroll-behavior: smooth; }
       <div class="gallery-slides__track">
         <div class="gallery-slides__container">
           <img id="c1"
-               src="pic1.jpg"
+               src="pic4.JPG"
                alt="Closeup of a curling ocean wave."
                class="gallery-slides__slide">
           <img id="c2"
-               src="pic2.JPG"
+               src="pic5.JPG"
                alt="Foamy waves lapping a sandy beach."
                class="gallery-slides__slide">
           <img id="c3"
-               src="pic3.JPG"
+               src="pic6.JPG"
                alt="Starfish on white sand."
                class="gallery-slides__slide">
           <img id="c4"
-               src="pic4.JPG
-            "
+               src="pic7.JPG"
                alt="Aerial waves on a beach."
                class="gallery-slides__slide">
         </div>
