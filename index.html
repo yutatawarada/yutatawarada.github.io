@@ -5,338 +5,447 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Yuta Tawarada's website</title>
   <style>
-/* =========================================================
-   0) Base tokens
-========================================================= */
-:root{
-  --blue-1:#19183B;        /* banner */
-  --blue-2:#708993;        /* nav */
-  --bg:#E7F2EF;
-  --text:#222;
-  --card:#fff;
-  --muted:#3F464F;
-  --lightmuted:#DFE4EB;
-  --max:980px;
-  --pad-x:24px;
-  --card-alpha:0.50;       /* 0=transparent, 1=solid */
-  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
+
+.gallery-img {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: 8px;
+  box-shadow: 0 2px 6px rgba(0,0,0,.2);
+  margin-bottom: 20px;  /* 👈 adds space below each image */
 }
 
-/* =========================================================
-   1) Reset / base
-========================================================= */
-*{ box-sizing:border-box; }
-
-html,body{
-  margin:0;
-  background:var(--bg);
-  color:var(--text);
-  line-height:1.6;
-  height:100%;                 /* for sticky footer layout */
+/* Smooth fade-in when a page becomes active */
+.page { display: none; }
+.page.active {
+  display: block;
+  animation: pageFadeIn 2.2s ease both;
 }
 
-body{
-  display:flex;                /* sticky footer layout */
-  flex-direction:column;
+@keyframes pageFadeIn {
+  from { opacity: 0; transform: translateY(4px); }
+  to   { opacity: 1; transform: translateY(0); }
 }
 
-/* smooth in-page anchor scroll (e.g., gallery thumbs) */
-html{ scroll-behavior:smooth; }
+    :root {
+      --blue-1: #19183B;   /* banner */
+      --blue-2: #708993;   /* nav */
+      --bg: #E7F2EF;
+      --text: #222;
+      --card: #fff;
+      --muted: #3F464F;
+      --lightmuted: #DFE4EB;
+      --max: 980px;
+      --pad-x: 24px;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    }
+    * { box-sizing: border-box; }
+    html, body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+    }
+    .wrapper { max-width: var(--max); margin: 0 auto; padding: 0 var(--pad-x); }
+    .section { padding: 28px 0; }
+    .card {
+      background: var(--card);
+      border-radius: 10px;
+      box-shadow: 0 1px 3px rgba(0, 0, 0, .08);
+      padding: 24px;
+      margin-bottom: 24px;
+    }
+    .card h2 { margin: 0 0 12px; }
+    .card h3 { margin: 16px 0 10px; color: #444; }
+    .muted { color: var(--muted); }
 
-/* Wrapper & sections */
-.wrapper{ max-width:var(--max); margin:0 auto; padding:0 var(--pad-x); }
-.section{ padding:28px 0; }
+    .banner { background: var(--blue-1); color: #fff; padding: 40px 0 16px; }
+    .banner h1 { margin: 0; font-size: 34px; letter-spacing: .5px; }
+    .banner p { margin: 8px 0 0; opacity: .9; }
 
-/* Cards */
+    .navbar { background: var(--blue-2); color: #fff; }
+    .nav {
+      display: flex; gap: 28px; align-items: center; overflow-x: auto;
+    }
+    .nav a {
+      color: #cfe0ff; text-decoration: none; font-weight: 700; letter-spacing: .2px;
+      padding: 14px 0; border-bottom: 3px solid transparent;
+    }
+    .nav a.active { color: #fff; border-color: #90a4ff; }
+
+    .hero { display: grid; grid-template-columns: 1fr; gap: 12px; }
+    .hero--profile {
+      display: grid; grid-template-columns: auto 1fr; gap: 30px; align-items: start;
+    }
+    .hero--profile img, .resp {
+      display: block; width: 100%; max-width: 380px; height: auto;
+      border-radius: 12px; box-shadow: 0 1px 3px rgba(0,0,0,.08);
+    }
+    @media (max-width: 760px){
+      .hero--profile { grid-template-columns: 1fr; gap: 16px; }
+      .hero--profile img { max-width: 100%; }
+    }
+    @media (max-width: 480px){ .wrapper { padding: 0 16px; } }
+
+    .site-footer { background:#333; color:#ccc; padding:40px 0; margin-top:40px; }
+    .site-footer a { color:#9ec4ff; text-decoration:none; }
+    .site-footer a:hover { text-decoration:underline; }
+    .footer-wrapper {
+      max-width: var(--max); margin:0 auto; padding:0 var(--pad-x);
+      display:grid; grid-template-columns: 1fr 1fr; gap:40px;
+    }
+    .footer-col h3 { margin:0 0 12px; color:#fff; font-size:16px; }
+    .footer-col p { margin:4px 0; font-size:14px; }
+    @media (max-width:700px){ .footer-wrapper{ grid-template-columns:1fr; } }
+
+    .r-card {
+      background:#fff; border-radius:10px; box-shadow:0 1px 3px rgba(0,0,0,.08);
+      padding:24px; margin-bottom:24px;
+    }
+    .r-title { margin:0 0 14px; font-size:32px; color:#444; line-height:1.2; }
+    .r-sub { margin:10px 0 12px; font-size:18px; color:#555; }
+    .r-grid { display:grid; grid-template-columns:1fr 1fr; gap:24px; align-items:start; }
+    .r-fig img {
+      width:100%; height:auto; border-radius:8px; box-shadow:0 1px 3px rgba(0,0,0,.08); display:block;
+    }
+    .r-cap { margin-top:8px; color:#666; font-size:14px; }
+    .r-p { margin:10px 0; color:#333; font-size:16px; line-height:1.6; }
+    .r-refs { margin:16px 0 0; padding-left:20px; }
+    @media (max-width:900px){ .r-grid{ grid-template-columns:1fr; } }
+
+    /* Win98 Modal / Popup Styles */
+    @font-face { font-family:"MS Sans"; src:local("Tahoma"),local("MS Sans Serif"); }
+    /* Prevent reference text from overflowing on small screens */
+.r-refs li {
+  word-wrap: break-word;     /* break long words */
+  overflow-wrap: anywhere;   /* break URLs if too long */
+  white-space: normal;       /* allow text to wrap */
+  line-height: 1.4;
+}
+
+    .win98 * { font-family:"MS Sans", Tahoma, Arial, sans-serif; }
+    #popup{
+      position:fixed; inset:0; display:flex; align-items:center; justify-content:center;
+      background:#000; opacity:0; pointer-events:none; transition:opacity .35s ease; z-index:9999;
+    }
+    #popup.show{ opacity:1; pointer-events:auto; }
+    #popup.dim{ opacity:1; pointer-events:auto; }
+    #popup.hide{ opacity:0; pointer-events:none; }
+    .win98-window{
+      width:380px; max-width:90vw; background:#c0c0c0; color:#000;
+      border:2px solid #000; border-color:#fff #000 #000 #fff;
+      box-shadow:0 8px 24px rgba(0,0,0,.25);
+      transform:translateY(-8px) scale(.98); opacity:0; pointer-events:none;
+      transition:transform .25s ease, opacity .25s ease; border-radius:4px;
+    }
+    #popup.show .win98-window{ transform:none; opacity:1; pointer-events:auto; }
+    #popup.dim  .win98-window{ transform:translateY(-8px) scale(.98); opacity:0; pointer-events:none; }
+    .win98-titlebar{
+      background:#000080; color:#fff; padding:6px 8px; display:flex; align-items:center; justify-content:center;
+      border-bottom:2px solid; border-color:#fff #000 #000 #fff;
+    }
+    .win98-titlebar .title{ font-weight:bold; letter-spacing:.2px; }
+    .win98-body{ padding:14px; display:flex; gap:12px; align-items:flex-start; }
+    .win98-body .icon{ width:28px; height:28px; flex:0 0 28px; }
+    .win98-body p{ margin:2px 0 0; font-size:15px; }
+    .win98-buttons{ display:flex; justify-content:center; gap:12px; padding:0 14px 14px; }
+    .btn98{
+      background:#c0c0c0; padding:6px 18px; cursor:pointer;
+      border:2px solid; border-color:#fff #000 #000 #fff; border-radius:2px; font-weight:bold;
+    }
+    .btn98:active{ border-color:#000 #fff #fff #000; }
+    @media (max-width:480px){ .win98-buttons{ gap:10px; flex-wrap:wrap; } .btn98{ min-width:96px; } }
+
+    /* banner layout */
+    .banner-flex{ display:flex; justify-content:space-between; align-items:center; gap:16px; }
+    .banner-text{ flex:1; }
+    .banner-gif{ height:180px; max-height:100%; width:auto; object-fit:contain; margin-left:20px; }
+    @media (max-width:480px){
+      .banner-flex{ flex-direction:column; align-items:flex-start; gap:8px; }
+      .banner-gif{ height:64px; max-width:60vw; margin:8px 0 0; }
+    }
+
+    .site-footer{ background:#333; color:#ccc; padding:40px 0; margin-top:40px; }
+    .site-footer a{ color:#9ec4ff; text-decoration:none; }
+    .site-footer a:hover{ text-decoration:underline; }
+    .footer-wrapper{
+      max-width:1000px; margin:0 auto; padding:0 24px;
+      display:grid; grid-template-columns:1fr 1fr 200px; gap:40px; align-items:center;
+    }
+    .footer-col h3{ margin:0 0 12px; color:#fff; font-size:16px; }
+    .footer-col p{ margin:4px 0; font-size:14px; }
+    .footer-gif img{ max-width:180px; height:auto; border-radius:6px; }
+    @media (max-width:700px){
+      .footer-wrapper{ grid-template-columns:1fr; text-align:left; }
+      .footer-gif img{ max-width:140px; margin-top:20px; }
+    }
+
+    .music-btn{
+      position:fixed; bottom:20px; left:20px; background:#333; color:#fff;
+      border:2px solid #fff; border-radius:6px; padding:8px 0; font-size:14px;
+      cursor:pointer; z-index:9999; width:110px; text-align:center;
+    }
+    .music-btn:hover{ background:#555; }
+
+    /* ====== NEW: Video only behind the main content ====== */
+    .video-section{
+      position:relative;
+      overflow:hidden;   /* trim video edges if any */
+      z-index:0;         /* normal stacking for content */
+    }
+    #bg-video{
+      position:absolute;
+      inset:0;
+      width:100%;
+      height:100%;
+      object-fit:cover;
+      z-index:-2;        /* behind everything inside .video-section */
+    }
+    .video-section::before{
+      content:"";
+      position:absolute;
+      inset:0;
+      background:rgba(0,0,0,0.25); /* subtle darken for readability */
+      z-index:-1;                  /* above video, below content */
+    }
+
+    /* Keep banners above (they're outside .video-section but this is explicit) */
+    .banner, .navbar, .site-footer { position:relative; z-index:10; }
+
+    /* --- fixes --- */
+.site-footer { 
+  margin-top: 0;   /* remove the light gap above the footer */
+}
+/* Adjust once and it affects all cards */
+:root {
+  --card-alpha: 0.50;   /* 0 = fully transparent, 1 = solid white */
+}
+
+/* Make cards translucent so the video can be seen */
 .card,
-.r-card{
-  background:rgba(255,255,255,var(--card-alpha));
-  border-radius:10px;
-  box-shadow:0 1px 3px rgba(0,0,0,.08);
-  padding:24px;
-  margin-bottom:24px;
-  backdrop-filter:saturate(100%) blur(2px);
+.r-card {
+  background: rgba(255, 255, 255, var(--card-alpha));
+  /* optional: a subtle blur for readability; safe to remove if you prefer */
+  backdrop-filter: saturate(100%) blur(2px);
 }
-.card h2{ margin:0 0 12px; }
-.card h3{ margin:16px 0 10px; color:#444; }
-.muted{ color:var(--muted); }
-
-/* Images */
-.resp,
-.hero--profile img,
-.r-fig img,
-.gallery-img{
-  display:block;
-  width:100%;
-  height:auto;
-  border-radius:8px;
-  box-shadow:0 1px 3px rgba(0,0,0,.08);
-}
-
-/* Page fade-in */
-.page{ display:none; }
-.page.active{
-  display:block;
-  animation:pageFadeIn 2.2s ease both;
-}
-@keyframes pageFadeIn{
-  from{ opacity:0; transform:translateY(4px); }
-  to  { opacity:1; transform:translateY(0); }
-}
-
-/* Reduce motion for users who prefer it */
-@media (prefers-reduced-motion:reduce){
-  .page.active{ animation:none; }
-}
-
-/* =========================================================
-   2) Layout: header / nav / footer
-========================================================= */
-.banner{
-  position:relative;
-  background:var(--blue-1);
-  color:#fff;
-  padding:40px 0 16px;
-}
-.banner h1{ margin:0; font-size:34px; letter-spacing:.5px; }
-.banner p{ margin:8px 0 0; opacity:.9; }
-
-/* top banner content */
-.banner-flex{ display:flex; justify-content:space-between; align-items:center; gap:16px; }
-.banner-text{ flex:1; }
-.banner-gif{ height:180px; max-height:100%; width:auto; object-fit:contain; margin-left:20px; }
-
-/* random GIF sprites across entire banner (behind text) */
+/* Random GIF field inside banner */
+.banner { position: relative; } /* ensure stacking context */
 .banner-sprites{
-  position:absolute; inset:0;
-  overflow:hidden; pointer-events:none; z-index:1;
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  z-index: 1;           /* below text */
+  pointer-events: none; /* don't block clicks */
 }
-/* ensure name/subtitle stay above */
-.banner-flex, .banner-text{ position:relative; z-index:2; }
-/* each sprite (timing set via JS) */
+
+/* Keep name/subtitle in front of the sprites */
+.banner-flex,
+.banner-text { position: relative; z-index: 2; }
+
+/* The little floating GIFs */
 .banner-sprites img{
-  position:absolute; opacity:.85;
-  animation-name:bobY; animation-timing-function:ease-in-out; animation-iteration-count:infinite;
+  position: absolute;
+  will-change: transform, opacity;
+  opacity: .85;         /* tweak if you want fainter/brighter */
 }
+
+/* gentle float animation */
+@keyframes floatDrift {
+  from { transform: translateY(0) }
+  to   { transform: translateY(-12px) }
+}
+/* Hide all page content until popup is dismissed */
+body.locked {
+  overflow: hidden;        /* prevent scrolling */
+}
+body.locked > *:not(#popup) {
+  display: none;           /* hide everything except popup */
+}
+.banner { position: relative; }
+
+.banner-sprites{
+  position: absolute;
+  inset: 0;                 /* fill entire banner */
+  overflow: hidden;
+  pointer-events: none;
+  z-index: 1;               /* behind text */
+}
+
+/* keep name/subtitle above sprites */
+.banner-flex, .banner-text { position: relative; z-index: 2; }
+
+/* each gif */
+.banner-sprites img{
+  position: absolute;
+  opacity: .85;
+  /* simple vertical bob; each instance gets its own duration/delay in JS */
+  animation-name: bobY;
+  animation-iteration-count: infinite;
+  animation-timing-function: ease-in-out;
+}
+
 @keyframes bobY{
-  0%{ transform:translateY(0); }
-  50%{ transform:translateY(-14px); }
-  100%{ transform:translateY(0); }
+  0%   { transform: translateY(0); }
+  50%  { transform: translateY(-14px); }  /* small movement */
+  100% { transform: translateY(0); }
+}
+/* -------- Gallery Slides (sticky thumbs + smooth anchors) -------- */
+.gallery-slides.section { max-width: 1200px; margin: 1rem auto; padding: 0 1rem; }
+
+.gallery-slides img { max-width: 100%; height: auto; display: block; }
+
+.gallery-slides__wrap {
+  display: grid;
+  grid-template-columns: 4rem auto;
+  gap: .5rem;
 }
 
-/* Nav */
-.navbar{ background:var(--blue-2); color:#fff; }
-.nav{ display:flex; gap:28px; align-items:center; overflow-x:auto; }
-.nav a{
-  color:#cfe0ff; text-decoration:none; font-weight:700; letter-spacing:.2px;
-  padding:14px 0; border-bottom:3px solid transparent;
+/* thumbnail rail */
+.gallery-slides__thumbnail {
+  aspect-ratio: 1 / 1;
+  object-fit: cover;
+  display: block;
+  border-radius: 4px;
 }
-.nav a.active{ color:#fff; border-color:#90a4ff; }
+.gallery-slides__dot:active { outline: solid; }
 
-/* Footer (sticky to bottom) */
-main{ flex:1; } /* push footer down */
-.site-footer{
-  background:#333; color:#ccc; padding:40px 0; margin-top:0;
-}
-.site-footer a{ color:#9ec4ff; text-decoration:none; }
-.site-footer a:hover{ text-decoration:underline; }
-.footer-wrapper{
-  max-width:1000px; margin:0 auto; padding:0 24px;
-  display:grid; grid-template-columns:1fr 1fr 200px; gap:40px; align-items:center;
-}
-.footer-col h3{ margin:0 0 12px; color:#fff; font-size:16px; }
-.footer-col p{ margin:4px 0; font-size:14px; }
-.footer-gif img{ max-width:180px; height:auto; border-radius:6px; }
+/* slide track */
+.gallery-slides__container { display: grid; gap: .5rem; }
 
-/* =========================================================
-   3) Hero and responsive tweaks
-========================================================= */
-.hero{ display:grid; grid-template-columns:1fr; gap:12px; }
-.hero--profile{
-  display:grid; grid-template-columns:auto 1fr; gap:30px; align-items:start;
-}
-@media (max-width:760px){
-  .hero--profile{ grid-template-columns:1fr; gap:16px; }
-  .hero--profile img{ max-width:100%; }
-}
-@media (max-width:480px){
-  .wrapper{ padding:0 16px; }
-  .banner-flex{ flex-direction:column; align-items:flex-start; gap:8px; }
-  .banner-gif{ height:64px; max-width:60vw; margin:8px 0 0; }
-}
-@media (max-width:700px){
-  .footer-wrapper{ grid-template-columns:1fr; text-align:left; }
-  .footer-gif img{ max-width:140px; margin-top:20px; }
-}
-
-/* =========================================================
-   4) Research article specifics + mobile overflow fixes
-========================================================= */
-.r-title{ margin:0 0 14px; font-size:32px; color:#444; line-height:1.2; }
-.r-sub{ margin:10px 0 12px; font-size:18px; color:#555; }
-.r-grid{ display:grid; grid-template-columns:1fr 1fr; gap:24px; align-items:start; }
-.r-cap{ margin-top:8px; color:#666; font-size:14px; }
-.r-p{ margin:10px 0; color:#333; font-size:16px; line-height:1.6; }
-.r-refs{ margin:16px 0 0; padding-left:20px; }
-
-/* allow columns to shrink on mobile (prevents overflow) */
-.r-grid > *{ min-width:0; }
-
-/* wrap long sources/links on mobile */
-.r-refs,
-.r-refs li,
-.r-refs a{
-  overflow-wrap:anywhere;
-  word-break:break-word;
-  white-space:normal;
-  line-height:1.45;
-}
-@media (max-width:900px){
-  .r-grid{ grid-template-columns:1fr; }
-}
-@media (max-width:520px){
-  .r-refs{ font-size:13px; }
-  .card, .r-card{ overflow:hidden; }
-}
-
-/* =========================================================
-   5) Video only behind main content
-========================================================= */
-.video-section{ position:relative; overflow:hidden; z-index:0; }
-#bg-video{
-  position:absolute; inset:0; width:100%; height:100%;
-  object-fit:cover; z-index:-2;
-}
-.video-section::before{
-  content:""; position:absolute; inset:0;
-  background:rgba(0,0,0,0.25); z-index:-1;
-}
-/* banners are outside .video-section but keep explicit stacking */
-.banner, .navbar, .site-footer{ position:relative; z-index:10; }
-
-/* =========================================================
-   6) Popup (Win98)
-========================================================= */
-@font-face{ font-family:"MS Sans"; src:local("Tahoma"), local("MS Sans Serif"); }
-.win98 *{ font-family:"MS Sans", Tahoma, Arial, sans-serif; }
-
-#popup{
-  position:fixed; inset:0; display:flex; align-items:center; justify-content:center;
-  background:#000; opacity:0; pointer-events:none; transition:opacity .35s ease; z-index:9999;
-}
-#popup.show{ opacity:1; pointer-events:auto; }
-#popup.dim { opacity:1; pointer-events:auto; }
-#popup.hide{ opacity:0; pointer-events:none; }
-
-.win98-window{
-  width:380px; max-width:90vw; background:#c0c0c0; color:#000;
-  border:2px solid #000; border-color:#fff #000 #000 #fff;
-  box-shadow:0 8px 24px rgba(0,0,0,.25);
-  transform:translateY(-8px) scale(.98); opacity:0; pointer-events:none;
-  transition:transform .25s ease, opacity .25s ease; border-radius:4px;
-}
-#popup.show .win98-window{ transform:none; opacity:1; pointer-events:auto; }
-#popup.dim  .win98-window{ transform:translateY(-8px) scale(.98); opacity:0; pointer-events:none; }
-
-.win98-titlebar{
-  background:#000080; color:#fff; padding:6px 8px; display:flex; align-items:center; justify-content:center;
-  border-bottom:2px solid; border-color:#fff #000 #000 #fff;
-}
-.win98-titlebar .title{ font-weight:bold; letter-spacing:.2px; }
-.win98-body{ padding:14px; display:flex; gap:12px; align-items:flex-start; }
-.win98-body .icon{ width:28px; height:28px; flex:0 0 28px; }
-.win98-body p{ margin:2px 0 0; font-size:15px; }
-.win98-buttons{ display:flex; justify-content:center; gap:12px; padding:0 14px 14px; }
-.btn98{
-  background:#c0c0c0; padding:6px 18px; cursor:pointer;
-  border:2px solid; border-color:#fff #000 #000 #fff; border-radius:2px; font-weight:bold;
-}
-.btn98:active{ border-color:#000 #fff #fff #000; }
-@media (max-width:480px){
-  .win98-buttons{ gap:10px; flex-wrap:wrap; }
-  .btn98{ min-width:96px; }
-}
-
-/* Lock screen (hide page until popup dismissed) */
-body.locked{ overflow:hidden; }
-body.locked > *:not(#popup){ display:none; }
-
-/* =========================================================
-   7) Music button
-========================================================= */
-.music-btn{
-  position:fixed; bottom:20px; left:20px;
-  background:#333; color:#fff;
-  border:2px solid #fff; border-radius:6px;
-  padding:8px 0; width:110px; text-align:center;
-  font-size:14px; cursor:pointer; z-index:9999;
-}
-.music-btn:hover{ background:#555; }
-
-/* =========================================================
-   8) Gallery (sticky thumbs + fixed ratios)
-========================================================= */
-.gallery-slides.section{ max-width:1200px; margin:1rem auto; padding:0 1rem; }
-.gallery-slides img{ max-width:100%; height:auto; display:block; }
-
-.gallery-slides__wrap{
-  display:grid; grid-template-columns:4rem auto; gap:.5rem;
-}
-
-/* thumbs rail */
-.gallery-slides__thumbnail,
-.slidesshow__thumbnail{               /* keep your original class too */
-  width:100%;
-  aspect-ratio:1 / 1;                 /* square thumbs */
-  object-fit:cover;
-  border-radius:4px;
-  display:block;
-}
-.gallery-slides__dot:active{ outline:solid; }
-
-/* slides track */
-.gallery-slides__container{ display:grid; gap:.5rem; }
-
-/* force all slides to same ratio (e.g., 16:9) */
-.gallery-slides__slide,
-.slidesshow__slide{                   /* keep your original class too */
-  width:100% !important;
-  aspect-ratio:16 / 9;
-  height:auto;
-  object-fit:cover;                   /* crop to fill box; no stretch */
-  border-radius:6px;
-  display:block;
-  scroll-margin-top:80px;             /* navbar offset when anchored */
+/* each large slide */
+.gallery-slides__slide {
+  display: block;
+  width: 100%;
+  border-radius: 6px;
+  scroll-margin-top: 80px; /* keeps slide under the navbar after anchor jump */
 }
 
 /* sticky sidebar */
-.gallery-slides__sticky{
-  position:sticky; top:1rem;
-  display:grid; gap:.5rem;
+.gallery-slides__sticky {
+  position: sticky;
+  top: 1rem;
+  display: grid;
+  gap: .5rem;
 }
 
-/* responsive thumbs strip on phones */
-@media (max-width:720px){
-  .gallery-slides__wrap{ grid-template-columns:1fr; }
-  .gallery-slides__aside{ order:-1; }
-  .gallery-slides__sticky{
-    position:static;
-    display:grid; grid-auto-flow:column;
-    gap:.5rem; overflow-x:auto; padding-bottom:.25rem;
+/* responsive: thumbnails become a horizontal strip on small screens */
+@media (max-width: 720px){
+  .gallery-slides__wrap { grid-template-columns: 1fr; }
+  .gallery-slides__aside { order: -1; }
+  .gallery-slides__sticky {
+    position: static;
+    display: grid;
+    grid-auto-flow: column;
+    gap: .5rem;
+    overflow-x: auto;
+    padding-bottom: .25rem;
   }
-  .gallery-slides__thumbnail{ width:72px; height:72px; flex:0 0 auto; }
+  .gallery-slides__thumbnail { width: 72px; height: 72px; flex: 0 0 auto; }
 }
 
-/* =========================================================
-   9) Utility
-========================================================= */
-.gallery-img{ margin-bottom:20px; }   /* explicit spacing utility */
+/* Smooth scroll for the in-page anchors */
+html { scroll-behavior: smooth; }
+
+    /* Force slides into same ratio */
+.slidesshow__slide {
+  width: 100%;
+  aspect-ratio: 16 / 9;   /* all slides same shape */
+  object-fit: cover;      /* crop to fill the box */
+  border-radius: 6px;
+  display: block;
+}
+
+/* Thumbnails stay square */
+.slidesshow__thumbnail {
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  object-fit: cover;
+  border-radius: 4px;
+  display: block;
+}
+/* 1) Allow the two columns in the research grid to actually shrink on mobile */
+.r-grid > * {
+  min-width: 0;            /* critical for preventing overflow in grid/flex */
+}
+
+/* 2) Wrap long references/links instead of spilling out */
+.r-refs,
+.r-refs li,
+.r-refs a {
+  overflow-wrap: anywhere;  /* break long URLs/DOIs anywhere if needed */
+  word-break: break-word;   /* legacy fallback */
+  white-space: normal;      /* allow wrapping */
+  line-height: 1.45;
+}
+
+/* Optional: tighten references on small screens for cleaner fit */
+@media (max-width: 520px){
+  .r-refs { font-size: 13px; }
+}
+
+/* Safety net: if anything still tries to overflow, clip the card edges */
+@media (max-width: 520px){
+  .card, .r-card { overflow: hidden; }
+}
+
+    /* --- FORCE FIXED RATIOS IN GALLERY (override previous rules) --- */
+
+/* Large slides: all 16:9 boxes, image cropped if needed (no stretch) */
+#page-gallery .gallery-slides__container > img.gallery-slides__slide,
+#page-gallery .slidesshow__slide {
+  display: block;
+  width: 100% !important;        /* beat generic img rules */
+  aspect-ratio: 16 / 9;          /* << pick your designated ratio */
+  height: auto;                   /* works with aspect-ratio on replaced elements */
+  object-fit: cover;              /* fill the box; crop as needed */
+  border-radius: 6px;
+}
+
+/* Thumbnails: square boxes */
+#page-gallery .gallery-slides__aside img.gallery-slides__thumbnail,
+#page-gallery .slidesshow__thumbnail {
+  display: block;
+  width: 100% !important;
+  aspect-ratio: 1 / 1;
+  height: auto;
+  object-fit: cover;
+  border-radius: 4px;
+}
+
+/* Optional: if any parent is shrinking oddly on mobile, allow it to shrink */
+#page-gallery .gallery-slides__wrap > * { min-width: 0; }
 /* Add spacing between navbar and first card on smartphones */
 @media (max-width: 760px) {
   .navbar {
     margin-bottom: 16px;   /* creates the gap */
   }
 }
+/* --- FORCE FIXED RATIOS IN GALLERY (override previous rules) --- */
+
+/* Large slides: all 16:9 boxes, image cropped if needed (no stretch) */
+#page-gallery .gallery-slides__container > img.gallery-slides__slide,
+#page-gallery .slidesshow__slide {
+  display: block;
+  width: 100% !important;        /* beat generic img rules */
+  aspect-ratio: 16 / 9;          /* << pick your designated ratio */
+  height: auto;                   /* works with aspect-ratio on replaced elements */
+  object-fit: cover;              /* fill the box; crop as needed */
+  border-radius: 6px;
+}
+
+/* Thumbnails: square boxes */
+#page-gallery .gallery-slides__aside img.gallery-slides__thumbnail,
+#page-gallery .slidesshow__thumbnail {
+  display: block;
+  width: 100% !important;
+  aspect-ratio: 1 / 1;
+  height: auto;
+  object-fit: cover;
+  border-radius: 4px;
+}
+
+/* Optional: if any parent is shrinking oddly on mobile, allow it to shrink */
+#page-gallery .gallery-slides__wrap > * { min-width: 0; }
 
   </style>
   <link rel="icon" type="image/png" href="pic1.png">
