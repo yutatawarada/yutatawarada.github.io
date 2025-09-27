@@ -331,6 +331,12 @@ body.locked > *:not(#popup){ display:none; }
    9) Utility
 ========================================================= */
 .gallery-img{ margin-bottom:20px; }   /* explicit spacing utility */
+/* Add spacing between navbar and first card on smartphones */
+@media (max-width: 760px) {
+  .navbar {
+    margin-bottom: 16px;   /* creates the gap */
+  }
+}
 
   </style>
   <link rel="icon" type="image/png" href="pic1.png">
