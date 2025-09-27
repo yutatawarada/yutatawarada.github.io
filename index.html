@@ -414,12 +414,7 @@ html { scroll-behavior: smooth; }
 
 /* Optional: if any parent is shrinking oddly on mobile, allow it to shrink */
 #page-gallery .gallery-slides__wrap > * { min-width: 0; }
-/* Add spacing between navbar and first card on smartphones */
-@media (max-width: 760px) {
-  .navbar {
-    margin-bottom: 16px;   /* creates the gap */
-  }
-}
+
 /* --- FORCE FIXED RATIOS IN GALLERY (override previous rules) --- */
 
 /* Large slides: all 16:9 boxes, image cropped if needed (no stretch) */
@@ -446,6 +441,34 @@ html { scroll-behavior: smooth; }
 
 /* Optional: if any parent is shrinking oddly on mobile, allow it to shrink */
 #page-gallery .gallery-slides__wrap > * { min-width: 0; }
+/* Smartphone gap that reveals the background video (inside the video-section) */
+@media (max-width: 760px){
+  .video-section > main {
+    padding-top: 16px; /* adjust to taste */
+  }
+}
+/* Make Sources wrap like CV on small screens */
+#page-sources .card ul { 
+  padding-left: 20px; 
+  margin: 0; 
+}
+
+#page-sources .card li,
+#page-sources .card a{
+  overflow-wrap: anywhere;   /* wrap long URLs/words */
+  word-break: break-word;    /* fallback */
+  white-space: normal;       /* allow wrapping */
+  line-height: 1.45;
+}
+
+@media (max-width: 520px){
+  #page-sources .card { 
+    overflow: hidden;        /* safety clip on tiny screens */
+  }
+  #page-sources .card li { 
+    font-size: 14px;         /* optional: match CV readability */
+  }
+}
 
   </style>
   <link rel="icon" type="image/png" href="pic1.png">
