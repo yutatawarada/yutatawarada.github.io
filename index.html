@@ -550,50 +550,56 @@ img:not(.gallery-slides__thumbnail):not(.banner-gif):not(.banner-sprites img):no
 #lightbox img {
   cursor: default !important;
 }
-/* tune this to your actual navbar height */
-:root { --navH: 64px; }  /* try 56–72px if needed */
+/* height of your navbar; tweak if needed */
+:root { --navH: 64px; }
 
-/* Keep the thumbnails always visible while scrolling the Gallery page */
-.gallery-slides__wrap { align-items: start; }
-
-.gallery-slides__aside{
-  position: sticky;
-  top: calc(var(--navH) + 12px);  /* stay below the navbar */
-  align-self: start;
-  height: calc(100vh - var(--navH) - 24px); /* fill viewport minus navbar */
-  overflow: auto;                 /* scroll thumbnails if there are many */
-  padding-right: 4px;             /* small room for scrollbar */
+/* GALLERY – keep the thumbnail rail visible while scrolling */
+#page-gallery .gallery-slides__wrap{
+  display: grid;
+  grid-template-columns: 5rem 1fr; /* rail + slides */
+  align-items: start;
 }
 
-/* the inner container no longer needs to be sticky */
-.gallery-slides__sticky{
-  position: static;
+/* <- make the ASIDE sticky */
+#page-gallery .gallery-slides__aside{
+  position: sticky !important;
+  top: calc(var(--navH) + 12px);            /* stay under the navbar */
+  align-self: start;
+  height: calc(100dvh - var(--navH) - 24px);/* fill viewport height */
+  overflow: auto;                           /* rail scrolls if long */
+  padding-right: 4px;
+}
+
+/* the inner container is no longer sticky */
+#page-gallery .gallery-slides__sticky{
+  position: static !important;
   display: grid;
   gap: .5rem;
 }
 
-/* Optional: slimmer scrollbar (WebKit) */
-.gallery-slides__aside::-webkit-scrollbar{ width: 8px; }
-.gallery-slides__aside::-webkit-scrollbar-thumb{
+/* nice compact scrollbar (optional) */
+#page-gallery .gallery-slides__aside::-webkit-scrollbar{ width: 8px; }
+#page-gallery .gallery-slides__aside::-webkit-scrollbar-thumb{
   background: rgba(255,255,255,.25); border-radius: 6px;
 }
 
-/* Mobile: keep your current “horizontal strip” behavior */
+/* Mobile: fall back to horizontal strip at the top */
 @media (max-width: 720px){
-  .gallery-slides__wrap { grid-template-columns: 1fr; }
-  .gallery-slides__aside { 
-    position: static;
+  #page-gallery .gallery-slides__wrap{ grid-template-columns: 1fr; }
+  #page-gallery .gallery-slides__aside{
+    position: static !important;
     height: auto;
     overflow: visible;
-    order: -1;
+    order: -1;                      /* rail above the big images */
   }
-  .gallery-slides__sticky {
-    display: grid;
+  #page-gallery .gallery-slides__sticky{
     grid-auto-flow: column;
     overflow-x: auto;
     padding-bottom: .25rem;
   }
 }
+/* was overflow:hidden; — that blocks sticky descendants */
+.video-section{ overflow: visible; }
 
   </style>
   <link rel="icon" type="image/png" href="pic1.png">
