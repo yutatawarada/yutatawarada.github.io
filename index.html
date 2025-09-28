@@ -675,6 +675,19 @@ img:not(.gallery-slides__thumbnail):not(.banner-gif):not(.banner-sprites img):no
 /* keep close button above overlays */
 .lightbox__close{ z-index: 10002; }
 
+    /* Show alt text in bottom-right */
+.lightbox__credit {
+  position: fixed;
+  right: 18px;
+  bottom: 16px;
+  z-index: 10001;
+  color: #fff;
+  font-size: 14px;
+  opacity: .9;
+  text-shadow: 0 1px 2px rgba(0,0,0,.5);
+  pointer-events: none;
+}
+
   </style>
   <link rel="icon" type="image/png" href="pic1.png">
 </head>
@@ -1287,10 +1300,9 @@ function closePopupAfterStart(){
   const lb       = document.getElementById('lightbox');
   const lbImg    = document.getElementById('lightbox-img');
   const lbClose  = document.getElementById('lightbox-close');
-  const lbTitle  = document.querySelector('.lightbox__title');
   const lbCredit = document.querySelector('.lightbox__credit');
 
-  // mark images that should open the lightbox (adds .enlargeable for cursor)
+  // mark enlargeable images
   function markEnlargeables(){
     document.querySelectorAll('img').forEach(img => {
       if (
@@ -1304,33 +1316,14 @@ function closePopupAfterStart(){
         img.classList.remove('enlargeable');
         return;
       }
-      img.classList.add('enlargeable');  // shows hand cursor via your CSS
+      img.classList.add('enlargeable');
     });
   }
 
-  function sourceLabelFrom(imgEl){
-    // Prefer an explicit credit/source set on the image
-    const explicit = imgEl.dataset.source || imgEl.dataset.credit;
-    if (explicit) return explicit;
-
-    // Otherwise derive from the URL (host or filename)
-    try {
-      const u = new URL(imgEl.currentSrc || imgEl.src, location.href);
-      if (u.hostname && u.hostname !== location.hostname) return u.hostname;
-      const parts = u.pathname.split('/').filter(Boolean);
-      const file = parts[parts.length - 1] || '';
-      return file || 'Source';
-    } catch {
-      // Fallback to raw src string if URL parsing fails
-      return (imgEl.currentSrc || imgEl.src || 'Source');
-    }
-  }
-
-  function openLightbox(src, alt='', credit=''){
+  function openLightbox(src, alt=''){
     lbImg.src = src;
     lbImg.alt = alt || '';
-    lbTitle.textContent = alt || '';                // show alt as title (bottom-left)
-    lbCredit.textContent = credit || '';            // show source (bottom-right)
+    lbCredit.textContent = alt || '';   // only alt in bottom-right
     lb.classList.add('show');
     document.body.classList.add('lb-open');
   }
@@ -1338,23 +1331,20 @@ function closePopupAfterStart(){
   function closeLightbox(){
     lb.classList.remove('show');
     document.body.classList.remove('lb-open');
-    setTimeout(() => { lbImg.src = ''; }, 250);     // stop gifs
+    setTimeout(() => { lbImg.src = ''; }, 250);
   }
 
-  // Delegate clicks: open lightbox for any eligible image
   document.addEventListener('click', (e) => {
     const img = e.target.closest('img');
     if (!img) return;
     if (!img.classList.contains('enlargeable')) return;
 
-    const src    = img.dataset.full || img.currentSrc || img.src;
-    const alt    = img.alt || '';
-    const credit = sourceLabelFrom(img);
+    const src = img.dataset.full || img.currentSrc || img.src;
+    const alt = img.alt || '';
 
-    openLightbox(src, alt, credit);
+    openLightbox(src, alt);
   });
 
-  // Close interactions
   lbClose.addEventListener('click', closeLightbox);
   lb.addEventListener('click', (e) => { if (e.target === lb) closeLightbox(); });
   document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeLightbox(); });
@@ -1363,6 +1353,7 @@ function closePopupAfterStart(){
   window.addEventListener('page:unlocked', markEnlargeables);
 })();
 </script>
+
 
 </body>
 </html>
