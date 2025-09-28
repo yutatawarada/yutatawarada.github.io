@@ -59,7 +59,11 @@
     .card h3 { margin: 16px 0 10px; color: #444; }
     .muted { color: var(--muted); }
 
-    .banner { background: var(--blue-1); color: #fff; padding: 40px 0 16px; }
+   .banner {
+  background: var(--blue-1);
+  color: #fff;
+  padding: 20px 0 8px;   /* reduced from 40 / 16 */
+}
     .banner h1 { margin: 0; font-size: 34px; letter-spacing: .5px; }
     .banner p { margin: 8px 0 0; opacity: .9; }
 
@@ -87,7 +91,12 @@
     }
     @media (max-width: 480px){ .wrapper { padding: 0 16px; } }
 
-    .site-footer { background:#333; color:#ccc; padding:40px 0; margin-top:40px; }
+  .site-footer {
+  background: #333;
+  color: #ccc;
+  padding: 20px 0;       /* reduced from 40px */
+  margin-top: 20px;      /* optional: reduce gap above footer */
+}
     .site-footer a { color:#9ec4ff; text-decoration:none; }
     .site-footer a:hover { text-decoration:underline; }
     .footer-wrapper {
@@ -896,7 +905,7 @@ img:not(.gallery-slides__thumbnail):not(.banner-gif):not(.banner-sprites img):no
       <h3>Yuta Tawarada</h3>
       <p>Based in Giessen, Germany</p>
       <p>Email: <a href="mailto:yutataw1@gmail.com">yutataw1@gmail.com</a></p>
-      <p>LinkedIn: <a href="https://www.tagesschau.de/">Linked in is not locked in.</a></p>
+      <!-- <p>LinkedIn: <a href="https://www.tagesschau.de/">Linked in is not locked in.</a></p> -->
     </div>
 
     <!-- Other links -->
