@@ -642,6 +642,38 @@ img:not(.gallery-slides__thumbnail):not(.banner-gif):not(.banner-sprites img):no
   margin: 0;
 }
 .banner p { margin: 6px 0 0; }
+/* Lightbox text overlays */
+.lightbox__title,
+.lightbox__credit{
+  position: fixed;
+  z-index: 10001;                /* above backdrop, below close button */
+  color: #fff;
+  text-shadow: 0 1px 2px rgba(0,0,0,.5);
+  pointer-events: none;          /* don’t block clicks on backdrop */
+  max-width: 80vw;
+}
+
+.lightbox__title{
+  left: 18px;
+  bottom: 16px;
+  font-size: 16px;
+  font-weight: 700;
+  letter-spacing: .2px;
+}
+
+.lightbox__credit{
+  right: 18px;
+  bottom: 16px;
+  font-size: 12px;               /* small white font */
+  opacity: .9;
+  text-align: right;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* keep close button above overlays */
+.lightbox__close{ z-index: 10002; }
 
   </style>
   <link rel="icon" type="image/png" href="pic1.png">
@@ -1176,8 +1208,12 @@ function closePopupAfterStart(){
 <!-- Image Lightbox -->
 <div id="lightbox" class="lightbox" aria-hidden="true" role="dialog">
   <img id="lightbox-img" class="lightbox__img" alt="">
+  <!-- NEW: overlays -->
+  <div class="lightbox__title" aria-hidden="true"></div>
+  <div class="lightbox__credit" aria-hidden="true"></div>
   <button id="lightbox-close" class="lightbox__close" aria-label="Close">&times;</button>
 </div>
+
 <script>
 (function(){
   const lb      = document.getElementById('lightbox');
@@ -1246,6 +1282,87 @@ function closePopupAfterStart(){
 })();
 </script>
 
+<script>
+(function(){
+  const lb       = document.getElementById('lightbox');
+  const lbImg    = document.getElementById('lightbox-img');
+  const lbClose  = document.getElementById('lightbox-close');
+  const lbTitle  = document.querySelector('.lightbox__title');
+  const lbCredit = document.querySelector('.lightbox__credit');
+
+  // mark images that should open the lightbox (adds .enlargeable for cursor)
+  function markEnlargeables(){
+    document.querySelectorAll('img').forEach(img => {
+      if (
+        img.classList.contains('gallery-slides__thumbnail') ||
+        img.closest('.gallery-slides__aside') ||
+        img.classList.contains('banner-gif') ||
+        img.closest('.banner-sprites') ||
+        img.closest('.site-footer') ||
+        img.closest('#lightbox')
+      ) {
+        img.classList.remove('enlargeable');
+        return;
+      }
+      img.classList.add('enlargeable');  // shows hand cursor via your CSS
+    });
+  }
+
+  function sourceLabelFrom(imgEl){
+    // Prefer an explicit credit/source set on the image
+    const explicit = imgEl.dataset.source || imgEl.dataset.credit;
+    if (explicit) return explicit;
+
+    // Otherwise derive from the URL (host or filename)
+    try {
+      const u = new URL(imgEl.currentSrc || imgEl.src, location.href);
+      if (u.hostname && u.hostname !== location.hostname) return u.hostname;
+      const parts = u.pathname.split('/').filter(Boolean);
+      const file = parts[parts.length - 1] || '';
+      return file || 'Source';
+    } catch {
+      // Fallback to raw src string if URL parsing fails
+      return (imgEl.currentSrc || imgEl.src || 'Source');
+    }
+  }
+
+  function openLightbox(src, alt='', credit=''){
+    lbImg.src = src;
+    lbImg.alt = alt || '';
+    lbTitle.textContent = alt || '';                // show alt as title (bottom-left)
+    lbCredit.textContent = credit || '';            // show source (bottom-right)
+    lb.classList.add('show');
+    document.body.classList.add('lb-open');
+  }
+
+  function closeLightbox(){
+    lb.classList.remove('show');
+    document.body.classList.remove('lb-open');
+    setTimeout(() => { lbImg.src = ''; }, 250);     // stop gifs
+  }
+
+  // Delegate clicks: open lightbox for any eligible image
+  document.addEventListener('click', (e) => {
+    const img = e.target.closest('img');
+    if (!img) return;
+    if (!img.classList.contains('enlargeable')) return;
+
+    const src    = img.dataset.full || img.currentSrc || img.src;
+    const alt    = img.alt || '';
+    const credit = sourceLabelFrom(img);
+
+    openLightbox(src, alt, credit);
+  });
+
+  // Close interactions
+  lbClose.addEventListener('click', closeLightbox);
+  lb.addEventListener('click', (e) => { if (e.target === lb) closeLightbox(); });
+  document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeLightbox(); });
+
+  window.addEventListener('DOMContentLoaded', markEnlargeables);
+  window.addEventListener('page:unlocked', markEnlargeables);
+})();
+</script>
 
 </body>
 </html>
