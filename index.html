@@ -601,6 +601,19 @@ img:not(.gallery-slides__thumbnail):not(.banner-gif):not(.banner-sprites img):no
 /* was overflow:hidden; — that blocks sticky descendants */
 .video-section{ overflow: visible; }
 
+    /* Remove red/blue highlight borders around thumbnail links */
+#page-gallery .gallery-slides__dot {
+  outline: none;             /* remove default focus outline */
+  border: none;
+}
+
+#page-gallery .gallery-slides__dot:focus,
+#page-gallery .gallery-slides__dot:active {
+  outline: none;
+  border: none;
+  box-shadow: none;
+}
+
   </style>
   <link rel="icon" type="image/png" href="pic1.png">
 </head>
