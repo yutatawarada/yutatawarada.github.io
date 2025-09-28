@@ -624,13 +624,13 @@ img:not(.gallery-slides__thumbnail):not(.banner-gif):not(.banner-sprites img):no
 }
 /* --- Make TOP banner narrower --- */
 .banner { 
-  padding: 12px 0 6px !important;   /* half-ish */
+  padding: 18px 0 9px !important;   /* half-ish */
 }
 
 /* The big gif is forcing the height — shrink it */
 .banner-gif {
-  height: 80px !important;          /* was 180px */
-  max-height: 80px !important;
+  height: 100px !important;          /* was 180px */
+  max-height: 100px !important;
   width: auto;
   object-fit: contain;
 }
@@ -642,26 +642,6 @@ img:not(.gallery-slides__thumbnail):not(.banner-gif):not(.banner-sprites img):no
   margin: 0;
 }
 .banner p { margin: 6px 0 0; }
-
-/* --- Make BOTTOM footer narrower --- */
-.site-footer {
-  padding: 16px 0 !important;       /* was 40px */
-  margin-top: 16px;                 /* reduce gap above footer */
-}
-
-/* Footer gif likely sets the footer height — shrink it too */
-.footer-gif img {
-  max-height: 60px !important;      /* constrain height */
-  width: auto;
-}
-
-/* (If you want even tighter on phones) */
-@media (max-width: 480px){
-  .banner { padding: 10px 0 6px !important; }
-  .banner-gif { height: 64px !important; max-height: 64px !important; }
-  .site-footer { padding: 12px 0 !important; }
-  .footer-gif img { max-height: 52px !important; }
-}
 
   </style>
   <link rel="icon" type="image/png" href="pic1.png">
