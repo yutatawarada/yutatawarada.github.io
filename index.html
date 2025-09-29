@@ -1063,44 +1063,6 @@ function closePopupAfterStart(){
   });
 }
 
-// pick a random track
-const tracks = ["music1.mp3", "music2.mp3", "music3.mp3"];
-audio.src = tracks[Math.floor(Math.random() * tracks.length)];
-audio.loop = true;
-audio.volume = 0.6;
-
-// 🚫 Do NOT start before user gesture:
-audio.autoplay = false;
-audio.preload = 'none';
-audio.muted = true;
-audio.pause();
-audio.currentTime = 0;
-
-// open popup with fade (keep audio paused/reset just in case)
-function openPopup(){
-  overlay.classList.remove('hide','dim','show');
-  // ensure not progressing behind the scenes
-  audio.pause();
-  audio.currentTime = 0;
-  requestAnimationFrame(() => overlay.classList.add('show'));
-}
-
-// start music from a user gesture (after closing popup)
-function startMusic(){
-  // prepare to actually start from the beginning
-  audio.preload = 'auto';
-  audio.pause();
-  audio.currentTime = 0;
-  audio.muted = false;
-
-  return audio.play().then(() => {
-    toggleBtn.textContent = "Pause";
-  }).catch(() => {
-    // if autoplay policy still blocks, user can hit the button
-    toggleBtn.textContent = "Play";
-  });
-}
-
 
   // init on load
   window.addEventListener('DOMContentLoaded', openPopup);
