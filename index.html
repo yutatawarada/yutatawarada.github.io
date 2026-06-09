@@ -438,7 +438,7 @@
      * https://docs.google.com/spreadsheets/d/1abcDEFghiJK/gviz/tq?tqx=out:csv&sheet=Data
      **********************************************************************/
 
-    const GOOGLE_SHEET_CSV_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vRx28JA6xFzpUiRiUKAHvouNLuqQ_DwEWXjrM4AAwUmqCwrCZgWrrs4W26eumssDg/pubhtml";
+    const GOOGLE_SHEET_CSV_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vRx28JA6xFzpUiRiUKAHvouNLuqQ_DwEWXjrM4AAwUmqCwrCZgWrrs4W26eumssDg/pub?output=csv";
 
     // Fallback: used when the Google Sheets URL above is not configured.
     // Keep data1.csv in the same GitHub repository folder as this index.html.
@@ -528,7 +528,7 @@
       }
 
       const configuredGoogleURL = GOOGLE_SHEET_CSV_URL.trim();
-      const hasGoogleURL = configuredGoogleURL && !configuredGoogleURL.includes("https://docs.google.com/spreadsheets/d/e/2PACX-1vRx28JA6xFzpUiRiUKAHvouNLuqQ_DwEWXjrM4AAwUmqCwrCZgWrrs4W26eumssDg/pubhtmlE");
+      const hasGoogleURL = configuredGoogleURL && !configuredGoogleURL.includes("https://docs.google.com/spreadsheets/d/e/2PACX-1vRx28JA6xFzpUiRiUKAHvouNLuqQ_DwEWXjrM4AAwUmqCwrCZgWrrs4W26eumssDg/pub?output=csv");
 
       if (hasGoogleURL) {
         return {
