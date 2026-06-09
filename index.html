@@ -461,7 +461,22 @@
       "Description"
     ];
 
-    const LINK_COLUMN_ALIASES = ["Link", "URL", "Website", "Details", "Detail Link", "Program Link"];
+    const LINK_COLUMN_ALIASES = [
+      "Link",
+      "Links",
+      "URL",
+      "Url",
+      "Website",
+      "Website Link",
+      "Details",
+      "Detail Link",
+      "Program Link",
+      "Programme Link",
+      "Program URL",
+      "Program Website",
+      "Source",
+      "Source Link"
+    ];
 
     const EXCLUDED_FILTER_VALUES = {
       career: new Set(["ECR"]),
@@ -528,7 +543,9 @@
       }
 
       const configuredGoogleURL = GOOGLE_SHEET_CSV_URL.trim();
-      const hasGoogleURL = configuredGoogleURL && !configuredGoogleURL.includes("https://docs.google.com/spreadsheets/d/e/2PACX-1vRx28JA6xFzpUiRiUKAHvouNLuqQ_DwEWXjrM4AAwUmqCwrCZgWrrs4W26eumssDg/pub?output=csv");
+      const hasGoogleURL =
+        configuredGoogleURL &&
+        !configuredGoogleURL.includes("PASTE_YOUR_GOOGLE_SHEETS_CSV_URL_HERE");
 
       if (hasGoogleURL) {
         return {
@@ -563,10 +580,11 @@
       const headers = Object.keys(parsed[0]);
       validateRequiredColumns(headers);
 
-      const linkColumn = findLinkColumn(headers);
+      const linkColumn = findLinkColumn(headers, parsed);
 
       subcategoryColumns = headers.filter(header => {
         if (!header) return false;
+        if (header === linkColumn) return false;
         if (FIXED_COLUMNS.includes(header)) return false;
         if (LINK_COLUMN_ALIASES.includes(header)) return false;
         return true;
@@ -576,7 +594,7 @@
         .map(row => ({
           no: clean(row["No."]),
           program: clean(row["Program"]),
-          link: normalizeURL(clean(linkColumn ? row[linkColumn] : "")),
+          link: normalizeURL(extractURL(clean(linkColumn ? row[linkColumn] : ""))),
           category: clean(row["Category"]),
           careerLevels: clean(row["Career Levels"]),
           audience: clean(row["Audience"]),
@@ -598,16 +616,57 @@
       }
     }
 
-    function findLinkColumn(headers) {
-      return LINK_COLUMN_ALIASES.find(alias => headers.includes(alias)) || null;
+    function findLinkColumn(headers, rows) {
+      const exactAlias = LINK_COLUMN_ALIASES.find(alias => headers.includes(alias));
+      if (exactAlias) return exactAlias;
+
+      const fuzzyAlias = headers.find(header => {
+        const normalized = clean(header).toLowerCase();
+        return normalized.includes("link") ||
+               normalized.includes("url") ||
+               normalized.includes("website");
+      });
+      if (fuzzyAlias) return fuzzyAlias;
+
+      // Fallback for your current structure: column C is the link column.
+      // Array index 2 means the third CSV column.
+      const thirdColumn = headers[2] || null;
+      if (thirdColumn && rows.some(row => looksLikeURL(clean(row[thirdColumn])))) {
+        return thirdColumn;
+      }
+
+      return null;
+    }
+
+    function extractURL(value) {
+      const text = clean(value);
+      if (!text) return "";
+
+      // Supports cells that contain formulas such as:
+      // =HYPERLINK("https://example.com","Program title")
+      const hyperlinkFormulaMatch = text.match(/HYPERLINK\(["']([^"']+)["']/i);
+      if (hyperlinkFormulaMatch) return hyperlinkFormulaMatch[1];
+
+      // Supports cells that contain a raw URL, or text containing a URL.
+      const rawURLMatch = text.match(/https?:\/\/[^\s"'<>]+/i);
+      if (rawURLMatch) return rawURLMatch[0];
+
+      const wwwURLMatch = text.match(/www\.[^\s"'<>]+/i);
+      if (wwwURLMatch) return wwwURLMatch[0];
+
+      return text;
+    }
+
+    function looksLikeURL(value) {
+      return /https?:\/\//i.test(value) || /www\./i.test(value) || /HYPERLINK\(/i.test(value);
     }
 
     function normalizeURL(value) {
-      const url = clean(value);
+      const url = clean(value).replace(/^["']|["']$/g, "");
       if (!url) return "";
       if (/^https?:\/\//i.test(url)) return url;
       if (/^www\./i.test(url)) return `https://${url}`;
-      return url;
+      return "";
     }
 
     function parseCSV(text) {
