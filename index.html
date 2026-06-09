@@ -1,1361 +1,810 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Yuta Tawarada's website</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Postdoc Program Database</title>
+
   <style>
-
-.gallery-img {
-  display: block;
-  width: 100%;
-  height: auto;
-  border-radius: 8px;
-  box-shadow: 0 2px 6px rgba(0,0,0,.2);
-  margin-bottom: 20px;  /* 👈 adds space below each image */
-}
-
-/* Smooth fade-in when a page becomes active */
-.page { display: none; }
-.page.active {
-  display: block;
-  animation: pageFadeIn 2.2s ease both;
-}
-
-@keyframes pageFadeIn {
-  from { opacity: 0; transform: translateY(4px); }
-  to   { opacity: 1; transform: translateY(0); }
-}
-
     :root {
-      --blue-1: #19183B;   /* banner */
-      --blue-2: #708993;   /* nav */
-      --bg: #E7F2EF;
-      --text: #222;
-      --card: #fff;
-      --muted: #3F464F;
-      --lightmuted: #DFE4EB;
-      --max: 980px;
-      --pad-x: 24px;
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+      --blue: #0056b8;
+      --blue-dark: #003f88;
+      --text: #1f2937;
+      --muted: #5f6b7a;
+      --line: #d9dee7;
+      --bg: #f5f7fb;
+      --card: #ffffff;
+      --shadow: 0 2px 8px rgba(16, 24, 40, 0.10);
+      --radius: 10px;
     }
-    * { box-sizing: border-box; }
-    html, body {
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
       margin: 0;
-      background: var(--bg);
+      font-family: Arial, Helvetica, sans-serif;
       color: var(--text);
-      line-height: 1.6;
+      background: var(--bg);
+      line-height: 1.55;
     }
-    .wrapper { max-width: var(--max); margin: 0 auto; padding: 0 var(--pad-x); }
-    .section { padding: 28px 0; }
+
+    header {
+      background: #ffffff;
+      border-bottom: 1px solid var(--line);
+      padding: 34px 28px;
+    }
+
+    .header-inner {
+      max-width: 1280px;
+      margin: 0 auto;
+    }
+
+    h1 {
+      margin: 0 0 10px;
+      color: var(--blue);
+      font-size: 36px;
+      line-height: 1.2;
+    }
+
+    .intro {
+      margin: 0;
+      max-width: 900px;
+      color: var(--muted);
+      font-size: 17px;
+    }
+
+    main {
+      max-width: 1280px;
+      margin: 30px auto;
+      padding: 0 24px;
+      display: grid;
+      grid-template-columns: 330px 1fr;
+      gap: 28px;
+    }
+
+    aside {
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      padding: 22px;
+      height: fit-content;
+      position: sticky;
+      top: 20px;
+    }
+
+    aside h2 {
+      margin: 0 0 18px;
+      color: var(--blue-dark);
+      font-size: 24px;
+    }
+
+    .filter-group {
+      margin-bottom: 18px;
+    }
+
+    label {
+      display: block;
+      font-weight: 700;
+      margin-bottom: 7px;
+      color: #111827;
+    }
+
+    select,
+    input[type="search"] {
+      width: 100%;
+      border: 1px solid #cfd6e0;
+      background: #fff;
+      border-radius: 7px;
+      padding: 10px 12px;
+      font-size: 15px;
+      color: var(--text);
+    }
+
+    .button-row {
+      display: flex;
+      gap: 10px;
+      margin-top: 20px;
+    }
+
+    button {
+      border: 0;
+      border-radius: 7px;
+      padding: 11px 14px;
+      font-size: 15px;
+      font-weight: 700;
+      cursor: pointer;
+    }
+
+    .primary {
+      background: var(--blue);
+      color: #fff;
+      flex: 1;
+    }
+
+    .primary:hover {
+      background: var(--blue-dark);
+    }
+
+    .secondary {
+      background: #edf1f6;
+      color: #253244;
+    }
+
+    .secondary:hover {
+      background: #dfe6ef;
+    }
+
+    .upload-note {
+      margin-top: 18px;
+      padding-top: 16px;
+      border-top: 1px solid var(--line);
+      font-size: 13px;
+      color: var(--muted);
+    }
+
+    .upload-note input {
+      margin-top: 8px;
+      width: 100%;
+    }
+
+    .content {
+      min-width: 0;
+    }
+
+    .toolbar {
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      padding: 18px 20px;
+      margin-bottom: 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    #resultCount {
+      margin: 0;
+      color: var(--blue-dark);
+      font-size: 24px;
+    }
+
+    .sort-box {
+      display: flex;
+      align-items: center;
+      gap: 9px;
+    }
+
+    .sort-box label {
+      margin: 0;
+      white-space: nowrap;
+    }
+
+    .sort-box select {
+      min-width: 190px;
+    }
+
     .card {
       background: var(--card);
-      border-radius: 10px;
-      box-shadow: 0 1px 3px rgba(0, 0, 0, .08);
-      padding: 24px;
-      margin-bottom: 24px;
-    }
-    .card h2 { margin: 0 0 12px; }
-    .card h3 { margin: 16px 0 10px; color: #444; }
-    .muted { color: var(--muted); }
-
-   .banner {
-  background: var(--blue-1);
-  color: #fff;
-  padding: 20px 0 8px;   /* reduced from 40 / 16 */
-}
-    .banner h1 { margin: 0; font-size: 34px; letter-spacing: .5px; }
-    .banner p { margin: 8px 0 0; opacity: .9; }
-
-    .navbar { background: var(--blue-2); color: #fff; }
-    .nav {
-      display: flex; gap: 28px; align-items: center; overflow-x: auto;
-    }
-    .nav a {
-      color: #cfe0ff; text-decoration: none; font-weight: 700; letter-spacing: .2px;
-      padding: 14px 0; border-bottom: 3px solid transparent;
-    }
-    .nav a.active { color: #fff; border-color: #90a4ff; }
-
-    .hero { display: grid; grid-template-columns: 1fr; gap: 12px; }
-    .hero--profile {
-      display: grid; grid-template-columns: auto 1fr; gap: 30px; align-items: start;
-    }
-    .hero--profile img, .resp {
-      display: block; width: 100%; max-width: 380px; height: auto;
-      border-radius: 12px; box-shadow: 0 1px 3px rgba(0,0,0,.08);
-    }
-    @media (max-width: 760px){
-      .hero--profile { grid-template-columns: 1fr; gap: 16px; }
-      .hero--profile img { max-width: 100%; }
-    }
-    @media (max-width: 480px){ .wrapper { padding: 0 16px; } }
-
-  .site-footer {
-  background: #333;
-  color: #ccc;
-  padding: 20px 0;       /* reduced from 40px */
-  margin-top: 20px;      /* optional: reduce gap above footer */
-}
-    .site-footer a { color:#9ec4ff; text-decoration:none; }
-    .site-footer a:hover { text-decoration:underline; }
-    .footer-wrapper {
-      max-width: var(--max); margin:0 auto; padding:0 var(--pad-x);
-      display:grid; grid-template-columns: 1fr 1fr; gap:40px;
-    }
-    .footer-col h3 { margin:0 0 12px; color:#fff; font-size:16px; }
-    .footer-col p { margin:4px 0; font-size:14px; }
-    @media (max-width:700px){ .footer-wrapper{ grid-template-columns:1fr; } }
-
-    .r-card {
-      background:#fff; border-radius:10px; box-shadow:0 1px 3px rgba(0,0,0,.08);
-      padding:24px; margin-bottom:24px;
-    }
-    .r-title { margin:0 0 14px; font-size:32px; color:#444; line-height:1.2; }
-    .r-sub { margin:10px 0 12px; font-size:18px; color:#555; }
-    .r-grid { display:grid; grid-template-columns:1fr 1fr; gap:24px; align-items:start; }
-    .r-fig img {
-      width:100%; height:auto; border-radius:8px; box-shadow:0 1px 3px rgba(0,0,0,.08); display:block;
-    }
-    .r-cap { margin-top:8px; color:#666; font-size:14px; }
-    .r-p { margin:10px 0; color:#333; font-size:16px; line-height:1.6; }
-    .r-refs { margin:16px 0 0; padding-left:20px; }
-    @media (max-width:900px){ .r-grid{ grid-template-columns:1fr; } }
-
-    /* Win98 Modal / Popup Styles */
-    @font-face { font-family:"MS Sans"; src:local("Tahoma"),local("MS Sans Serif"); }
-    /* Prevent reference text from overflowing on small screens */
-.r-refs li {
-  word-wrap: break-word;     /* break long words */
-  overflow-wrap: anywhere;   /* break URLs if too long */
-  white-space: normal;       /* allow text to wrap */
-  line-height: 1.4;
-}
-
-    .win98 * { font-family:"MS Sans", Tahoma, Arial, sans-serif; }
-    #popup{
-      position:fixed; inset:0; display:flex; align-items:center; justify-content:center;
-      background:#000; opacity:0; pointer-events:none; transition:opacity .35s ease; z-index:9999;
-    }
-    #popup.show{ opacity:1; pointer-events:auto; }
-    #popup.dim{ opacity:1; pointer-events:auto; }
-    #popup.hide{ opacity:0; pointer-events:none; }
-    .win98-window{
-      width:380px; max-width:90vw; background:#c0c0c0; color:#000;
-      border:2px solid #000; border-color:#fff #000 #000 #fff;
-      box-shadow:0 8px 24px rgba(0,0,0,.25);
-      transform:translateY(-8px) scale(.98); opacity:0; pointer-events:none;
-      transition:transform .25s ease, opacity .25s ease; border-radius:4px;
-    }
-    #popup.show .win98-window{ transform:none; opacity:1; pointer-events:auto; }
-    #popup.dim  .win98-window{ transform:translateY(-8px) scale(.98); opacity:0; pointer-events:none; }
-    .win98-titlebar{
-      background:#000080; color:#fff; padding:6px 8px; display:flex; align-items:center; justify-content:center;
-      border-bottom:2px solid; border-color:#fff #000 #000 #fff;
-    }
-    .win98-titlebar .title{ font-weight:bold; letter-spacing:.2px; }
-    .win98-body{ padding:14px; display:flex; gap:12px; align-items:flex-start; }
-    .win98-body .icon{ width:28px; height:28px; flex:0 0 28px; }
-    .win98-body p{ margin:2px 0 0; font-size:15px; }
-    .win98-buttons{ display:flex; justify-content:center; gap:12px; padding:0 14px 14px; }
-    .btn98{
-      background:#c0c0c0; padding:6px 18px; cursor:pointer;
-      border:2px solid; border-color:#fff #000 #000 #fff; border-radius:2px; font-weight:bold;
-    }
-    .btn98:active{ border-color:#000 #fff #fff #000; }
-    @media (max-width:480px){ .win98-buttons{ gap:10px; flex-wrap:wrap; } .btn98{ min-width:96px; } }
-
-    /* banner layout */
-    .banner-flex{ display:flex; justify-content:space-between; align-items:center; gap:16px; }
-    .banner-text{ flex:1; }
-    .banner-gif{ height:180px; max-height:100%; width:auto; object-fit:contain; margin-left:20px; }
-    @media (max-width:480px){
-      .banner-flex{ flex-direction:column; align-items:flex-start; gap:8px; }
-      .banner-gif{ height:64px; max-width:60vw; margin:8px 0 0; }
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      margin-bottom: 18px;
+      padding: 34px 34px 30px;
+      position: relative;
     }
 
-    .site-footer{ background:#333; color:#ccc; padding:40px 0; margin-top:40px; }
-    .site-footer a{ color:#9ec4ff; text-decoration:none; }
-    .site-footer a:hover{ text-decoration:underline; }
-    .footer-wrapper{
-      max-width:1000px; margin:0 auto; padding:0 24px;
-      display:grid; grid-template-columns:1fr 1fr 200px; gap:40px; align-items:center;
-    }
-    .footer-col h3{ margin:0 0 12px; color:#fff; font-size:16px; }
-    .footer-col p{ margin:4px 0; font-size:14px; }
-    .footer-gif img{ max-width:120px; height:auto; border-radius:6px; }
-    @media (max-width:700px){
-      .footer-wrapper{ grid-template-columns:1fr; text-align:left; }
-      .footer-gif img{ max-width:100px; margin-top:20px; }
+    .card-title-row {
+      display: flex;
+      justify-content: space-between;
+      gap: 18px;
+      align-items: flex-start;
     }
 
-    .music-btn{
-      position:fixed; bottom:20px; left:20px; background:#333; color:#fff;
-      border:2px solid #fff; border-radius:6px; padding:8px 0; font-size:14px;
-      cursor:pointer; z-index:9999; width:110px; text-align:center;
-    }
-    .music-btn:hover{ background:#555; }
-
-    /* ====== NEW: Video only behind the main content ====== */
-    .video-section{
-      position:relative;
-      overflow:hidden;   /* trim video edges if any */
-      z-index:0;         /* normal stacking for content */
-    }
-    #bg-video{
-      position:absolute;
-      inset:0;
-      width:100%;
-      height:100%;
-      object-fit:cover;
-      z-index:-2;        /* behind everything inside .video-section */
-    }
-    .video-section::before{
-      content:"";
-      position:absolute;
-      inset:0;
-      background:rgba(0,0,0,0.25); /* subtle darken for readability */
-      z-index:-1;                  /* above video, below content */
+    .card h2 {
+      margin: 0 0 20px;
+      color: var(--blue);
+      font-size: 30px;
+      line-height: 1.25;
     }
 
-    /* Keep banners above (they're outside .video-section but this is explicit) */
-    .banner, .navbar, .site-footer { position:relative; z-index:10; }
+    .arrow {
+      color: var(--blue);
+      font-size: 48px;
+      line-height: 1;
+      font-weight: 700;
+      margin-top: -5px;
+      text-decoration: none;
+    }
 
-    /* --- fixes --- */
-.site-footer { 
-  margin-top: 0;   /* remove the light gap above the footer */
-}
-/* Adjust once and it affects all cards */
-:root {
-  --card-alpha: 0.50;   /* 0 = fully transparent, 1 = solid white */
-}
+    .description {
+      margin: 0 0 28px;
+      max-width: 980px;
+      font-size: 20px;
+      line-height: 1.75;
+      color: #1f2937;
+      white-space: pre-wrap;
+    }
 
-/* Make cards translucent so the video can be seen */
-.card,
-.r-card {
-  background: rgba(255, 255, 255, var(--card-alpha));
-  /* optional: a subtle blur for readability; safe to remove if you prefer */
-  backdrop-filter: saturate(100%) blur(2px);
-}
-/* Random GIF field inside banner */
-.banner { position: relative; } /* ensure stacking context */
-.banner-sprites{
-  position: absolute;
-  inset: 0;
-  overflow: hidden;
-  z-index: 1;           /* below text */
-  pointer-events: none; /* don't block clicks */
-}
+    .divider {
+      border: 0;
+      height: 1px;
+      background: var(--line);
+      margin: 0 0 24px;
+    }
 
-/* Keep name/subtitle in front of the sprites */
-.banner-flex,
-.banner-text { position: relative; z-index: 2; }
+    .meta-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      column-gap: 70px;
+      row-gap: 22px;
+      max-width: 1000px;
+    }
 
-/* The little floating GIFs */
-.banner-sprites img{
-  position: absolute;
-  will-change: transform, opacity;
-  opacity: .85;         /* tweak if you want fainter/brighter */
-}
+    .meta-item {
+      display: grid;
+      grid-template-columns: 58px 160px 1fr;
+      gap: 0;
+      align-items: start;
+      font-size: 19px;
+    }
 
-/* gentle float animation */
-@keyframes floatDrift {
-  from { transform: translateY(0) }
-  to   { transform: translateY(-12px) }
-}
-/* Hide all page content until popup is dismissed */
-body.locked {
-  overflow: hidden;        /* prevent scrolling */
-}
-body.locked > *:not(#popup) {
-  display: none;           /* hide everything except popup */
-}
-.banner { position: relative; }
+    .icon {
+      width: 34px;
+      height: 34px;
+      color: #4b5563;
+      opacity: 0.95;
+    }
 
-.banner-sprites{
-  position: absolute;
-  inset: 0;                 /* fill entire banner */
-  overflow: hidden;
-  pointer-events: none;
-  z-index: 1;               /* behind text */
-}
+    .meta-label {
+      font-weight: 700;
+      color: #111827;
+    }
 
-/* keep name/subtitle above sprites */
-.banner-flex, .banner-text { position: relative; z-index: 2; }
+    .meta-value {
+      color: #222b38;
+    }
 
-/* each gif */
-.banner-sprites img{
-  position: absolute;
-  opacity: .85;
-  /* simple vertical bob; each instance gets its own duration/delay in JS */
-  animation-name: bobY;
-  animation-iteration-count: infinite;
-  animation-timing-function: ease-in-out;
-}
+    .empty {
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      padding: 50px 20px;
+      text-align: center;
+      color: var(--muted);
+      font-size: 18px;
+    }
 
-@keyframes bobY{
-  0%   { transform: translateY(0); }
-  50%  { transform: translateY(-14px); }  /* small movement */
-  100% { transform: translateY(0); }
-}
-/* -------- Gallery Slides (sticky thumbs + smooth anchors) -------- */
-.gallery-slides.section { max-width: 1200px; margin: 1rem auto; padding: 0 1rem; }
+    .error {
+      padding: 12px;
+      margin-bottom: 16px;
+      border: 1px solid #f7b4ab;
+      background: #fff1ef;
+      color: #9f1b13;
+      border-radius: 7px;
+      font-size: 14px;
+    }
 
-.gallery-slides img { max-width: 100%; height: auto; display: block; }
+    @media (max-width: 950px) {
+      main {
+        grid-template-columns: 1fr;
+      }
 
-.gallery-slides__wrap {
-  display: grid;
-  grid-template-columns: 4rem auto;
-  gap: .5rem;
-}
+      aside {
+        position: static;
+      }
 
-/* thumbnail rail */
-.gallery-slides__thumbnail {
-  aspect-ratio: 1 / 1;
-  object-fit: cover;
-  display: block;
-  border-radius: 4px;
-}
-.gallery-slides__dot:active { outline: solid; }
+      .meta-grid {
+        grid-template-columns: 1fr;
+      }
 
-/* slide track */
-.gallery-slides__container { display: grid; gap: .5rem; }
+      .card {
+        padding: 26px 22px;
+      }
 
-/* each large slide */
-.gallery-slides__slide {
-  display: block;
-  width: 100%;
-  border-radius: 6px;
-  scroll-margin-top: 80px; /* keeps slide under the navbar after anchor jump */
-}
+      .card h2 {
+        font-size: 25px;
+      }
 
-/* sticky sidebar */
-.gallery-slides__sticky {
-  position: sticky;
-  top: 1rem;
-  display: grid;
-  gap: .5rem;
-}
+      .description {
+        font-size: 17px;
+      }
 
-/* responsive: thumbnails become a horizontal strip on small screens */
-@media (max-width: 720px){
-  .gallery-slides__wrap { grid-template-columns: 1fr; }
-  .gallery-slides__aside { order: -1; }
-  .gallery-slides__sticky {
-    position: static;
-    display: grid;
-    grid-auto-flow: column;
-    gap: .5rem;
-    overflow-x: auto;
-    padding-bottom: .25rem;
-  }
-  .gallery-slides__thumbnail { width: 72px; height: 72px; flex: 0 0 auto; }
-}
+      .meta-item {
+        grid-template-columns: 44px 135px 1fr;
+        font-size: 16px;
+      }
 
-/* Smooth scroll for the in-page anchors */
-html { scroll-behavior: smooth; }
-
-    /* Force slides into same ratio */
-.slidesshow__slide {
-  width: 100%;
-  aspect-ratio: 16 / 9;   /* all slides same shape */
-  object-fit: cover;      /* crop to fill the box */
-  border-radius: 6px;
-  display: block;
-}
-
-/* Thumbnails stay square */
-.slidesshow__thumbnail {
-  width: 100%;
-  aspect-ratio: 1 / 1;
-  object-fit: cover;
-  border-radius: 4px;
-  display: block;
-}
-/* 1) Allow the two columns in the research grid to actually shrink on mobile */
-.r-grid > * {
-  min-width: 0;            /* critical for preventing overflow in grid/flex */
-}
-
-/* 2) Wrap long references/links instead of spilling out */
-.r-refs,
-.r-refs li,
-.r-refs a {
-  overflow-wrap: anywhere;  /* break long URLs/DOIs anywhere if needed */
-  word-break: break-word;   /* legacy fallback */
-  white-space: normal;      /* allow wrapping */
-  line-height: 1.45;
-}
-
-/* Optional: tighten references on small screens for cleaner fit */
-@media (max-width: 520px){
-  .r-refs { font-size: 13px; }
-}
-
-/* Safety net: if anything still tries to overflow, clip the card edges */
-@media (max-width: 520px){
-  .card, .r-card { overflow: hidden; }
-}
-
-    /* --- FORCE FIXED RATIOS IN GALLERY (override previous rules) --- */
-
-/* Large slides: all 16:9 boxes, image cropped if needed (no stretch) */
-#page-gallery .gallery-slides__container > img.gallery-slides__slide,
-#page-gallery .slidesshow__slide {
-  display: block;
-  width: 100% !important;        /* beat generic img rules */
-  aspect-ratio: 16 / 9;          /* << pick your designated ratio */
-  height: auto;                   /* works with aspect-ratio on replaced elements */
-  object-fit: cover;              /* fill the box; crop as needed */
-  border-radius: 6px;
-}
-
-/* Thumbnails: square boxes */
-#page-gallery .gallery-slides__aside img.gallery-slides__thumbnail,
-#page-gallery .slidesshow__thumbnail {
-  display: block;
-  width: 100% !important;
-  aspect-ratio: 1 / 1;
-  height: auto;
-  object-fit: cover;
-  border-radius: 4px;
-}
-
-/* Optional: if any parent is shrinking oddly on mobile, allow it to shrink */
-#page-gallery .gallery-slides__wrap > * { min-width: 0; }
-
-/* --- FORCE FIXED RATIOS IN GALLERY (override previous rules) --- */
-
-/* Large slides: all 16:9 boxes, image cropped if needed (no stretch) */
-#page-gallery .gallery-slides__container > img.gallery-slides__slide,
-#page-gallery .slidesshow__slide {
-  display: block;
-  width: 100% !important;        /* beat generic img rules */
-  aspect-ratio: 16 / 9;          /* << pick your designated ratio */
-  height: auto;                   /* works with aspect-ratio on replaced elements */
-  object-fit: cover;              /* fill the box; crop as needed */
-  border-radius: 6px;
-}
-
-/* Thumbnails: square boxes */
-#page-gallery .gallery-slides__aside img.gallery-slides__thumbnail,
-#page-gallery .slidesshow__thumbnail {
-  display: block;
-  width: 100% !important;
-  aspect-ratio: 1 / 1;
-  height: auto;
-  object-fit: cover;
-  border-radius: 4px;
-}
-
-/* Optional: if any parent is shrinking oddly on mobile, allow it to shrink */
-#page-gallery .gallery-slides__wrap > * { min-width: 0; }
-/* Smartphone gap that reveals the background video (inside the video-section) */
-@media (max-width: 760px){
-  .video-section > main {
-    padding-top: 16px; /* adjust to taste */
-  }
-}
-/* Make Sources wrap like CV on small screens */
-#page-sources .card ul { 
-  padding-left: 20px; 
-  margin: 0; 
-}
-
-#page-sources .card li,
-#page-sources .card a{
-  overflow-wrap: anywhere;   /* wrap long URLs/words */
-  word-break: break-word;    /* fallback */
-  white-space: normal;       /* allow wrapping */
-  line-height: 1.45;
-}
-
-@media (max-width: 520px){
-  #page-sources .card { 
-    overflow: hidden;        /* safety clip on tiny screens */
-  }
-  #page-sources .card li { 
-    font-size: 14px;         /* optional: match CV readability */
-  }
-}
-/* ==== Lightbox (image popup) ==== */
-.lightbox {
-  position: fixed;
-  inset: 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background: rgba(0,0,0,0);        /* dim added on .show */
-  opacity: 0;
-  pointer-events: none;
-  transition: background .25s ease, opacity .25s ease;
-  z-index: 10000;                    /* above everything */
-}
-
-.lightbox.show {
-  background: rgba(0,0,0,0.65);
-  opacity: 1;
-  pointer-events: auto;
-}
-
-.lightbox__img {
-  max-width: 96vw;
-  max-height: 92vh;
-  object-fit: contain;
-  border-radius: 8px;
-  box-shadow: 0 10px 40px rgba(0,0,0,.45);
-  transform: scale(.98);
-  opacity: 0;
-  transition: transform .25s ease, opacity .25s ease;
-}
-
-.lightbox.show .lightbox__img {
-  transform: none;
-  opacity: 1;
-}
-
-/* Close button */
-/* Close button — simple white X */
-.lightbox__close {
-  position: fixed;
-  top: 14px;
-  right: 18px;
-  background: none;
-  border: none;
-  color: #fff;
-  font-size: 32px;
-  font-weight: bold;
-  cursor: pointer;
-  line-height: 1;
-  padding: 0;
-}
-.lightbox__close:hover {
-  color: #ddd;
-}
-
-/* Change cursor on image */
-.lightbox__img {
-  max-width: 96vw;
-  max-height: 92vh;
-  object-fit: contain;
-  border-radius: 8px;
-  box-shadow: 0 10px 40px rgba(0,0,0,.45);
-  transform: scale(.98);
-  opacity: 0;
-  transition: transform .25s ease, opacity .25s ease;
-  cursor: zoom-out;   /* 👈 cursor style */
-}
-
-
-/* Lock page scroll when lightbox is open */
-body.lb-open { overflow: hidden; }
-
-/* Hand cursor for clickable images (before opening) */
-img:not(.gallery-slides__thumbnail):not(.banner-gif):not(.banner-sprites img):not(.site-footer img) {
-  cursor: pointer;
-}
-
-/* Normal arrow cursor when the lightbox is open */
-#lightbox img {
-  cursor: default !important;
-}
-/* height of your navbar; tweak if needed */
-:root { --navH: 64px; }
-
-/* GALLERY – keep the thumbnail rail visible while scrolling */
-#page-gallery .gallery-slides__wrap{
-  display: grid;
-  grid-template-columns: 5rem 1fr; /* rail + slides */
-  align-items: start;
-}
-
-/* <- make the ASIDE sticky */
-#page-gallery .gallery-slides__aside{
-  position: sticky !important;
-  top: calc(var(--navH) + 12px);            /* stay under the navbar */
-  align-self: start;
-  height: calc(100dvh - var(--navH) - 24px);/* fill viewport height */
-  overflow: auto;                           /* rail scrolls if long */
-  padding-right: 4px;
-}
-
-/* the inner container is no longer sticky */
-#page-gallery .gallery-slides__sticky{
-  position: static !important;
-  display: grid;
-  gap: .5rem;
-}
-
-/* nice compact scrollbar (optional) */
-#page-gallery .gallery-slides__aside::-webkit-scrollbar{ width: 8px; }
-#page-gallery .gallery-slides__aside::-webkit-scrollbar-thumb{
-  background: rgba(255,255,255,.25); border-radius: 6px;
-}
-
-/* Mobile: fall back to horizontal strip at the top */
-@media (max-width: 720px){
-  #page-gallery .gallery-slides__wrap{ grid-template-columns: 1fr; }
-  #page-gallery .gallery-slides__aside{
-    position: static !important;
-    height: auto;
-    overflow: visible;
-    order: -1;                      /* rail above the big images */
-  }
-  #page-gallery .gallery-slides__sticky{
-    grid-auto-flow: column;
-    overflow-x: auto;
-    padding-bottom: .25rem;
-  }
-}
-/* was overflow:hidden; — that blocks sticky descendants */
-.video-section{ overflow: visible; }
-
-    /* Remove red/blue highlight borders around thumbnail links */
-#page-gallery .gallery-slides__dot {
-  outline: none;             /* remove default focus outline */
-  border: none;
-}
-
-#page-gallery .gallery-slides__dot:focus,
-#page-gallery .gallery-slides__dot:active {
-  outline: none;
-  border: none;
-  box-shadow: none;
-}
-/* --- Make TOP banner narrower --- */
-.banner { 
-  padding: 40px 0 20px !important;   /* half-ish */
-}
-
-/* The big gif is forcing the height — shrink it */
-.banner-gif {
-  height: 100px !important;          /* was 180px */
-  max-height: 100px !important;
-  width: auto;
-  object-fit: contain;
-}
-
-/* Optional: tighten title spacing a bit so it fits nicer */
-.banner h1 { 
-  font-size: 30px;                  /* was 34px (optional) */
-  line-height: 1.1;
-  margin: 0;
-}
-.banner p { margin: 6px 0 0; }
-/* Lightbox text overlays */
-.lightbox__title,
-.lightbox__credit{
-  position: fixed;
-  z-index: 10001;                /* above backdrop, below close button */
-  color: #fff;
-  text-shadow: 0 1px 2px rgba(0,0,0,.5);
-  pointer-events: none;          /* don’t block clicks on backdrop */
-  max-width: 80vw;
-}
-
-.lightbox__title{
-  left: 18px;
-  bottom: 16px;
-  font-size: 16px;
-  font-weight: 700;
-  letter-spacing: .2px;
-}
-
-.lightbox__credit{
-  right: 18px;
-  bottom: 16px;
-  font-size: 12px;               /* small white font */
-  opacity: .9;
-  text-align: right;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-
-/* keep close button above overlays */
-.lightbox__close{ z-index: 10002; }
-
-    /* Show alt text in bottom-right */
-.lightbox__credit {
-  position: fixed;
-  right: 18px;
-  bottom: 16px;
-  z-index: 10001;
-  color: #fff;
-  font-size: 14px;
-  opacity: .9;
-  text-shadow: 0 1px 2px rgba(0,0,0,.5);
-  pointer-events: none;
-}
-/* ensure some breathing room without breaking the video background */
-.video-section { padding-bottom: 40px; }
-.site-footer   { margin-top: 0 !important; }
-
+      .arrow {
+        font-size: 38px;
+      }
+    }
   </style>
-  <link rel="icon" type="image/png" href="pic1.png">
 </head>
+
 <body>
-<body class="locked">
-
-<header class="banner">
-  <!-- full-banner sprite field -->
-  <div class="banner-sprites" aria-hidden="true"></div>
-
-  <div class="wrapper banner-flex">
-    <div class="banner-text">
-      <h1>YUTA TAWARADA</h1>
-      <p class="lightmuted">Who the fuck is this guy!</p>
+  <header>
+    <div class="header-inner">
+      <h1>Programs for Postdocs</h1>
+      <p class="intro">
+        Search and filter career development, funding, mentoring, onboarding, and support programs for postdoctoral researchers and early career researchers.
+      </p>
     </div>
-    <!-- your existing single banner gif can stay if you want -->
-    <img class="banner-gif"
-         src="https://media2.giphy.com/media/v1.Y2lkPTc5MGI3NjExdHhnaXljYTF2d25ocHBleDU1MmJ6OG43bzM3aTRoZWZ2eHVobTVnMCZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9cw/l0IpXgEBZ3y3UEljO/giphy.gif"
-         alt="">
-  </div>
-</header>
+  </header>
 
+  <main>
+    <aside>
+      <h2>Filter programs</h2>
+      <div id="errorBox"></div>
 
-  <nav class="navbar">
-    <div class="wrapper">
-      <div class="nav">
-        <a href="#home" data-route="home" class="active">HOME</a>
-        <!--- <a href="#cv" data-route="cv">CV</a> -->
-        <a href="#projects" data-route="projects">PROJECTS</a>
-       <!--- <a href="#research" data-route="research">RESEARCH</a> -->
-        <a href="#publications" data-route="publications">YOOOO!</a>
-        <a href="#gallery" data-route="gallery">GALLERY</a>
-        <!--- <a href="#sources" data-route="sources">SOURCES</a> -->
+      <div class="filter-group">
+        <label for="categoryFilter">Category</label>
+        <select id="categoryFilter">
+          <option value="">All categories</option>
+        </select>
       </div>
-    </div>
-  </nav>
 
-  <!-- Video only behind the main content area -->
-  <div class="video-section">
-    <video autoplay muted loop playsinline id="bg-video">
-      <source src="video1.mp4" type="video/mp4">
-      Your browser does not support the video tag.
-    </video>
+      <div class="filter-group">
+        <label for="subcategoryFilter">Sub-category</label>
+        <select id="subcategoryFilter">
+          <option value="">All sub-categories</option>
+        </select>
+      </div>
 
-    <main class="wrapper section">
-      <!-- HOME -->
-      <section id="page-home" class="page">
-        <div class="card hero">
-          <div>
-            <h2>Welcome to my website.</h2>
-            <p class="muted">We must lock in.</p>
+      <div class="filter-group">
+        <label for="careerFilter">Career levels</label>
+        <select id="careerFilter">
+          <option value="">All career levels</option>
+        </select>
+      </div>
+
+      <div class="filter-group">
+        <label for="audienceFilter">Audience</label>
+        <select id="audienceFilter">
+          <option value="">All audiences</option>
+        </select>
+      </div>
+
+      <div class="filter-group">
+        <label for="locationFilter">Location</label>
+        <select id="locationFilter">
+          <option value="">All locations</option>
+        </select>
+      </div>
+
+      <div class="filter-group">
+        <label for="searchInput">Program title / description</label>
+        <input id="searchInput" type="search" placeholder="Search programs..." />
+      </div>
+
+      <div class="button-row">
+        <button class="primary" id="applyBtn">Apply</button>
+        <button class="secondary" id="resetBtn">Reset</button>
+      </div>
+
+      <div class="upload-note">
+        The page tries to load <strong>data1.csv</strong> automatically. If it does not load locally, upload the CSV here.
+        <input id="csvUpload" type="file" accept=".csv" />
+      </div>
+    </aside>
+
+    <section class="content">
+      <div class="toolbar">
+        <h2 id="resultCount">Loading programs...</h2>
+
+        <div class="sort-box">
+          <label for="sortSelect">Sort</label>
+          <select id="sortSelect">
+            <option value="program-asc">Program A–Z</option>
+            <option value="program-desc">Program Z–A</option>
+            <option value="location-asc">Location A–Z</option>
+            <option value="category-asc">Category A–Z</option>
+          </select>
+        </div>
+      </div>
+
+      <div id="cards"></div>
+    </section>
+  </main>
+
+  <script>
+    const CSV_FILE = "data1.csv";
+
+    const FIXED_COLUMNS = [
+      "No.",
+      "Program",
+      "Category",
+      "Career Levels",
+      "Audience",
+      "Location",
+      "Description"
+    ];
+
+    let programs = [];
+    let subcategoryColumns = [];
+
+    const el = {
+      category: document.getElementById("categoryFilter"),
+      subcategory: document.getElementById("subcategoryFilter"),
+      career: document.getElementById("careerFilter"),
+      audience: document.getElementById("audienceFilter"),
+      location: document.getElementById("locationFilter"),
+      search: document.getElementById("searchInput"),
+      sort: document.getElementById("sortSelect"),
+      cards: document.getElementById("cards"),
+      resultCount: document.getElementById("resultCount"),
+      errorBox: document.getElementById("errorBox"),
+      applyBtn: document.getElementById("applyBtn"),
+      resetBtn: document.getElementById("resetBtn"),
+      csvUpload: document.getElementById("csvUpload")
+    };
+
+    el.applyBtn.addEventListener("click", render);
+    el.resetBtn.addEventListener("click", resetFilters);
+    el.sort.addEventListener("change", render);
+    el.search.addEventListener("input", render);
+
+    [el.category, el.subcategory, el.career, el.audience, el.location].forEach(select => {
+      select.addEventListener("change", render);
+    });
+
+    el.csvUpload.addEventListener("change", event => {
+      const file = event.target.files[0];
+      if (!file) return;
+
+      const reader = new FileReader();
+      reader.onload = e => {
+        try {
+          loadFromCSVText(e.target.result);
+          clearError();
+        } catch (error) {
+          showError("The uploaded CSV could not be read. Please check the column headers and CSV formatting.");
+        }
+      };
+      reader.readAsText(file);
+    });
+
+    async function init() {
+      try {
+        const response = await fetch(CSV_FILE);
+        if (!response.ok) throw new Error("CSV not found");
+        const text = await response.text();
+        loadFromCSVText(text);
+      } catch (error) {
+        showError(
+          "Could not automatically load data1.csv. This usually happens when opening index.html directly from your computer. Start a local server or use the CSV upload field."
+        );
+        programs = [];
+        render();
+      }
+    }
+
+    function loadFromCSVText(csvText) {
+      const parsed = parseCSV(csvText);
+      if (parsed.length === 0) {
+        programs = [];
+        render();
+        return;
+      }
+
+      const headers = Object.keys(parsed[0]);
+
+      subcategoryColumns = headers.filter(header => !FIXED_COLUMNS.includes(header));
+
+      programs = parsed.map(row => ({
+        no: clean(row["No."]),
+        program: clean(row["Program"]),
+        category: clean(row["Category"]),
+        careerLevels: clean(row["Career Levels"]),
+        audience: clean(row["Audience"]),
+        location: clean(row["Location"]),
+        description: clean(row["Description"]),
+        subcategories: subcategoryColumns.filter(col => isSelectedFlag(row[col]))
+      }));
+
+      populateFilters();
+      render();
+    }
+
+    function parseCSV(text) {
+      const rows = [];
+      let row = [];
+      let cell = "";
+      let inQuotes = false;
+
+      text = text.replace(/^\uFEFF/, "");
+
+      for (let i = 0; i < text.length; i++) {
+        const char = text[i];
+        const next = text[i + 1];
+
+        if (char === '"' && inQuotes && next === '"') {
+          cell += '"';
+          i++;
+        } else if (char === '"') {
+          inQuotes = !inQuotes;
+        } else if (char === "," && !inQuotes) {
+          row.push(cell);
+          cell = "";
+        } else if ((char === "\n" || char === "\r") && !inQuotes) {
+          if (char === "\r" && next === "\n") i++;
+          row.push(cell);
+          if (row.some(value => value.trim() !== "")) rows.push(row);
+          row = [];
+          cell = "";
+        } else {
+          cell += char;
+        }
+      }
+
+      row.push(cell);
+      if (row.some(value => value.trim() !== "")) rows.push(row);
+
+      if (rows.length < 2) return [];
+
+      const headers = rows[0].map(h => clean(h));
+
+      return rows.slice(1).map(values => {
+        const obj = {};
+        headers.forEach((header, index) => {
+          obj[header] = values[index] ?? "";
+        });
+        return obj;
+      });
+    }
+
+    function populateFilters() {
+      populateSelect(el.category, unique(programs.map(p => p.category)), "All categories");
+      populateSelect(el.subcategory, subcategoryColumns, "All sub-categories");
+      populateSelect(el.career, uniqueMulti(programs.map(p => p.careerLevels)), "All career levels");
+      populateSelect(el.audience, uniqueMulti(programs.map(p => p.audience)), "All audiences");
+      populateSelect(el.location, unique(programs.map(p => p.location)), "All locations");
+    }
+
+    function populateSelect(select, values, defaultText) {
+      const current = select.value;
+      select.innerHTML = "";
+
+      const defaultOption = document.createElement("option");
+      defaultOption.value = "";
+      defaultOption.textContent = defaultText;
+      select.appendChild(defaultOption);
+
+      values
+        .filter(Boolean)
+        .sort((a, b) => a.localeCompare(b))
+        .forEach(value => {
+          const option = document.createElement("option");
+          option.value = value;
+          option.textContent = value;
+          select.appendChild(option);
+        });
+
+      if ([...select.options].some(option => option.value === current)) {
+        select.value = current;
+      }
+    }
+
+    function render() {
+      let filtered = programs.filter(program => {
+        const categoryOK = !el.category.value || program.category === el.category.value;
+
+        const subcategoryOK =
+          !el.subcategory.value || program.subcategories.includes(el.subcategory.value);
+
+        const careerOK =
+          !el.career.value || splitMulti(program.careerLevels).includes(el.career.value);
+
+        const audienceOK =
+          !el.audience.value || splitMulti(program.audience).includes(el.audience.value);
+
+        const locationOK =
+          !el.location.value || program.location === el.location.value;
+
+        const query = el.search.value.trim().toLowerCase();
+        const searchOK =
+          !query ||
+          program.program.toLowerCase().includes(query) ||
+          program.description.toLowerCase().includes(query) ||
+          program.category.toLowerCase().includes(query) ||
+          program.subcategories.join(" ").toLowerCase().includes(query);
+
+        return categoryOK && subcategoryOK && careerOK && audienceOK && locationOK && searchOK;
+      });
+
+      filtered = sortPrograms(filtered);
+
+      el.resultCount.textContent =
+        filtered.length === 1
+          ? "1 program found"
+          : `${filtered.length} programs found`;
+
+      if (filtered.length === 0) {
+        el.cards.innerHTML = `<div class="empty">No programs match your current filter selection.</div>`;
+        return;
+      }
+
+      el.cards.innerHTML = filtered.map(cardHTML).join("");
+    }
+
+    function sortPrograms(items) {
+      const sort = el.sort.value;
+
+      return [...items].sort((a, b) => {
+        if (sort === "program-asc") return a.program.localeCompare(b.program);
+        if (sort === "program-desc") return b.program.localeCompare(a.program);
+        if (sort === "location-asc") return a.location.localeCompare(b.location);
+        if (sort === "category-asc") return a.category.localeCompare(b.category);
+        return 0;
+      });
+    }
+
+    function cardHTML(program) {
+      const subcategoryText =
+        program.subcategories.length > 0
+          ? program.subcategories.join(", ")
+          : "Not specified";
+
+      const description =
+        program.description || "No description available.";
+
+      return `
+        <article class="card">
+          <div class="card-title-row">
+            <h2>${escapeHTML(program.program || "Untitled program")}</h2>
+            <span class="arrow" aria-hidden="true">›</span>
           </div>
-        </div>
-        <div class="card hero hero--profile">
-          <img class="resp" src="pic1.png" loading="lazy" alt="Who is this?" width="380" height="380"/>
-          <div>
-            <h2>Yuta Tawarada</h2>
-            <p class="muted" style="margin-bottom:0"><strong>Who is this fucking guy!</strong></p>
-            <p style="margin-top:0">He's locked in, at ease.</p>
-          </div>
-        </div>
-      </section>
 
-      <!-- CV -->
-      <section id="page-cv" class="page">
-        <div class="card">
-          <h2>CV</h2>
-          <ul>
-            <li><strong>B.A., Global Political Economy</strong> — Waseda Univeristy, Tokyo, Japan <em>(March 2025)</em></li>
-          </ul>
-        </div>
-      </section>
+          <p class="description">${escapeHTML(description)}</p>
 
-      <!-- PROJECTS -->
-      <section id="page-projects" class="page">
-        <div class="card">
-          <h2><i>PART1</i><br>Can You Lock The Fuck In?</h2>
-          <p>Would you?</p>
-          <img class="resp" src="https://as2.ftcdn.net/jpg/00/98/24/45/1000_F_98244581_otL4Mr22a7X0YkGT4c4S4iyCAlioHA7w.jpg" loading="lazy" alt="Yes! - Adobe Stock" width="380" height="380"/>
-          <p><a href="https://www.urbandictionary.com/define.php?term=Locked+In" target="_blank" rel="noopener">Reference Nr.1</a></p>
-        </div>
+          <hr class="divider" />
 
-        <div class="card">
-          <h2><i>PART2</i><br>Can You Lock The Fuck In?</h2>
-          <p>How about we lock in together?</p>
-          <img class="gallery-img" src="https://assets.mubicdn.net/images/notebook/post_images/20936/images-w1400.jpg?1458491163" loading="lazy" alt="On the Silver Globe - Andrzej Żuławski"/>
-          <img class="gallery-img" src="https://images.amcnetworks.com/ifccenter.com/wp-content/uploads/2021/07/inthemoodforlove_1280x720.jpg" loading="lazy" alt="In the mood for love - Wong Kar-Wai"/>
-          <p><a href="https://deutschefachpflege.de/wiki/locked-in-syndrom/" target="_blank" rel="noopener">Reference Nr.2</a></p>
-        </div>
-      </section>
+          <div class="meta-grid">
+            <div class="meta-item">
+              ${iconGraduation()}
+              <div class="meta-label">Category:</div>
+              <div class="meta-value">${escapeHTML(program.category || "Not specified")}</div>
+            </div>
 
-      <!-- RESEARCH -->
-      <section id="page-research" class="page">
-        <article class="r-card">
-          <h2 class="r-title">
-            Stochastic Causality in Experiential Manifolds:<br>
-            A Unified Theory of Fucking Around and Finding Out
-          </h2>
-          <h3 class="r-sub">A Nonlinear Epistemodynamic Approach to Consequential Ontologies</h3>
+            <div class="meta-item">
+              ${iconLocation()}
+              <div class="meta-label">Location:</div>
+              <div class="meta-value">${escapeHTML(program.location || "Not specified")}</div>
+            </div>
 
-          <div class="r-grid">
-            <figure class="r-fig">
-              <img src="FAFO.png" loading="lazy" alt="Parametric visualization of the FA–FO proportionality theorem" width="380" height="380">
-              <figcaption class="r-cap">
-                Graphical instantiation of the hypothesized linear FA→FO causality, illustrating a β=1 slope across the experiential continuum [1].
-              </figcaption>
-            </figure>
-            <div>
-              <p class="r-p">
-                The FA→FO axiom is here formalized as a minimally parameterized, uni-slope model in which the magnitude of finding out emerges as an invariant, homomorphic image of fucking around. Treating FA as the generative operator on an experiential manifold and FO as its epistemic coimage, we demonstrate that incremental perturbations in FA yield isomorphic escalations in FO (β=1), thereby collapsing contingency into necessity. The trajectory from origin to consequence is not merely correlative but constitutive: FA instantiates the very metric by which FO becomes legible. Consequently, stochastic or nonlinear accounts are rendered superfluous; the system exhibits strict proportionality, homoscedasticity, and path independence. In sum, FA is both necessary and sufficient for FO, a teleological circuit in which praxis begets knowledge with unit elasticity. Future work may generalize this mapping to higher-dimensional mischief spaces and non-Euclidean repercussion geometries.
-              </p>
+            <div class="meta-item">
+              ${iconCalendar()}
+              <div class="meta-label">Career Levels:</div>
+              <div class="meta-value">${escapeHTML(program.careerLevels || "Not specified")}</div>
+            </div>
+
+            <div class="meta-item">
+              ${iconUser()}
+              <div class="meta-label">Audience:</div>
+              <div class="meta-value">${escapeHTML(program.audience || "Not specified")}</div>
+            </div>
+
+            <div class="meta-item">
+              ${iconInstitution()}
+              <div class="meta-label">Sub-category:</div>
+              <div class="meta-value">${escapeHTML(subcategoryText)}</div>
             </div>
           </div>
-
-          <p class="r-p" style="margin-top:18px;">
-            Within this framework, we successfully reproduced the canonical FAFO cycle observed in empirical folklore, thereby substantiating the predictive capacity of the model across heterogeneous ontological substrates.
-          </p>
-
-          <ol class="r-refs">
-            <li>
-              J. Vandrake, P. Oscillanti, L. Thorne,
-              “Epistemic Hysteresis in Causal Folklore: Quantifying the FA→FO Manifold,”
-              <em>Journal of Irreproducible Results</em>, 42(3): 1337–1359 (2023).
-              <a href="https://www.youtube.com/watch?v=WB0sqf1RAbo&list=RDWB0sqf1RAbo&start_radio=1" target="_blank" rel="noopener"><i>Intellectual Stimulus</i></a>
-            </li>
-          </ol>
         </article>
-      </section>
-
-      <!-- PUBLICATIONS -->
-      <section id="page-publications" class="page">
-        <div class="card">
-          <h2>Watch this!</h2>
-          <p>Can you believe this shit?</p>
-          <figure class="r-fig">
-            <img src="https://images.squarespace-cdn.com/content/v1/5bedcfebda02bc61f08c0bd4/1702464532041-VVST4300UKACPTE5YALX/2.jpg?format=2500w" loading="lazy" alt="Algorithmic Beauty" width="380" height="380">
-            <figcaption class="r-cap">
-              <i>“Algorithmic Beauty”</i> 2022, Statuario Marble, 6’8” (204cm.), Greg Lansky
-            </figcaption>
-          </figure>
-        </div>
-      </section>
-      <section id="page-gallery" class="page">
-  <div class="gallery-slides section">
-    <div class="gallery-slides__wrap">
-      <aside class="gallery-slides__aside">
-        <div class="gallery-slides__sticky">
-          <a href="#c1" class="gallery-slides__dot">
-            <img
-              src="pic4.JPG"
-              alt="Evening Gathering"
-              title="photo by Jeremy Bishop for Unsplash"
-              class="gallery-slides__thumbnail">
-          </a>
-          <a href="#c2" class="gallery-slides__dot">
-            <img
-              src="pic5.JPG"
-              alt="Cool"
-              title="photo by Jeremy Bishop for Unsplash"
-              class="gallery-slides__thumbnail">
-          </a>
-          <a href="#c3" class="gallery-slides__dot">
-            <img
-              src="pic6.JPG"
-              alt="Drummer"
-              title="photo by Amy Humphries for Unsplash"
-              class="gallery-slides__thumbnail">
-          </a>
-          <a href="#c4" class="gallery-slides__dot">
-            <img
-              src="pic7.JPG"
-              alt="Aerial view of waves on sand."
-              title="photo by Samuel Scrimshaw for Unsplash"
-              class="gallery-slides__thumbnail">
-          </a>
-           <a href="#c5" class="gallery-slides__dot">
-            <img
-              src="pic8.JPG"
-              alt="Aerial view of waves on sand."
-              title="photo by Samuel Scrimshaw for Unsplash"
-              class="gallery-slides__thumbnail">
-          </a>
-              <a href="#c6" class="gallery-slides__dot">
-            <img
-              src="pic9.JPG"
-              alt="Aerial view of waves on sand."
-              title="photo by Samuel Scrimshaw for Unsplash"
-              class="gallery-slides__thumbnail">
-          </a>
-        </div>
-      </aside>
-
-      <div class="gallery-slides__track">
-        <div class="gallery-slides__container">
-          <img id="c1"
-               src="pic4.JPG"
-               alt="Gathering"
-               class="gallery-slides__slide">
-          <img id="c2"
-               src="pic5.JPG"
-               alt="Cool"
-               class="gallery-slides__slide">
-          <img id="c3"
-               src="pic6.JPG"
-               alt="Drummer"
-               class="gallery-slides__slide">
-          <img id="c4"
-               src="pic7.JPG"
-               alt="AH"
-               class="gallery-slides__slide">
-          <img id="c5"
-               src="pic8.JPG"
-               alt="YOU"
-               class="gallery-slides__slide">
-           <img id="c6"
-               src="pic9.JPG"
-               alt="Is this the end?"
-               class="gallery-slides__slide">
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-     <!-- SOURCES -->
-      <section id="page-sources" class="page">
-        <div class="card">
-          <h2>SOURCES</h2>
-          <ul>
-            <li><strong>ANY IMAGE/TEXT/VIDEO/MUSIC/GIF</strong> — <em>THE SOURCE</em></li>
-          </ul>
-        </div>
-      </section>
-    </main>
-  </div> 
-  
-  
-  <!-- /video-section -->
-
-<script>
-  /* SPA router with gallery in-page anchors */
-  const routes = ["home","cv","experience","projects","research","publications","gallery", "sources"];
-
-  function activate(route){
-    if (!routes.includes(route)) route = "home";
-    document.querySelectorAll('.nav a').forEach(a =>
-      a.classList.toggle('active', a.dataset.route === route)
-    );
-    document.querySelectorAll('.page').forEach(sec =>
-      sec.classList.toggle('active', sec.id === 'page-' + route)
-    );
-  }
-
-  function handleHash(){
-    const h = location.hash.replace('#','').toLowerCase();
-
-    // If hash is a gallery slide id like c1, c2, ...
-    if (/^c\d+$/i.test(h)) {
-      // show the Gallery page, then scroll to the slide
-      activate('gallery');
-      const el = document.getElementById(h);
-      if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
-      return; // do not route to home
+      `;
     }
 
-    // Normal routes
-    const route = routes.includes(h) ? h : 'home';
-    activate(route);
-  }
-
-  window.addEventListener('hashchange', handleHash);
-  window.addEventListener('DOMContentLoaded', handleHash);
-</script>
-
-
-<footer class="site-footer">
-  <div class="footer-wrapper">
-    <!-- Your credentials -->
-    <div class="footer-col">
-      <h3>Yuta Tawarada</h3>
-      <p>Based in Giessen, Germany</p>
-      <p>Email: <a href="mailto:yutataw1@gmail.com">yutataw1@gmail.com</a></p>
-      <!-- <p>LinkedIn: <a href="https://www.tagesschau.de/">Linked in is not locked in.</a></p> -->
-    </div>
-
-    <!-- Other links -->
-    <div class="footer-col">
-      <h3>Other links</h3>
-      <p><a href="https://www.liebeskind.de/templates/yootheme/cache/56/Murakami_Ryu_sw-56d88e80.jpeg" target="_blank">Image of an orange</a></p>
-    </div>
-
-    <!-- Right GIF -->
-    <div class="footer-gif">
-      <img src="https://media.giphy.com/media/v1.Y2lkPWVjZjA1ZTQ3bWlya25iNml4NXRqYWtoN2NycGQ0eHVrb2hoYWFpeHR2NHlzZHU1eSZlcD12MV9zdGlja2Vyc19yZWxhdGVkJmN0PXM/l2JJFzDwOzbAhQVos/giphy.gif" 
-           alt="Funny GIF">
-    </div>
-  </div>
-</footer>
-
-  <!-- Win98 Popup -->
-  <div id="popup" class="win98 hide">
-    <div class="win98-window" role="dialog" aria-modal="true" aria-labelledby="w98-title">
-      <div class="win98-titlebar">
-        <div id="w98-title" class="title">Can you lock the fuck in?</div>
-      </div>
-      <div class="win98-body">
-        <svg class="icon" viewBox="0 0 24 24" aria-hidden="true">
-          <circle cx="12" cy="12" r="11" fill="#d32f2f" stroke="#8b0000" stroke-width="2"/>
-          <path d="M8 8l8 8M16 8l-8 8" stroke="#fff" stroke-width="2.5" stroke-linecap="round"/>
-        </svg>
-        <p><strong>Can you lock the fuck in?</strong></p>
-      </div>
-      <div class="win98-buttons">
-        <button class="btn98" id="btn-yes">YES</button>
-        <button class="btn98" id="btn-ok">OK</button>
-      </div>
-    </div>
-  </div>
-
-  <!-- Background music -->
-  <audio id="bg-music" loop></audio>
-  <button id="music-toggle" class="music-btn">Pause</button>
-
-<script>
-(function(){
-  // --- popup elements ---
-  const overlay = document.getElementById('popup');
-  const btnYes  = document.getElementById('btn-yes');
-  const btnOk   = document.getElementById('btn-ok');
-
-  // --- audio elements ---
-  const audio = document.getElementById('bg-music');
-  const toggleBtn = document.getElementById('music-toggle');
-
-  // pick a random track
-  const tracks = ["music1.mp3", "music2.mp3", "music3.mp3"];
-  audio.src = tracks[Math.floor(Math.random() * tracks.length)];
-  audio.loop = true;
-  audio.volume = 0.6;
-  audio.muted = true; // start muted to satisfy autoplay policies
-
-  // open popup with fade
-  function openPopup(){
-    overlay.classList.remove('hide','dim','show');
-    requestAnimationFrame(() => overlay.classList.add('show'));
-  }
-
-  // start music from a user gesture
-  function startMusic(){
-    audio.muted = false;        // make it audible
-    return audio.play().then(() => {
-      toggleBtn.textContent = "Pause";
-    }).catch(() => {
-      toggleBtn.textContent = "Play";
-    });
-  }
-
-  // close popup after starting music; keep black overlay for 1.3s
-function closePopupAfterStart(){
-  startMusic().finally(() => {
-    overlay.classList.remove('show');
-    overlay.classList.add('dim');
-    setTimeout(() => {
-      overlay.classList.remove('dim');
-      overlay.classList.add('hide');
-
-      // reveal the page content now
-      document.body.classList.remove('locked');
-
-      // 🔔 tell others (like the banner sprites) that the page is now visible
-      window.dispatchEvent(new Event('page:unlocked'));
-    }, 1300);
-  });
-}
-
-
-  // init on load
-  window.addEventListener('DOMContentLoaded', openPopup);
-
-  // ONLY these two buttons close the popup & start music
-  btnYes.addEventListener('click', closePopupAfterStart);
-  btnOk.addEventListener('click', closePopupAfterStart);
-
-  // play/pause control
-  toggleBtn.addEventListener('click', () => {
-    if (audio.paused) {
-      startMusic();
-    } else {
-      audio.pause();
-      toggleBtn.textContent = "Play";
-    }
-  });
-})();
-</script>
-<script>
-(function(){
-  const spritesHost = document.querySelector('.banner-sprites');
-  if (!spritesHost) return;
-
-  const sourceGif = (document.querySelector('.banner-gif') || {}).src
-    || 'https://media2.giphy.com/media/v1.Y2lkPTc5MGI3NjExdHhnaXljYTF2d25ocHBleDU1MmJ6OG43bzM3aTRoZWZ2eHVobTVnMCZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9cw/l0IpXgEBZ3y3UEljO/giphy.gif';
-
-  const COUNT = 20;
-  const MIN = 40;
-  const MAX = 110;
-
-  const rand = (min, max) => Math.random() * (max - min) + min;
-
-  function placeSprites(){
-    // clear existing sprites
-    spritesHost.innerHTML = '';
-
-    const rect = spritesHost.getBoundingClientRect();
-    for (let i = 0; i < COUNT; i++){
-      const img = document.createElement('img');
-      img.src = sourceGif;
-
-      const size = rand(MIN, MAX);
-      img.style.width  = size + 'px';
-      img.style.height = 'auto';
-
-      const pad = 6;
-      const left = rand(pad, rect.width  - size - pad);
-      const top  = rand(pad, rect.height - size - pad);
-      img.style.left = left + 'px';
-      img.style.top  = top  + 'px';
-
-      const dur = rand(3.5, 7);
-      const delay = rand(0, 3);
-      img.style.animation = `floatDrift ${dur}s ease-in-out ${delay}s infinite alternate`;
-
-      img.style.opacity = (0.55 + Math.random() * 0.35).toFixed(2);
-
-      spritesHost.appendChild(img);
-    }
-  }
-
-  // Only place when the banner has non-zero size (page not hidden)
-  function placeWhenReady(){
-    const rect = spritesHost.getBoundingClientRect();
-    if (rect.width < 20 || rect.height < 20) {
-      // try again shortly until visible
-      setTimeout(placeWhenReady, 50);
-      return;
-    }
-    placeSprites();
-  }
-
-  // initial (may get deferred until visible)
-  window.addEventListener('DOMContentLoaded', placeWhenReady);
-
-  // re-layout on unlock (after popup)
-  window.addEventListener('page:unlocked', placeWhenReady);
-
-  // re-layout on resize (debounced)
-  let t;
-  window.addEventListener('resize', () => {
-    clearTimeout(t);
-    t = setTimeout(placeWhenReady, 200);
-  });
-})();
-</script>
-
-<script>
-(function(){
-  const host = document.querySelector('.banner-sprites');
-  if (!host) return;
-
-  // use your existing big gif as the source (fallback to a URL if not found)
-  const sourceGif = (document.querySelector('.banner-gif') || {}).src
-    || 'https://media2.giphy.com/media/v1.Y2lkPTc5MGI3NjExdHhnaXljYTF2d25ocHBleDU1MmJ6OG43bzM3aTRoZWZ2eHVobTVnMCZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9cw/l0IpXgEBZ3y3UEljO/giphy.gif';
-
-  const COUNT = 20;        // how many copies
-  const SIZE_MIN = 48;     // px
-  const SIZE_MAX = 140;    // px
-
-  const rand = (a,b)=>Math.random()*(b-a)+a;
-
-  function place(){
-    host.innerHTML = '';
-    const rect = host.getBoundingClientRect();
-
-    // if banner is hidden (e.g., black overlay), try again shortly
-    if (rect.width < 10 || rect.height < 10){
-      setTimeout(place, 50);
-      return;
+    function resetFilters() {
+      el.category.value = "";
+      el.subcategory.value = "";
+      el.career.value = "";
+      el.audience.value = "";
+      el.location.value = "";
+      el.search.value = "";
+      el.sort.value = "program-asc";
+      render();
     }
 
-    for (let i=0;i<COUNT;i++){
-      const img = document.createElement('img');
-      img.src = sourceGif;
-
-      // random size
-      const w = rand(SIZE_MIN, SIZE_MAX);
-      img.style.width = w + 'px';
-      img.style.height = 'auto';
-
-      // random position anywhere in the banner (avoid clipping a bit)
-      const pad = 6;
-      const left = rand(pad, rect.width  - w - pad);
-      const top  = rand(pad, rect.height - w - pad); // heuristic, ok for square-ish gifs
-      img.style.left = left + 'px';
-      img.style.top  = top  + 'px';
-
-      // independent tempo: different duration + negative delay so they start mid-cycle
-      img.style.animationDuration = (rand(3.5, 9)).toFixed(2) + 's';
-      img.style.animationDelay    = (-rand(0, 6)).toFixed(2) + 's';
-
-      // slight random opacity variation (optional)
-      img.style.opacity = (0.55 + Math.random()*0.35).toFixed(2);
-
-      host.appendChild(img);
+    function clean(value) {
+      return String(value ?? "").trim();
     }
-  }
 
-  // initial (may defer until banner visible)
-  window.addEventListener('DOMContentLoaded', place);
+    function isSelectedFlag(value) {
+      const v = clean(value).toLowerCase();
+      return v === "1" || v === "yes" || v === "true" || v === "x";
+    }
 
-  // if you dispatch this after closing your popup black screen, re-place then
-  window.addEventListener('page:unlocked', place);
+    function unique(values) {
+      return [...new Set(values.map(clean).filter(Boolean))];
+    }
 
-  // re-place on resize (debounced)
-  let t;
-  window.addEventListener('resize', () => {
-    clearTimeout(t);
-    t = setTimeout(place, 200);
-  });
-})();
-</script>
-<!-- Image Lightbox -->
-<div id="lightbox" class="lightbox" aria-hidden="true" role="dialog">
-  <img id="lightbox-img" class="lightbox__img" alt="">
-  <!-- NEW: overlays -->
-  <div class="lightbox__title" aria-hidden="true"></div>
-  <div class="lightbox__credit" aria-hidden="true"></div>
-  <button id="lightbox-close" class="lightbox__close" aria-label="Close">&times;</button>
-</div>
+    function uniqueMulti(values) {
+      const all = [];
+      values.forEach(value => {
+        splitMulti(value).forEach(part => all.push(part));
+      });
+      return unique(all);
+    }
 
-<script>
-(function(){
-  const lb      = document.getElementById('lightbox');
-  const lbImg   = document.getElementById('lightbox-img');
-  const lbClose = document.getElementById('lightbox-close');
+    function splitMulti(value) {
+      return clean(value)
+        .split(/[;,/|]/)
+        .map(v => v.trim())
+        .filter(Boolean);
+    }
 
-  // mark images that should open the lightbox (adds .enlargeable for cursor)
-  function markEnlargeables(){
-    document.querySelectorAll('img').forEach(img => {
-      // EXCLUSIONS: small gallery side thumbs, banner sprites/gif, footer gif, and the lightbox itself
-      if (
-        img.classList.contains('gallery-slides__thumbnail') ||
-        img.closest('.gallery-slides__aside') ||
-        img.classList.contains('banner-gif') ||
-        img.closest('.banner-sprites') ||
-        img.closest('.site-footer') ||
-        img.closest('#lightbox')
-      ) {
-        img.classList.remove('enlargeable');
-        return;
-      }
-      img.classList.add('enlargeable');
-    });
-  }
+    function escapeHTML(value) {
+      return clean(value)
+        .replaceAll("&", "&amp;")
+        .replaceAll("<", "&lt;")
+        .replaceAll(">", "&gt;")
+        .replaceAll('"', "&quot;")
+        .replaceAll("'", "&#039;");
+    }
 
-  function openLightbox(src, alt='') {
-    lbImg.src = src;
-    lbImg.alt = alt || '';
-    lb.classList.add('show');
-    document.body.classList.add('lb-open');
-  }
+    function showError(message) {
+      el.errorBox.innerHTML = `<div class="error">${escapeHTML(message)}</div>`;
+    }
 
-  function closeLightbox() {
-    lb.classList.remove('show');
-    document.body.classList.remove('lb-open');
-    // optional: clear src so animated GIFs stop while hidden
-    setTimeout(() => { lbImg.src = ''; }, 250);
-  }
+    function clearError() {
+      el.errorBox.innerHTML = "";
+    }
 
-  // Delegate clicks: open lightbox for any eligible image
-  document.addEventListener('click', (e) => {
-    const img = e.target.closest('img');
-    if (!img) return;
+    function iconGraduation() {
+      return `
+        <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M22 10L12 5 2 10l10 5 10-5z"></path>
+          <path d="M6 12v5c3 2 9 2 12 0v-5"></path>
+          <path d="M22 10v6"></path>
+        </svg>`;
+    }
 
-    // ignore clicks on excluded images (no popup)
-    if (!img.classList.contains('enlargeable')) return;
+    function iconCalendar() {
+      return `
+        <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="3" y="4" width="18" height="17" rx="2"></rect>
+          <path d="M8 2v4"></path>
+          <path d="M16 2v4"></path>
+          <path d="M3 9h18"></path>
+        </svg>`;
+    }
 
-    // Support optional high-res via data-full
-    const src = img.dataset.full || img.currentSrc || img.src;
-    openLightbox(src, img.alt);
-  });
+    function iconInstitution() {
+      return `
+        <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M3 21h18"></path>
+          <path d="M5 21V10"></path>
+          <path d="M9 21V10"></path>
+          <path d="M15 21V10"></path>
+          <path d="M19 21V10"></path>
+          <path d="M2 10h20"></path>
+          <path d="M12 3l9 5H3l9-5z"></path>
+        </svg>`;
+    }
 
-  // Close interactions
-  lbClose.addEventListener('click', closeLightbox);
-  lb.addEventListener('click', (e) => {
-    // clicking the dimmed backdrop closes; clicking the image does not
-    if (e.target === lb) closeLightbox();
-  });
-  document.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape') closeLightbox();
-  });
+    function iconLocation() {
+      return `
+        <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M12 21s7-6.2 7-12a7 7 0 0 0-14 0c0 5.8 7 12 7 12z"></path>
+          <circle cx="12" cy="9" r="2.4"></circle>
+        </svg>`;
+    }
 
-  // Run once DOM is ready, and again after your popup unlocks the page
-  window.addEventListener('DOMContentLoaded', markEnlargeables);
-  window.addEventListener('page:unlocked', markEnlargeables);
-})();
-</script>
+    function iconUser() {
+      return `
+        <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="12" cy="7" r="4"></circle>
+          <path d="M5.5 21a6.5 6.5 0 0 1 13 0"></path>
+        </svg>`;
+    }
 
-<script>
-(function(){
-  const lb       = document.getElementById('lightbox');
-  const lbImg    = document.getElementById('lightbox-img');
-  const lbClose  = document.getElementById('lightbox-close');
-  const lbCredit = document.querySelector('.lightbox__credit');
-
-  // mark enlargeable images
-  function markEnlargeables(){
-    document.querySelectorAll('img').forEach(img => {
-      if (
-        img.classList.contains('gallery-slides__thumbnail') ||
-        img.closest('.gallery-slides__aside') ||
-        img.classList.contains('banner-gif') ||
-        img.closest('.banner-sprites') ||
-        img.closest('.site-footer') ||
-        img.closest('#lightbox')
-      ) {
-        img.classList.remove('enlargeable');
-        return;
-      }
-      img.classList.add('enlargeable');
-    });
-  }
-
-  function openLightbox(src, alt=''){
-    lbImg.src = src;
-    lbImg.alt = alt || '';
-    lbCredit.textContent = alt || '';   // only alt in bottom-right
-    lb.classList.add('show');
-    document.body.classList.add('lb-open');
-  }
-
-  function closeLightbox(){
-    lb.classList.remove('show');
-    document.body.classList.remove('lb-open');
-    setTimeout(() => { lbImg.src = ''; }, 250);
-  }
-
-  document.addEventListener('click', (e) => {
-    const img = e.target.closest('img');
-    if (!img) return;
-    if (!img.classList.contains('enlargeable')) return;
-
-    const src = img.dataset.full || img.currentSrc || img.src;
-    const alt = img.alt || '';
-
-    openLightbox(src, alt);
-  });
-
-  lbClose.addEventListener('click', closeLightbox);
-  lb.addEventListener('click', (e) => { if (e.target === lb) closeLightbox(); });
-  document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeLightbox(); });
-
-  window.addEventListener('DOMContentLoaded', markEnlargeables);
-  window.addEventListener('page:unlocked', markEnlargeables);
-})();
-</script>
-
-
+    init();
+  </script>
 </body>
 </html>
