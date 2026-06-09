@@ -14,13 +14,14 @@
       --line: #d9dee7;
       --bg: #f5f7fb;
       --card: #ffffff;
+      --error-bg: #fff1f0;
+      --error-border: #fecdca;
+      --error-text: #b42318;
       --shadow: 0 2px 8px rgba(16, 24, 40, 0.10);
       --radius: 10px;
     }
 
-    * {
-      box-sizing: border-box;
-    }
+    * { box-sizing: border-box; }
 
     body {
       margin: 0;
@@ -50,7 +51,7 @@
 
     .intro {
       margin: 0;
-      max-width: 900px;
+      max-width: 920px;
       color: var(--muted);
       font-size: 17px;
     }
@@ -78,12 +79,10 @@
     aside h2 {
       margin: 0 0 18px;
       color: var(--blue-dark);
-      font-size: 24px;
+      font-size: 22px;
     }
 
-    .filter-group {
-      margin-bottom: 18px;
-    }
+    .filter-group { margin-bottom: 18px; }
 
     label {
       display: block;
@@ -93,26 +92,34 @@
     }
 
     select,
-    input[type="search"] {
+    input[type="search"],
+    input[type="file"] {
       width: 100%;
-      border: 1px solid #cfd6e0;
-      background: #fff;
+      border: 1px solid var(--line);
       border-radius: 7px;
-      padding: 10px 12px;
+      padding: 10px 11px;
       font-size: 15px;
+      background: #ffffff;
       color: var(--text);
     }
 
+    select:focus,
+    input[type="search"]:focus {
+      outline: 2px solid rgba(0, 86, 184, 0.22);
+      border-color: var(--blue);
+    }
+
     .button-row {
-      display: flex;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
       gap: 10px;
-      margin-top: 20px;
+      margin-top: 18px;
     }
 
     button {
       border: 0;
       border-radius: 7px;
-      padding: 11px 14px;
+      padding: 11px 12px;
       font-size: 15px;
       font-weight: 700;
       cursor: pointer;
@@ -120,34 +127,45 @@
 
     .primary {
       background: var(--blue);
-      color: #fff;
-      flex: 1;
+      color: white;
     }
 
-    .primary:hover {
-      background: var(--blue-dark);
-    }
+    .primary:hover { background: var(--blue-dark); }
 
     .secondary {
-      background: #edf1f6;
-      color: #253244;
+      background: #eef2f6;
+      color: #344054;
     }
 
-    .secondary:hover {
-      background: #dfe6ef;
-    }
+    .secondary:hover { background: #e1e7ee; }
 
+    .source-note,
     .upload-note {
       margin-top: 18px;
       padding-top: 16px;
       border-top: 1px solid var(--line);
-      font-size: 13px;
       color: var(--muted);
+      font-size: 13px;
     }
 
-    .upload-note input {
-      margin-top: 8px;
-      width: 100%;
+    .source-note code {
+      display: inline-block;
+      max-width: 100%;
+      overflow-wrap: anywhere;
+      color: #344054;
+      background: #f2f4f7;
+      border-radius: 5px;
+      padding: 2px 5px;
+    }
+
+    .error {
+      color: var(--error-text);
+      background: var(--error-bg);
+      border: 1px solid var(--error-border);
+      padding: 11px 12px;
+      border-radius: 7px;
+      margin-bottom: 16px;
+      font-size: 14px;
     }
 
     .content {
@@ -160,18 +178,18 @@
       border-radius: var(--radius);
       box-shadow: var(--shadow);
       padding: 18px 20px;
-      margin-bottom: 20px;
+      margin-bottom: 18px;
       display: flex;
-      justify-content: space-between;
       align-items: center;
+      justify-content: space-between;
       gap: 16px;
       flex-wrap: wrap;
     }
 
-    #resultCount {
+    .toolbar h2 {
       margin: 0;
       color: var(--blue-dark);
-      font-size: 24px;
+      font-size: 22px;
     }
 
     .sort-box {
@@ -185,89 +203,94 @@
       white-space: nowrap;
     }
 
-    .sort-box select {
-      min-width: 190px;
-    }
+    .sort-box select { min-width: 180px; }
 
     .card {
       background: var(--card);
       border: 1px solid var(--line);
       border-radius: var(--radius);
       box-shadow: var(--shadow);
-      margin-bottom: 18px;
-      padding: 34px 34px 30px;
-      position: relative;
+      padding: 34px 42px;
+      margin-bottom: 22px;
     }
 
     .card-title-row {
       display: flex;
       justify-content: space-between;
-      gap: 18px;
       align-items: flex-start;
+      gap: 20px;
     }
 
     .card h2 {
-      margin: 0 0 20px;
+      margin: 0;
       color: var(--blue);
       font-size: 30px;
       line-height: 1.25;
     }
 
-    .arrow {
+    .card h2 a {
       color: var(--blue);
-      font-size: 48px;
-      line-height: 1;
-      font-weight: 700;
-      margin-top: -5px;
       text-decoration: none;
     }
 
+    .card h2 a:hover {
+      text-decoration: underline;
+    }
+
+    .arrow {
+      color: var(--blue);
+      font-size: 58px;
+      line-height: 0.8;
+      font-weight: 700;
+    }
+
     .description {
-      margin: 0 0 28px;
-      max-width: 980px;
-      font-size: 20px;
-      line-height: 1.75;
-      color: #1f2937;
-      white-space: pre-wrap;
+      margin: 26px 0 0;
+      max-width: 960px;
+      font-size: 21px;
+      line-height: 1.7;
+      color: #252a34;
+      white-space: pre-line;
     }
 
     .divider {
       border: 0;
-      height: 1px;
-      background: var(--line);
-      margin: 0 0 24px;
+      border-top: 1px solid var(--line);
+      margin: 30px 0 26px;
     }
 
     .meta-grid {
       display: grid;
       grid-template-columns: 1fr 1fr;
-      column-gap: 70px;
-      row-gap: 22px;
-      max-width: 1000px;
+      gap: 22px 54px;
     }
 
     .meta-item {
       display: grid;
-      grid-template-columns: 58px 160px 1fr;
-      gap: 0;
-      align-items: start;
-      font-size: 19px;
+      grid-template-columns: 44px 150px 1fr;
+      align-items: center;
+      column-gap: 14px;
+      min-width: 0;
     }
 
     .icon {
-      width: 34px;
-      height: 34px;
-      color: #4b5563;
-      opacity: 0.95;
+      width: 32px;
+      height: 32px;
+      color: #555b66;
     }
 
     .meta-label {
       font-weight: 700;
+      font-size: 18px;
       color: #111827;
+      white-space: nowrap;
     }
 
     .meta-value {
-      color: #222b38;
+      font-size: 18px;
+      color: #252a34;
+      min-width: 0;
+      overflow-wrap: anywhere;
     }
 
     .empty {
@@ -275,55 +298,48 @@
       border: 1px solid var(--line);
       border-radius: var(--radius);
       box-shadow: var(--shadow);
-      padding: 50px 20px;
+      padding: 42px 24px;
       text-align: center;
       color: var(--muted);
-      font-size: 18px;
+      font-size: 17px;
     }
 
-    .error {
-      padding: 12px;
-      margin-bottom: 16px;
-      border: 1px solid #f7b4ab;
-      background: #fff1ef;
-      color: #9f1b13;
-      border-radius: 7px;
-      font-size: 14px;
-    }
-
-    @media (max-width: 950px) {
+    @media (max-width: 980px) {
       main {
         grid-template-columns: 1fr;
       }
 
-      aside {
-        position: static;
-      }
+      aside { position: static; }
 
-      .meta-grid {
-        grid-template-columns: 1fr;
-      }
+      .card { padding: 28px 24px; }
 
-      .card {
-        padding: 26px 22px;
-      }
+      .description { font-size: 18px; }
 
-      .card h2 {
-        font-size: 25px;
-      }
-
-      .description {
-        font-size: 17px;
-      }
+      .meta-grid { grid-template-columns: 1fr; }
 
       .meta-item {
-        grid-template-columns: 44px 135px 1fr;
-        font-size: 16px;
+        grid-template-columns: 38px 140px 1fr;
       }
+    }
 
-      .arrow {
-        font-size: 38px;
+    @media (max-width: 600px) {
+      header { padding: 28px 20px; }
+      main { padding: 0 14px; }
+      h1 { font-size: 29px; }
+      .card h2 { font-size: 24px; }
+      .arrow { font-size: 44px; }
+      .meta-item {
+        grid-template-columns: 34px 1fr;
+        grid-template-areas:
+          "icon label"
+          "icon value";
+        align-items: start;
       }
+      .icon { grid-area: icon; }
+      .meta-label { grid-area: label; font-size: 16px; }
+      .meta-value { grid-area: value; font-size: 16px; }
+      .sort-box { width: 100%; }
+      .sort-box select { flex: 1; min-width: 0; }
     }
   </style>
 </head>
@@ -331,9 +347,11 @@
 <body>
   <header>
     <div class="header-inner">
-      <h1>Programs for Postdocs</h1>
+      <h1>Postdoc Program Database</h1>
       <p class="intro">
-        Search and filter career development, funding, mentoring, onboarding, and support programs for postdoctoral researchers and early career researchers.
+        Search and filter postdoc support programs by category, sub-category,
+        career level, audience, and location. The data is loaded directly
+        from a published Google Sheet.
       </p>
     </div>
   </header>
@@ -341,41 +359,32 @@
   <main>
     <aside>
       <h2>Filter programs</h2>
+
       <div id="errorBox"></div>
 
       <div class="filter-group">
         <label for="categoryFilter">Category</label>
-        <select id="categoryFilter">
-          <option value="">All categories</option>
-        </select>
+        <select id="categoryFilter"><option value="">All categories</option></select>
       </div>
 
       <div class="filter-group">
         <label for="subcategoryFilter">Sub-category</label>
-        <select id="subcategoryFilter">
-          <option value="">All sub-categories</option>
-        </select>
+        <select id="subcategoryFilter"><option value="">All sub-categories</option></select>
       </div>
 
       <div class="filter-group">
-        <label for="careerFilter">Career levels</label>
-        <select id="careerFilter">
-          <option value="">All career levels</option>
-        </select>
+        <label for="careerFilter">Career Levels</label>
+        <select id="careerFilter"><option value="">All career levels</option></select>
       </div>
 
       <div class="filter-group">
         <label for="audienceFilter">Audience</label>
-        <select id="audienceFilter">
-          <option value="">All audiences</option>
-        </select>
+        <select id="audienceFilter"><option value="">All audiences</option></select>
       </div>
 
       <div class="filter-group">
         <label for="locationFilter">Location</label>
-        <select id="locationFilter">
-          <option value="">All locations</option>
-        </select>
+        <select id="locationFilter"><option value="">All locations</option></select>
       </div>
 
       <div class="filter-group">
@@ -388,9 +397,8 @@
         <button class="secondary" id="resetBtn">Reset</button>
       </div>
 
-      <div class="upload-note">
-        The page tries to load <strong>data1.csv</strong> automatically. If it does not load locally, upload the CSV here.
-        <input id="csvUpload" type="file" accept=".csv" />
+      <div class="source-note" id="sourceNote">
+        Data source: <code id="sourceLabel">loading...</code>
       </div>
     </aside>
 
@@ -414,17 +422,52 @@
   </main>
 
   <script>
-    const CSV_FILE = "data1.csv";
+    /**********************************************************************
+     * DATA SOURCE SETTINGS
+     *
+     * Recommended Google Sheets workflow:
+     * 1. Put the database in Google Sheets with the same columns as data1.csv.
+     * 2. In Google Sheets: File > Share > Publish to web.
+     * 3. Publish the relevant sheet.
+     * 4. Replace GOOGLE_SHEET_CSV_URL below with your published CSV URL.
+     *
+     * CSV URL format usually looks like:
+     * https://docs.google.com/spreadsheets/d/YOUR_SHEET_ID/gviz/tq?tqx=out:csv&sheet=YOUR_SHEET_NAME
+     *
+     * Example if your tab is named Data:
+     * https://docs.google.com/spreadsheets/d/1abcDEFghiJK/gviz/tq?tqx=out:csv&sheet=Data
+     **********************************************************************/
+
+    const GOOGLE_SHEET_CSV_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vRx28JA6xFzpUiRiUKAHvouNLuqQ_DwEWXjrM4AAwUmqCwrCZgWrrs4W26eumssDg/pubhtml";
+
+    // Fallback: used when the Google Sheets URL above is not configured.
+    // Keep data1.csv in the same GitHub repository folder as this index.html.
+    const LOCAL_CSV_FILE = "data1.csv";
+
+    // Adds a timestamp to reduce browser caching, so edits in Google Sheets appear after refresh.
+    const CACHE_BUST = true;
 
     const FIXED_COLUMNS = [
       "No.",
       "Program",
+      "Link",
+      "URL",
+      "Website",
+      "Details",
       "Category",
       "Career Levels",
       "Audience",
       "Location",
       "Description"
     ];
+
+    const LINK_COLUMN_ALIASES = ["Link", "URL", "Website", "Details", "Detail Link", "Program Link"];
+
+    const EXCLUDED_FILTER_VALUES = {
+      career: new Set(["ECR"]),
+      audience: new Set(["All researchers"]),
+      location: new Set(["All sites"])
+    };
 
     let programs = [];
     let subcategoryColumns = [];
@@ -442,7 +485,7 @@
       errorBox: document.getElementById("errorBox"),
       applyBtn: document.getElementById("applyBtn"),
       resetBtn: document.getElementById("resetBtn"),
-      csvUpload: document.getElementById("csvUpload")
+      sourceLabel: document.getElementById("sourceLabel")
     };
 
     el.applyBtn.addEventListener("click", render);
@@ -454,62 +497,117 @@
       select.addEventListener("change", render);
     });
 
-    el.csvUpload.addEventListener("change", event => {
-      const file = event.target.files[0];
-      if (!file) return;
-
-      const reader = new FileReader();
-      reader.onload = e => {
-        try {
-          loadFromCSVText(e.target.result);
-          clearError();
-        } catch (error) {
-          showError("The uploaded CSV could not be read. Please check the column headers and CSV formatting.");
-        }
-      };
-      reader.readAsText(file);
-    });
-
     async function init() {
+      const source = getDataSourceURL();
+      el.sourceLabel.textContent = source.label;
+
       try {
-        const response = await fetch(CSV_FILE);
-        if (!response.ok) throw new Error("CSV not found");
+        const response = await fetch(source.url, { cache: "no-store" });
+        if (!response.ok) throw new Error(`HTTP ${response.status}`);
         const text = await response.text();
         loadFromCSVText(text);
+        clearError();
       } catch (error) {
-        showError(
-          "Could not automatically load data1.csv. This usually happens when opening index.html directly from your computer. Start a local server or use the CSV upload field."
-        );
         programs = [];
         render();
+        showError(
+          "Could not load the database. If you are using Google Sheets, check that the sheet is published to the web and that the CSV URL is pasted correctly. If you are using local fallback, make sure data1.csv is in the same folder as index.html."
+        );
       }
+    }
+
+    function getDataSourceURL() {
+      const params = new URLSearchParams(window.location.search);
+      const csvFromURL = params.get("csv");
+
+      if (csvFromURL) {
+        return {
+          url: addCacheBust(csvFromURL),
+          label: "URL parameter csv"
+        };
+      }
+
+      const configuredGoogleURL = GOOGLE_SHEET_CSV_URL.trim();
+      const hasGoogleURL = configuredGoogleURL && !configuredGoogleURL.includes("PASTE_YOUR_GOOGLE_SHEETS_CSV_URL_HERE");
+
+      if (hasGoogleURL) {
+        return {
+          url: addCacheBust(configuredGoogleURL),
+          label: "Google Sheets"
+        };
+      }
+
+      return {
+        url: addCacheBust(LOCAL_CSV_FILE),
+        label: LOCAL_CSV_FILE
+      };
+    }
+
+    function addCacheBust(url) {
+      if (!CACHE_BUST) return url;
+      const separator = url.includes("?") ? "&" : "?";
+      return `${url}${separator}_=${Date.now()}`;
     }
 
     function loadFromCSVText(csvText) {
       const parsed = parseCSV(csvText);
+
       if (parsed.length === 0) {
         programs = [];
+        subcategoryColumns = [];
+        populateFilters();
         render();
         return;
       }
 
       const headers = Object.keys(parsed[0]);
+      validateRequiredColumns(headers);
 
-      subcategoryColumns = headers.filter(header => !FIXED_COLUMNS.includes(header));
+      const linkColumn = findLinkColumn(headers);
 
-      programs = parsed.map(row => ({
-        no: clean(row["No."]),
-        program: clean(row["Program"]),
-        category: clean(row["Category"]),
-        careerLevels: clean(row["Career Levels"]),
-        audience: clean(row["Audience"]),
-        location: clean(row["Location"]),
-        description: clean(row["Description"]),
-        subcategories: subcategoryColumns.filter(col => isSelectedFlag(row[col]))
-      }));
+      subcategoryColumns = headers.filter(header => {
+        if (!header) return false;
+        if (FIXED_COLUMNS.includes(header)) return false;
+        if (LINK_COLUMN_ALIASES.includes(header)) return false;
+        return true;
+      });
+
+      programs = parsed
+        .map(row => ({
+          no: clean(row["No."]),
+          program: clean(row["Program"]),
+          link: normalizeURL(clean(linkColumn ? row[linkColumn] : "")),
+          category: clean(row["Category"]),
+          careerLevels: clean(row["Career Levels"]),
+          audience: clean(row["Audience"]),
+          location: clean(row["Location"]),
+          description: clean(row["Description"]),
+          subcategories: subcategoryColumns.filter(col => isSelectedFlag(row[col]))
+        }))
+        .filter(program => program.program || program.description);
 
       populateFilters();
       render();
+    }
+
+    function validateRequiredColumns(headers) {
+      const required = ["Program", "Category", "Career Levels", "Audience", "Location", "Description"];
+      const missing = required.filter(column => !headers.includes(column));
+      if (missing.length > 0) {
+        throw new Error(`Missing required columns: ${missing.join(", ")}`);
+      }
+    }
+
+    function findLinkColumn(headers) {
+      return LINK_COLUMN_ALIASES.find(alias => headers.includes(alias)) || null;
+    }
+
+    function normalizeURL(value) {
+      const url = clean(value);
+      if (!url) return "";
+      if (/^https?:\/\//i.test(url)) return url;
+      if (/^www\./i.test(url)) return `https://${url}`;
+      return url;
     }
 
     function parseCSV(text) {
@@ -518,7 +616,7 @@
       let cell = "";
       let inQuotes = false;
 
-      text = text.replace(/^\uFEFF/, "");
+      text = String(text || "").replace(/^\uFEFF/, "");
 
       for (let i = 0; i < text.length; i++) {
         const char = text[i];
@@ -535,7 +633,7 @@
         } else if ((char === "\n" || char === "\r") && !inQuotes) {
           if (char === "\r" && next === "\n") i++;
           row.push(cell);
-          if (row.some(value => value.trim() !== "")) rows.push(row);
+          if (row.some(value => clean(value) !== "")) rows.push(row);
           row = [];
           cell = "";
         } else {
@@ -544,11 +642,11 @@
       }
 
       row.push(cell);
-      if (row.some(value => value.trim() !== "")) rows.push(row);
+      if (row.some(value => clean(value) !== "")) rows.push(row);
 
       if (rows.length < 2) return [];
 
-      const headers = rows[0].map(h => clean(h));
+      const headers = rows[0].map(header => clean(header));
 
       return rows.slice(1).map(values => {
         const obj = {};
@@ -562,12 +660,12 @@
     function populateFilters() {
       populateSelect(el.category, unique(programs.map(p => p.category)), "All categories");
       populateSelect(el.subcategory, subcategoryColumns, "All sub-categories");
-      populateSelect(el.career, uniqueMulti(programs.map(p => p.careerLevels)), "All career levels");
-      populateSelect(el.audience, uniqueMulti(programs.map(p => p.audience)), "All audiences");
-      populateSelect(el.location, unique(programs.map(p => p.location)), "All locations");
+      populateSelect(el.career, uniqueMulti(programs.map(p => p.careerLevels)), "All career levels", EXCLUDED_FILTER_VALUES.career);
+      populateSelect(el.audience, uniqueMulti(programs.map(p => p.audience)), "All audiences", EXCLUDED_FILTER_VALUES.audience);
+      populateSelect(el.location, unique(programs.map(p => p.location)), "All locations", EXCLUDED_FILTER_VALUES.location);
     }
 
-    function populateSelect(select, values, defaultText) {
+    function populateSelect(select, values, defaultText, excludedValues = new Set()) {
       const current = select.value;
       select.innerHTML = "";
 
@@ -578,6 +676,7 @@
 
       values
         .filter(Boolean)
+        .filter(value => !excludedValues.has(value))
         .sort((a, b) => a.localeCompare(b))
         .forEach(value => {
           const option = document.createElement("option");
@@ -594,18 +693,10 @@
     function render() {
       let filtered = programs.filter(program => {
         const categoryOK = !el.category.value || program.category === el.category.value;
-
-        const subcategoryOK =
-          !el.subcategory.value || program.subcategories.includes(el.subcategory.value);
-
-        const careerOK =
-          !el.career.value || splitMulti(program.careerLevels).includes(el.career.value);
-
-        const audienceOK =
-          !el.audience.value || splitMulti(program.audience).includes(el.audience.value);
-
-        const locationOK =
-          !el.location.value || program.location === el.location.value;
+        const subcategoryOK = !el.subcategory.value || program.subcategories.includes(el.subcategory.value);
+        const careerOK = !el.career.value || splitMulti(program.careerLevels).includes(el.career.value);
+        const audienceOK = !el.audience.value || splitMulti(program.audience).includes(el.audience.value);
+        const locationOK = !el.location.value || program.location === el.location.value;
 
         const query = el.search.value.trim().toLowerCase();
         const searchOK =
@@ -613,6 +704,9 @@
           program.program.toLowerCase().includes(query) ||
           program.description.toLowerCase().includes(query) ||
           program.category.toLowerCase().includes(query) ||
+          program.careerLevels.toLowerCase().includes(query) ||
+          program.audience.toLowerCase().includes(query) ||
+          program.location.toLowerCase().includes(query) ||
           program.subcategories.join(" ").toLowerCase().includes(query);
 
         return categoryOK && subcategoryOK && careerOK && audienceOK && locationOK && searchOK;
@@ -620,10 +714,7 @@
 
       filtered = sortPrograms(filtered);
 
-      el.resultCount.textContent =
-        filtered.length === 1
-          ? "1 program found"
-          : `${filtered.length} programs found`;
+      el.resultCount.textContent = filtered.length === 1 ? "1 program found" : `${filtered.length} programs found`;
 
       if (filtered.length === 0) {
         el.cards.innerHTML = `<div class="empty">No programs match your current filter selection.</div>`;
@@ -639,26 +730,21 @@
       return [...items].sort((a, b) => {
         if (sort === "program-asc") return a.program.localeCompare(b.program);
         if (sort === "program-desc") return b.program.localeCompare(a.program);
-        if (sort === "location-asc") return a.location.localeCompare(b.location);
-        if (sort === "category-asc") return a.category.localeCompare(b.category);
+        if (sort === "location-asc") return a.location.localeCompare(b.location) || a.program.localeCompare(b.program);
+        if (sort === "category-asc") return a.category.localeCompare(b.category) || a.program.localeCompare(b.program);
         return 0;
       });
     }
 
     function cardHTML(program) {
-      const subcategoryText =
-        program.subcategories.length > 0
-          ? program.subcategories.join(", ")
-          : "Not specified";
-
-      const description =
-        program.description || "No description available.";
+      const subcategoryText = program.subcategories.length > 0 ? program.subcategories.join(", ") : "Not specified";
+      const description = program.description || "No description available.";
 
       return `
         <article class="card">
           <div class="card-title-row">
-            <h2>${escapeHTML(program.program || "Untitled program")}</h2>
-            <span class="arrow" aria-hidden="true">›</span>
+            <h2>${programTitleHTML(program)}</h2>
+            ${program.link ? `<a class="arrow" href="${escapeAttribute(program.link)}" target="_blank" rel="noopener noreferrer" aria-label="Open program link">›</a>` : `<span class="arrow" aria-hidden="true">›</span>`}
           </div>
 
           <p class="description">${escapeHTML(description)}</p>
@@ -700,6 +786,16 @@
       `;
     }
 
+    function programTitleHTML(program) {
+      const title = escapeHTML(program.program || "Untitled program");
+      if (!program.link) return title;
+      return `<a href="${escapeAttribute(program.link)}" target="_blank" rel="noopener noreferrer">${title}</a>`;
+    }
+
+    function escapeAttribute(value) {
+      return escapeHTML(value);
+    }
+
     function resetFilters() {
       el.category.value = "";
       el.subcategory.value = "";
@@ -726,9 +822,7 @@
 
     function uniqueMulti(values) {
       const all = [];
-      values.forEach(value => {
-        splitMulti(value).forEach(part => all.push(part));
-      });
+      values.forEach(value => splitMulti(value).forEach(part => all.push(part)));
       return unique(all);
     }
 
@@ -779,28 +873,28 @@
       return `
         <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
           <path d="M3 21h18"></path>
-          <path d="M5 21V10"></path>
-          <path d="M9 21V10"></path>
-          <path d="M15 21V10"></path>
-          <path d="M19 21V10"></path>
-          <path d="M2 10h20"></path>
-          <path d="M12 3l9 5H3l9-5z"></path>
+          <path d="M4 10h16"></path>
+          <path d="M5 10v11"></path>
+          <path d="M9 10v11"></path>
+          <path d="M15 10v11"></path>
+          <path d="M19 10v11"></path>
+          <path d="M12 3L3 8h18L12 3z"></path>
         </svg>`;
     }
 
     function iconLocation() {
       return `
         <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
-          <path d="M12 21s7-6.2 7-12a7 7 0 0 0-14 0c0 5.8 7 12 7 12z"></path>
-          <circle cx="12" cy="9" r="2.4"></circle>
+          <path d="M21 10c0 7-9 12-9 12S3 17 3 10a9 9 0 1 1 18 0z"></path>
+          <circle cx="12" cy="10" r="3"></circle>
         </svg>`;
     }
 
     function iconUser() {
       return `
         <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
           <circle cx="12" cy="7" r="4"></circle>
-          <path d="M5.5 21a6.5 6.5 0 0 1 13 0"></path>
         </svg>`;
     }
 
