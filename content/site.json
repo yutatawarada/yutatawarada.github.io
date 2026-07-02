@@ -1,6 +1,0 @@
-{
-  "pageTitle": "TAM Program Database",
-  "introText": "Search and filter TAM support programs by category, sub-category, career level, audience, and location.",
-  "googleSheetCsvUrl": "https://docs.google.com/spreadsheets/d/e/2PACX-1vRx28JA6xFzpUiRiUKAHvouNLuqQ_DwEWXjrM4AAwUmqCwrCZgWrrs4W26eumssDg/pub?output=csv",
-  "localCsvFile": "data1.csv"
-}
