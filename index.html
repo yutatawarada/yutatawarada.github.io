@@ -10,8 +10,6 @@
       --bg: #edf3f5;
       --ink: #050505;
       --muted: #6f7477;
-      --line: #111;
-      --soft: #dce5e8;
       --footer: #000;
       --footerText: #f5f5f5;
       --accent: #0f565a;
@@ -19,6 +17,10 @@
 
     * {
       box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
     }
 
     body {
@@ -39,8 +41,13 @@
       display: block;
     }
 
+    button,
+    input {
+      font: inherit;
+    }
+
     /* =========================
-       TOP BANNER / NAVIGATION
+       HEADER
     ========================== */
 
     .top-header {
@@ -68,7 +75,8 @@
       place-items: center;
       font-size: 34px;
       line-height: 1;
-      transform: rotate(180deg);
+      cursor: pointer;
+      border: 0;
     }
 
     .brand {
@@ -79,6 +87,7 @@
       font-weight: 900;
       font-size: clamp(34px, 4vw, 54px);
       letter-spacing: -2.5px;
+      cursor: pointer;
     }
 
     .brand-mark {
@@ -126,6 +135,7 @@
       width: 38px;
       height: 38px;
       position: relative;
+      cursor: pointer;
     }
 
     .search-icon::before {
@@ -175,6 +185,7 @@
       font-size: 26px;
       letter-spacing: -0.5px;
       white-space: nowrap;
+      cursor: pointer;
     }
 
     .nav-links {
@@ -186,16 +197,32 @@
       white-space: nowrap;
     }
 
-    .nav-links a {
+    .nav-links button,
+    .magazine-link,
+    .brand,
+    .search-icon {
+      background: none;
+      border: 0;
+      padding: 0;
+      color: inherit;
+      font-family: inherit;
+    }
+
+    .nav-links button {
+      font-size: inherit;
+      font-weight: inherit;
+      cursor: pointer;
       transition: opacity 0.18s ease;
     }
 
-    .nav-links a:hover {
+    .nav-links button:hover,
+    .brand:hover,
+    .magazine-link:hover {
       opacity: 0.55;
     }
 
     /* =========================
-       LAYOUT
+       GENERAL LAYOUT
     ========================== */
 
     main {
@@ -221,10 +248,6 @@
       margin: 38px 0;
     }
 
-    .hero {
-      padding: 92px 0 72px;
-    }
-
     .eyebrow {
       font-size: 18px;
       text-transform: uppercase;
@@ -232,6 +255,33 @@
       margin-bottom: 24px;
       color: var(--accent);
       font-weight: 900;
+    }
+
+    .button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 10px 30px;
+      border: 1.5px solid var(--ink);
+      border-radius: 999px;
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: 26px;
+      background: transparent;
+      cursor: pointer;
+      transition: background 0.18s ease, color 0.18s ease;
+    }
+
+    .button:hover {
+      background: var(--ink);
+      color: var(--bg);
+    }
+
+    /* =========================
+       HOME
+    ========================== */
+
+    .hero {
+      padding: 92px 0 72px;
     }
 
     .hero h1 {
@@ -248,18 +298,6 @@
       font-size: 23px;
       margin-top: 34px;
     }
-
-    .section-title {
-      font-family: Arial, Helvetica, sans-serif;
-      font-size: clamp(40px, 6vw, 82px);
-      letter-spacing: -3px;
-      line-height: 0.95;
-      margin: 0;
-    }
-
-    /* =========================
-       HOME
-    ========================== */
 
     .home-feature {
       display: grid;
@@ -305,25 +343,6 @@
       margin: 0 0 28px;
     }
 
-    .button {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      padding: 10px 30px;
-      border: 1.5px solid var(--ink);
-      border-radius: 999px;
-      font-family: Georgia, "Times New Roman", serif;
-      font-size: 26px;
-      background: transparent;
-      cursor: pointer;
-      transition: background 0.18s ease, color 0.18s ease;
-    }
-
-    .button:hover {
-      background: var(--ink);
-      color: var(--bg);
-    }
-
     /* =========================
        INTERVIEW LIST
     ========================== */
@@ -338,6 +357,14 @@
       justify-content: space-between;
       gap: 32px;
       margin-bottom: 44px;
+    }
+
+    .section-title {
+      font-family: Arial, Helvetica, sans-serif;
+      font-size: clamp(40px, 6vw, 82px);
+      letter-spacing: -3px;
+      line-height: 0.95;
+      margin: 0;
     }
 
     .listing-header p {
@@ -360,6 +387,14 @@
       display: flex;
       flex-direction: column;
       justify-content: space-between;
+      background: none;
+      border-left: 0;
+      border-right: 0;
+      border-bottom: 0;
+      color: inherit;
+      text-align: left;
+      cursor: pointer;
+      font-family: inherit;
     }
 
     .card-thumb {
@@ -401,6 +436,14 @@
       font-size: 18px;
     }
 
+    .read-more {
+      display: inline-block;
+      margin-top: 20px;
+      font-size: 19px;
+      border-bottom: 1.5px solid var(--ink);
+      width: fit-content;
+    }
+
     /* =========================
        ARTICLE PAGE
     ========================== */
@@ -421,6 +464,13 @@
       padding-bottom: 5px;
       font-size: 20px;
       font-weight: 900;
+      background: none;
+      border-left: 0;
+      border-right: 0;
+      border-top: 0;
+      cursor: pointer;
+      color: inherit;
+      font-family: inherit;
     }
 
     .article-title {
@@ -484,6 +534,36 @@
       margin-top: 42px;
       font-size: 19px;
       border-bottom: 1.5px solid var(--ink);
+      background: none;
+      border-left: 0;
+      border-right: 0;
+      border-top: 0;
+      padding: 0;
+      cursor: pointer;
+      color: inherit;
+      font-family: inherit;
+    }
+
+    /* =========================
+       PLACEHOLDER PAGE
+    ========================== */
+
+    .placeholder-page {
+      padding: 92px 0 120px;
+    }
+
+    .placeholder-page h1 {
+      font-family: Arial, Helvetica, sans-serif;
+      font-size: clamp(50px, 8vw, 110px);
+      line-height: 0.95;
+      letter-spacing: -5px;
+      margin: 0;
+    }
+
+    .placeholder-page p {
+      max-width: 720px;
+      font-size: 22px;
+      margin: 34px 0;
     }
 
     /* =========================
@@ -629,19 +709,22 @@
       gap: 14px;
     }
 
-    .socials a {
+    .socials button {
       border: 1.5px solid var(--footerText);
       border-radius: 999px;
       padding: 6px 30px;
       font-family: Georgia, "Times New Roman", serif;
       font-size: 28px;
       line-height: 1;
+      background: transparent;
+      color: var(--footerText);
+      cursor: pointer;
     }
 
-    .support {
+    .socials .support {
       background: var(--footerText);
       color: var(--footer);
-      border-color: var(--footerText) !important;
+      border-color: var(--footerText);
     }
 
     .footer-final-line {
@@ -732,7 +815,8 @@
       }
 
       .hero h1,
-      .article-title {
+      .article-title,
+      .placeholder-page h1 {
         letter-spacing: -2.5px;
       }
 
@@ -754,7 +838,7 @@
         font-size: 30px;
       }
 
-      .socials a {
+      .socials button {
         font-size: 22px;
       }
     }
@@ -769,9 +853,9 @@
 
   <header class="top-header">
     <div class="masthead">
-      <a class="back-button" href="#home" aria-label="Home">↗</a>
+      <button class="back-button" type="button" data-page="home" aria-label="Home">↖</button>
 
-      <a class="brand" href="#home" aria-label="JazzingFfm home">
+      <button class="brand" type="button" data-page="home" aria-label="JazzingFfm home">
         <span>JazzingFfm</span>
         <span class="brand-mark" aria-hidden="true">
           <span class="piano"></span>
@@ -779,23 +863,23 @@
           <span class="star s2">★</span>
           <span class="star s3">★</span>
         </span>
-      </a>
+      </button>
 
-      <a class="search-icon" href="#interviews" aria-label="Search"></a>
+      <button class="search-icon" type="button" data-page="interviews" aria-label="Search"></button>
     </div>
 
     <nav class="nav-row" aria-label="Main navigation">
       <div class="nav-inner">
-        <a class="magazine-link" href="#home">JF Magazine</a>
+        <button class="magazine-link" type="button" data-page="home">JF Magazine</button>
 
         <div class="nav-links">
-          <a href="#home">Jazz in Frankfurt</a>
-          <a href="#features">Features</a>
-          <a href="#news">News</a>
-          <a href="#interviews">Interviews</a>
-          <a href="#live-reviews">Live reviews</a>
-          <a href="#album-reviews">Album reviews</a>
-          <a href="#all-posts">All posts</a>
+          <button type="button" data-page="home">Jazz in Frankfurt</button>
+          <button type="button" data-page="features">Features</button>
+          <button type="button" data-page="news">News</button>
+          <button type="button" data-page="interviews">Interviews</button>
+          <button type="button" data-page="live reviews">Live reviews</button>
+          <button type="button" data-page="album reviews">Album reviews</button>
+          <button type="button" data-page="all posts">All posts</button>
         </div>
       </div>
     </nav>
@@ -830,7 +914,7 @@
               A short-form interview about saxophone language, practice,
               improvisation and what makes Frankfurt’s jazz community alive.
             </p>
-            <a class="button" href="#interview/leo-mori">read interview ↗</a>
+            <button class="button" type="button" data-article="leo-mori">read interview ↗</button>
           </div>
         </section>
       </div>
@@ -863,7 +947,8 @@
     <section id="page-article" class="page">
       <div class="container article-page">
         <article class="article-shell">
-          <a class="article-category" href="#interviews">Interviews</a>
+          <button class="article-category" type="button" data-page="interviews">Interviews</button>
+
           <h1 id="articleTitle" class="article-title"></h1>
           <p id="articleByline" class="byline"></p>
 
@@ -874,7 +959,7 @@
 
           <div id="articleBody" class="article-body"></div>
 
-          <a class="back-link" href="#interviews">← back to interviews</a>
+          <button class="back-link" type="button" data-page="interviews">← back to interviews</button>
         </article>
       </div>
     </section>
@@ -884,21 +969,21 @@
     ========================== -->
 
     <section id="page-placeholder" class="page">
-      <div class="container hero">
+      <div class="container placeholder-page">
         <div class="eyebrow">Coming soon</div>
         <h1 id="placeholderTitle">Page coming soon.</h1>
         <p>
-          This section is already connected in the navigation. Add real posts later
-          by expanding the article database inside the script.
+          This section is already visually connected in the navigation.
+          Add real posts later by expanding the article database inside the script.
         </p>
-        <a class="button" href="#interviews">go to interviews ↗</a>
+        <button class="button" type="button" data-page="interviews">go to interviews ↗</button>
       </div>
     </section>
 
   </main>
 
   <!-- =========================
-       FOOTER / ENDING
+       FOOTER
   ========================== -->
 
   <footer class="site-footer">
@@ -914,7 +999,7 @@
       <section class="newsletter">
         <h2>Subscribe to our newsletter</h2>
 
-        <form class="newsletter-form" onsubmit="event.preventDefault(); alert('Newsletter form placeholder. Connect this later with Mailchimp, Buttondown or Formspree.');">
+        <form class="newsletter-form" id="newsletterForm">
           <input type="email" placeholder="ENTER YOUR EMAIL..." required />
           <button type="submit">submit ↗</button>
         </form>
@@ -930,11 +1015,11 @@
       </div>
 
       <div class="socials">
-        <a href="#" target="_blank" rel="noopener">facebook</a>
-        <a href="#" target="_blank" rel="noopener">instagram</a>
-        <a href="#" target="_blank" rel="noopener">youtube</a>
-        <a href="#" target="_blank" rel="noopener">x</a>
-        <a class="support" href="#" target="_blank" rel="noopener">support JazzingFfm</a>
+        <button type="button">facebook</button>
+        <button type="button">instagram</button>
+        <button type="button">youtube</button>
+        <button type="button">x</button>
+        <button class="support" type="button">support JazzingFfm</button>
       </div>
     </div>
 
@@ -943,14 +1028,14 @@
 
   <script>
     /*
-      EDIT ARTICLES HERE.
-      Add more interview objects and they will automatically appear
-      on the Interviews page.
+      HOW TO EDIT ARTICLES:
 
-      For real photos:
-      1. Create an /images folder in your GitHub repo.
-      2. Upload images there.
-      3. Add image: "images/your-photo.jpg" to the article object.
+      Add, remove, or change article objects inside ARTICLES below.
+
+      Important:
+      This version does NOT create new URLs.
+      Everything stays on the same page.
+      Clicking navigation buttons or article cards only changes the visible section.
     */
 
     const ARTICLES = [
@@ -1074,79 +1159,107 @@
     const articleCaption = document.getElementById("articleCaption");
     const articleBody = document.getElementById("articleBody");
     const placeholderTitle = document.getElementById("placeholderTitle");
+    const newsletterForm = document.getElementById("newsletterForm");
 
     function hidePages() {
-      Object.values(pages).forEach(page => page.classList.remove("active"));
+      Object.values(pages).forEach(function(page) {
+        page.classList.remove("active");
+      });
+    }
+
+    function scrollTop() {
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+
+    function titleCase(text) {
+      return text
+        .split(" ")
+        .map(function(word) {
+          return word.charAt(0).toUpperCase() + word.slice(1);
+        })
+        .join(" ");
+    }
+
+    function showPage(pageName) {
+      hidePages();
+
+      if (pageName === "home") {
+        pages.home.classList.add("active");
+      } else if (pageName === "interviews") {
+        renderInterviewList();
+        pages.interviews.classList.add("active");
+      } else {
+        placeholderTitle.textContent = titleCase(pageName) + " coming soon.";
+        pages.placeholder.classList.add("active");
+      }
+
+      scrollTop();
     }
 
     function renderInterviewList() {
-      articleGrid.innerHTML = ARTICLES.map(article => `
-        <a class="article-card" href="#interview/${article.slug}">
-          <div>
-            <div class="card-thumb">${article.imageLabel}</div>
-            <div class="article-meta">${article.category} / ${article.date}</div>
-            <h2>${article.title}</h2>
-            <p>${article.excerpt}</p>
-          </div>
-          <span class="back-link">read more ↗</span>
-        </a>
-      `).join("");
+      articleGrid.innerHTML = ARTICLES.map(function(article) {
+        return `
+          <button class="article-card" type="button" data-article="${article.slug}">
+            <div>
+              <div class="card-thumb">${article.imageLabel}</div>
+              <div class="article-meta">${article.category} / ${article.date}</div>
+              <h2>${article.title}</h2>
+              <p>${article.excerpt}</p>
+            </div>
+            <span class="read-more">read more ↗</span>
+          </button>
+        `;
+      }).join("");
     }
 
-    function renderArticle(slug) {
-      const article = ARTICLES.find(item => item.slug === slug);
+    function showArticle(slug) {
+      const article = ARTICLES.find(function(item) {
+        return item.slug === slug;
+      });
 
       if (!article) {
         hidePages();
-        pages.placeholder.classList.add("active");
         placeholderTitle.textContent = "Interview not found.";
-        window.scrollTo(0, 0);
+        pages.placeholder.classList.add("active");
+        scrollTop();
         return;
       }
 
       articleTitle.textContent = article.title;
-      articleByline.textContent = `By ${article.author} / ${article.date}`;
+      articleByline.textContent = "By " + article.author + " / " + article.date;
       articleImage.textContent = article.imageLabel;
       articleCaption.textContent = article.caption;
       articleBody.innerHTML = article.body;
 
       hidePages();
       pages.article.classList.add("active");
-      window.scrollTo(0, 0);
+      scrollTop();
     }
 
-    function router() {
-      const hash = window.location.hash || "#home";
-      const route = hash.replace("#", "");
+    document.addEventListener("click", function(event) {
+      const pageButton = event.target.closest("[data-page]");
+      const articleButton = event.target.closest("[data-article]");
 
-      hidePages();
-
-      if (route === "home" || route === "") {
-        pages.home.classList.add("active");
-      } else if (route === "interviews") {
-        renderInterviewList();
-        pages.interviews.classList.add("active");
-      } else if (route.startsWith("interview/")) {
-        const slug = route.split("/")[1];
-        renderArticle(slug);
+      if (articleButton) {
+        const slug = articleButton.getAttribute("data-article");
+        showArticle(slug);
         return;
-      } else {
-        const title = route
-          .split("-")
-          .map(word => word.charAt(0).toUpperCase() + word.slice(1))
-          .join(" ");
-
-        placeholderTitle.textContent = `${title} coming soon.`;
-        pages.placeholder.classList.add("active");
       }
 
-      window.scrollTo(0, 0);
-    }
+      if (pageButton) {
+        const pageName = pageButton.getAttribute("data-page");
+        showPage(pageName);
+      }
+    });
 
-    window.addEventListener("hashchange", router);
-    window.addEventListener("load", router);
+    newsletterForm.addEventListener("submit", function(event) {
+      event.preventDefault();
+      alert("Newsletter form placeholder. Connect this later with Mailchimp, Buttondown or Formspree.");
+    });
+
+    renderInterviewList();
+    showPage("home");
   </script>
 
-  
 </body>
 </html>
